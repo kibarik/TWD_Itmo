@@ -25,7 +25,11 @@ class Participant(dict):
 				self["dan"] = self["techQualification"].split(" ")[0]
 			self.pop("techQualification", None)
 
-		for boolVal in ["personal tul", "group tul", "tradition tul", "power", "special technique"]:
+		for boolVal in [
+				            "personal tul", "team tul", "tradition tul",
+			              "personal sparring", "team sparring", "tradition sparring",
+			              "impact force", "specTech"
+			             ]:
 			if positions[boolVal] != None:
 				if self[boolVal] == "+":
 					self[boolVal] = "1"
@@ -88,13 +92,13 @@ def main():
 		"techQualification": 5,
 		"weight": 7,
 		"personal tul": 9,
-		"group tul": None,
+		"team tul": None,
 		"tradition tul": None,
-		"personal sprint": None,
-		"group sprint": None,
-		"tradition sprint": None,
-		"power": None,
-		"special technique": None
+		"personal sparring": None,
+		"team sparring": None,
+		"tradition sparring": None,
+		"impact force": None,
+		"specTech": None
 	}
 
 	fileNames = []
