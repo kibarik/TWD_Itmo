@@ -29,12 +29,12 @@ def main():
 	templates = []
 	try:
 		mainDB = mysql.connect( user = "root",
-  	                        password = "",
+  	                        password = "lasjbdkashbdabsg123t1762dlm12393y4hfbkwsd8ye283heHIBUSDUIAH&@rnq2987y238",
 		                        host = "localhost",
                             database = "participants")
 		templates.append(
 			                mysql.connect( user = "root",
-  	                                 password = "",
+  	                                 password = "lasjbdkashbdabsg123t1762dlm12393y4hfbkwsd8ye283heHIBUSDUIAH&@rnq2987y238",
 		                                 host = "localhost",
                                      database = "template_0")
 		                )
@@ -48,7 +48,7 @@ def main():
 	#print(GetTemplate(0).items())
 	for key, val in GetTemplate(0).items():
 		query = val
-		categCursor.execute(defaultTable, key)
+		#categCursor.execute(defaultTable, key)
 		mainCursor.execute(query)
 
 		for entry in mainCursor:

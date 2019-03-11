@@ -19,7 +19,11 @@ class Participant(dict):
 				input("Error with file format!!!")
 				exit(1)
 		if positions["techQualification"] != None:
-			self["techQualification"] = "'" + self["techQualification"] + "'"
+			if self["techQualification"].split(" ")[1] == "гуп":
+				self["gup"] = self["techQualification"].split(" ")[0]
+			else:
+				self["dan"] = self["techQualification"].split(" ")[0]
+			self.pop("techQualification", None)
 
 		for boolVal in ["personal tul", "group tul", "tradition tul", "power", "special technique"]:
 			if positions[boolVal] != None:
@@ -70,7 +74,7 @@ class Participant(dict):
 def main():
 	try:
 		db = mysql.connector.connect( user = "root",
-		                              password = "",
+		                              password = "lasjbdkashbdabsg123t1762dlm12393y4hfbkwsd8ye283heHIBUSDUIAH&@rnq2987y238",
 		                              host = "localhost",
 		                              database = "participants")
 	except mysql.connector.Error as err:
@@ -89,8 +93,8 @@ def main():
 		"personal sprint": None,
 		"group sprint": None,
 		"tradition sprint": None,
-		"power": 10,
-		"special technique": 11
+		"power": None,
+		"special technique": None
 	}
 
 	fileNames = []
@@ -100,15 +104,15 @@ def main():
 			fileNames.append("tables/" + fileName)
 	for fileName in fileNames:
 		FIRST_LINE = True
-		file = open(fileName, "r")
+		file = open(fileName, "r", encoding="Windows-1251")
 		for line in file:
 			if (not line) or line[0] == '0':
 				file.close()
 				break
 			if FIRST_LINE == False:
 				participant = Participant(positions, line[:-1].split(";"))
-				query = "INSERT INTO `humans`(" + participant.getAllNames(0, -2) + ") VALUES (" + participant.getAllValues(0, -2) +");"
-				#print(query)
+				query = "INSERT INTO `humans`(" + participant.getAllNames() + ") VALUES (" + participant.getAllValues() +");"
+				#print(participant.getAllNames())
 				cursor = db.cursor()
 				cursor.execute(query)
 				cursor.fetchone()
