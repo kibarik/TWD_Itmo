@@ -6,6 +6,15 @@ Rectangle {
     width: 320
     height: 480
     color: "#424141"
+    border.color: "#ffffff"
+
+    Now_after {
+        anchors.top: categorybButton.bottom
+        anchors.topMargin: 0
+        height: 200
+        width: 320
+        visible: true
+    }
 
     Button {
         id: categorybButton
@@ -22,157 +31,6 @@ Rectangle {
         flat: false
         display: AbstractButton.TextBesideIcon
         transformOrigin: Item.Top
-    }
-
-    Row {
-        id: now
-        x: 0
-        width: 320
-        height: 100
-        anchors.top: categorybButton.bottom
-        anchors.topMargin: 0
-
-        Column {
-            id: n_lbl
-            width: 20
-            height: 100
-
-            Rectangle {
-                id: rectangle1
-                color: "#3a8817"
-                anchors.fill: parent
-                border.width: 0
-
-                Label {
-                    id: label
-                    color: "#ffffff"
-                    text: qsTr("Сейчас")
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    anchors.fill: parent
-                    rotation: 90
-                }
-            }
-        }
-
-        Column {
-            id: column
-            width: 300
-            height: 100
-
-            Rectangle {
-                id: rectangle2
-                width: 300
-                height: 50
-                color: "#cd0000"
-
-                ItemDelegate {
-                    id: first
-                    width: 300
-                    height: 50
-                    text: qsTr("Ишманов Алексей\nВыборг 'Фанат'")
-                    display: AbstractButton.TextOnly
-                    padding: 5
-                    font.pointSize: 10
-                    font.family: "Times New Roman"
-                }
-            }
-
-            Rectangle {
-                id: rectangle3
-                x: 0
-                width: 300
-                height: 50
-                color: "#0043d2"
-                anchors.bottom: parent.bottom
-
-                ItemDelegate {
-                    id: second
-                    x: 0
-                    y: 0
-                    width: 300
-                    height: 50
-                    text: qsTr("Ишманов Алексей\nВыборг 'Фанат'")
-                    padding: 5
-                    font.pointSize: 10
-                    hoverEnabled: false
-                    font.family: "Times New Roman"
-                }
-            }
-        }
-    }
-
-    Row {
-        id: after
-        width: 320
-        height: 100
-        anchors.top: now.bottom
-        Column {
-            id: n_lbl1
-            width: 20
-            height: 100
-            Rectangle {
-                id: rectangle4
-                color: "Orange"
-                anchors.fill: parent
-                Label {
-                    id: label1
-                    color: "#ffffff"
-                    text: qsTr("Следующий")
-                    horizontalAlignment: Text.AlignHCenter
-                    anchors.fill: parent
-                    verticalAlignment: Text.AlignVCenter
-                    rotation: 90
-                }
-                border.width: 0
-            }
-        }
-
-        Column {
-            id: column1
-            width: 300
-            height: 100
-
-
-            Rectangle {
-                id: rectangle5
-                width: 300
-                height: 50
-                color: "Grey"
-
-
-                ItemDelegate {
-                    id: first1
-                    width: 300
-                    height: 50
-                    text: qsTr("Ишманов Алексей\nВыборг 'Фанат'")
-                    font.family: "Times New Roman"
-                    padding: 5
-                    display: AbstractButton.TextOnly
-                    font.pointSize: 10
-                }
-            }
-
-            Rectangle {
-                id: rectangle6
-                x: 0
-                width: 300
-                height: 50
-                color: "Grey"
-                anchors.bottom: parent.bottom
-                ItemDelegate {
-                    id: second1
-                    width: 300
-                    height: 50
-                    text: qsTr("Ишманов Алексей\nВыборг 'Фанат'")
-                    font.family: "Times New Roman"
-                    hoverEnabled: false
-                    padding: 5
-                    font.pointSize: 10
-                }
-            }
-        }
-        anchors.topMargin: 0
     }
 
     Row {
@@ -316,6 +174,7 @@ Rectangle {
             height: grid.height/2
             Text {
                 id: redChui
+                color: "#ffffff"
                 text: qsTr("0")
                 anchors.fill: parent
                 verticalAlignment: Text.AlignVCenter
@@ -340,6 +199,7 @@ Rectangle {
             height: grid.height/2
             Text {
                 id: blueChui
+                color: "#ffffff"
                 text: qsTr("0")
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
@@ -353,6 +213,7 @@ Rectangle {
             color: "Red"
             Text {
                 id: redGamj
+                color: "#ffffff"
                 text: qsTr("0")
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
@@ -377,6 +238,7 @@ Rectangle {
             height: grid.height/2
             Text {
                 id: blueGamj
+                color: "#ffffff"
                 text: qsTr("0")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -387,18 +249,17 @@ Rectangle {
     }
 
     Grid {
-        id: judjes
+        id: judjesText
         width: 320
-        rows: 2
+        height: 15
+        rows: 1
         columns: 4
         anchors.top: grid.bottom
-        anchors.bottom: parent.bottom
 
         Text {
             id: text1
             color: "White"
             width: parent.width/4
-            height: parent.height/2
             text: qsTr("I")
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
@@ -407,7 +268,6 @@ Rectangle {
             id: text2
             color: "White"
             width: parent.width/4
-            height: parent.height/2
             text: qsTr("II")
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
@@ -416,7 +276,6 @@ Rectangle {
             id: text3
             color: "White"
             width: parent.width/4
-            height: parent.height/2
             text: qsTr("III")
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
@@ -425,52 +284,165 @@ Rectangle {
             id: text4
             color: "White"
             width: parent.width/4
-            height: parent.height/2
             text: qsTr("IV")
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
         }
-
-        Text {
-            id: j1 //judje1
-            color: "White"
-            width: parent.width/4
-            height: parent.height/2
-            text: qsTr("0")
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-        }
-        Text {
-            id: j2
-            color: "White"
-            width: parent.width/4
-            height: parent.height/2
-            text: qsTr("0")
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-        }
-        Text {
-            id: j3
-            color: "White"
-            width: parent.width/4
-            height: parent.height/2
-            text: qsTr("0")
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-        }
-        Text {
-            id: j4
-            color: "White"
-            width: parent.width/4
-            height: parent.height/2
-            text: qsTr("0")
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-        }
-
     }
 
+    Grid {
+        id: points
+        width: 320
+        height: 50
+        anchors.topMargin: 0
+        rows: 1
+        columns: 8
+        anchors.top: judjesText.bottom
+        anchors.bottom: parent.bottom
 
+
+        Rectangle {
+            id: j1l
+            width: parent.width/8
+            height: parent.height
+            color: "Red"
+
+            Text {
+                id: j1R
+                color: "#ffffff"
+                text: qsTr("0")
+                verticalAlignment: Text.AlignVCenter
+                anchors.fill: parent
+                horizontalAlignment: Text.AlignHCenter
+
+            }
+        }
+
+        Rectangle {
+            id: j1r
+            width: parent.width/8
+            height: parent.height
+            color: "Blue"
+
+            Text {
+                id: j1B
+                color: "#ffffff"
+                text: qsTr("0")
+                verticalAlignment: Text.AlignVCenter
+                anchors.fill: parent
+                horizontalAlignment: Text.AlignHCenter
+
+            }
+
+
+        }
+
+        Rectangle {
+            id: j2l
+            width: parent.width/8
+            height: parent.height
+            color: "#ff3333"
+
+            Text {
+                id: j2R
+                color: "#ffffff"
+                text: qsTr("0")
+                verticalAlignment: Text.AlignVCenter
+                anchors.fill: parent
+                horizontalAlignment: Text.AlignHCenter
+
+            }
+        }
+
+        Rectangle {
+            id: j2r
+            width: parent.width/8
+            height: parent.height
+            color: "#3632ff"
+
+            Text {
+                id: j2B
+                color: "#ffffff"
+                text: qsTr("0")
+                verticalAlignment: Text.AlignVCenter
+                anchors.fill: parent
+                horizontalAlignment: Text.AlignHCenter
+
+            }
+        }
+
+            Rectangle {
+                id: j3l
+                width: parent.width/8
+                height: parent.height
+                color: "#ff3333"
+
+                Text {
+                    id: j3R
+                    color: "#ffffff"
+                    text: qsTr("0")
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+
+                }
+
+            }
+
+            Rectangle {
+                id: j3r
+                width: parent.width/8
+                height: parent.height
+                color: "#3733ff"
+
+                Text {
+                    id: j3B
+                    color: "#ffffff"
+                    text: qsTr("0")
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+
+                }
+            }
+
+            Rectangle {
+                id: j4l
+                width: parent.width/8
+                height: parent.height
+                color: "Red"
+
+                Text {
+                    id: j4R
+                    color: "#ffffff"
+                    text: qsTr("0")
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+
+                }
+
+            }
+
+            Rectangle {
+                id: j4r
+                width: parent.width/8
+                height: parent.height
+                color: "Blue"
+
+                Text {
+                    id: j4B
+                    color: "#ffffff"
+                    text: qsTr("0")
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+
+                }
+            }
+
+
+    }
 
 }
 
@@ -523,68 +495,9 @@ Rectangle {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*##^## Designer {
-    D{i:40;anchors_height:15;anchors_width:50}D{i:46;anchors_height:50}
+    D{i:3;invisible:true}D{i:10;invisible:true}D{i:13;anchors_height:15;anchors_width:50}
+D{i:9;invisible:true}D{i:16;invisible:true}D{i:29;invisible:true}D{i:40;anchors_height:15;anchors_width:50}
+D{i:34;invisible:true}
 }
  ##^##*/

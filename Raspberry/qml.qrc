@@ -3,6 +3,8 @@
         <file>main.qml</file>
         <file>Sparring.qml</file>
         <file>Style.qml</file>
-        <file>My_button.qml</file>
+        <file>OutBigMonitor.qml</file>
+        <file>PointsTable.qml</file>
+        <file>Now_after.qml</file>
     </qresource>
 </RCC>
