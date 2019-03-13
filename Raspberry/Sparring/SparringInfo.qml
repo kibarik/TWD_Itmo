@@ -4,7 +4,7 @@ import QtQuick.Window 2.0
 Item {
     id: name
     width: 320
-    height: 75
+    height: 100
 
 
 
@@ -152,6 +152,130 @@ Item {
         id: judjesPoints
         width: 320
         height: 25
+        rows: 1
+        columns: 8
+        anchors.top: judjesText.bottom
+        anchors.topMargin: 0
+
+        Rectangle {
+            width: parent.width/8
+            height: parent.height
+            color: "Red"
+
+            Text{
+                id: j1rp
+                color: "White"
+                text: qsTr("0")
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.fill: parent
+            }
+        }
+
+        Rectangle {
+            width: parent.width/8
+            height: parent.height
+            color: "Blue"
+
+            Text{
+                id: j1bp
+                color: "White"
+                text: qsTr("0")
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.fill: parent
+            }
+        }
+
+        Rectangle {
+            width: parent.width/8
+            height: parent.height
+            color: "Red"
+
+            Text{
+                id: j2rp
+                color: "White"
+                text: qsTr("0")
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.fill: parent
+            }
+        }
+
+        Rectangle {
+            width: parent.width/8
+            height: parent.height
+            color: "Blue"
+
+            Text{
+                id: j2bp
+                color: "White"
+                text: qsTr("0")
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.fill: parent
+            }
+        }
+
+        Rectangle {
+            width: parent.width/8
+            height: parent.height
+            color: "Red"
+
+            Text{
+                id: j3rp
+                color: "White"
+                text: qsTr("0")
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.fill: parent
+            }
+        }
+
+        Rectangle {
+            width: parent.width/8
+            height: parent.height
+            color: "Blue"
+
+            Text{
+                id: j3bp
+                color: "White"
+                text: qsTr("0")
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.fill: parent
+            }
+        }
+
+        Rectangle {
+            width: parent.width/8
+            height: parent.height
+            color: "Red"
+
+            Text{
+                id: j4rp
+                color: "White"
+                text: qsTr("0")
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.fill: parent
+            }
+        }
+
+        Rectangle {
+            width: parent.width/8
+            height: parent.height
+            color: "Blue"
+
+            Text{
+                id: j4bp
+                color: "White"
+                text: qsTr("0")
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.fill: parent
+            }
+        }
     }
 
 }

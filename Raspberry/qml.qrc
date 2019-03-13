@@ -1,13 +1,14 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>Sparring.qml</file>
+        <file>Sparring/Sparring.qml</file>
         <file>Style.qml</file>
-        <file>OutBigMonitor.qml</file>
+        <file>OutMonitor/OutBigMonitor.qml</file>
         <file>PointsTable.qml</file>
-        <file>Now_after.qml</file>
-        <file>Time.qml</file>
-        <file>Sparring_attentions_and_judjes.qml</file>
-        <file>Chui_Gamjun.qml</file>
+        <file>PairDisplay.qml</file>
+        <file>Sparring/Time.qml</file>
+        <file>Sparring/SparringInfo.qml</file>
+        <file>Sparring/Chui_Gamjun.qml</file>
+        <file>main.cpp</file>
     </qresource>
 </RCC>

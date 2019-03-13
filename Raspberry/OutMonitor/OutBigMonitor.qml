@@ -2,60 +2,80 @@ import QtQuick 2.0
 import QtQuick.Window 2.12
 
 Window {
-    GridView {
-        id: gridView
+    id: window
+    width: Screen.desktopAvailableWidth
+    height: Screen.desktopAvailableHeight
+
+    Grid {
+        id: grid
         width: parent.width
-        height: parent.height
-        cellWidth: 70
-        model: ListModel {
-            ListElement {
-                name: "Grey"
-                colorCode: "grey"
-            }
+        anchors.top: row1.bottom
+        rows: 2
+        columns: 2
 
-            ListElement {
-                name: "Red"
-                colorCode: "red"
-            }
-
-            ListElement {
-                name: "Blue"
-                colorCode: "blue"
-            }
-
-            ListElement {
-                name: "Green"
-                colorCode: "green"
+        Rectangle {
+            width: parent.width/2
+            height: parent.height/6
+            color: "Red"
+            Text {
+                id: redName
+                color: "#ffffff"
+                text: qsTr("Ишманов Алексей Юрьевич\n'Фанат' Ленинградская область")
+                anchors.fill: parent
             }
         }
-        cellHeight: 70
-        delegate: Item {
-            x: 5
-            height: 50
-            Column {
-                Rectangle {
-                    width: 40
-                    height: 40
-                    color: colorCode
-                    anchors.horizontalCenter: parent.horizontalCenter
-                }
 
-                Text {
-                    x: 5
-                    text: name
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.bold: true
-                }
-                spacing: 5
+        Rectangle {
+            x: 0
+            width: parent.width/2
+            height: parent.height/6
+            color: "Blue"
+            Text {
+                id: blueName
+                color: "#ffffff"
+                text: qsTr("Ишманов Алексей Юрьевич\n'Фанат' Ленинградская область")
+                anchors.fill: parent
             }
+        }
+        Rectangle {
+            id: rectangle2
+            width: parent.height/2
+            height: 200
+            color: "#ffffff"
+        }
+
+        Rectangle {
+            id: rectangle3
+            x: 400
+            y: 360
+            width: 200
+            height: 200
+            color: "#ffffff"
         }
     }
 
+    Row {
+        id: row1
+        width: parent.width
+        height: parent.height/8
+        anchors.top: parent.top
+        anchors.topMargin: 0
+
+        Rectangle {
+            color: "#000000"
+            anchors.fill: parent
+        }
+    }
+
+
+
 }
 
 
 
-/*##^## Designer {
-    D{i:0;autoSize:true;height:480;width:640}
-}
- ##^##*/
+
+
+
+
+
+
