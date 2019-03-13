@@ -6,5 +6,8 @@
         <file>OutBigMonitor.qml</file>
         <file>PointsTable.qml</file>
         <file>Now_after.qml</file>
+        <file>Time.qml</file>
+        <file>Sparring_attentions_and_judjes.qml</file>
+        <file>Chui_Gamjun.qml</file>
     </qresource>
 </RCC>

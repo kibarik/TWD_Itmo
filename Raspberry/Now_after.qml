@@ -3,6 +3,7 @@ import QtQuick.Controls 2.5
 
 Rectangle {
 width: 320
+height: 200
 id: designer__Selection
 
 Row {

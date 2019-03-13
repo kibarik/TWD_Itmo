@@ -4,9 +4,9 @@ import QtQuick.Window 2.12
 
 Window {
     id: name
-    visible: true
     width: 320
     height: 480
+    visible: true
 
     Sparring {
     }

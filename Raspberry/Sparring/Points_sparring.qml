@@ -55,4 +55,7 @@ Column {
         }
     }
 }
+}/*##^## Designer {
+    D{i:0;invisible:true}
 }
+ ##^##*/
