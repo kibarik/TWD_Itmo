@@ -18,7 +18,8 @@ defaultTable = (
 		  "`team sparring` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'спарринг командный',"
 		  "`tradition sparring` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'традиционный спарринг',"
 		  "`impact force` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'сила удара',"
-		  "`specTech` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'спецтехника'"
+		  "`specTech` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'спецтехника',"
+		  "`club` tinytext DEFAULT NULL COMMENT 'Имя клуба'"
 		") ENGINE=InnoDB DEFAULT CHARSET=utf8;"
 	)
 
@@ -125,7 +126,7 @@ def main():
 			fieldsList = [
 			               "name", "sex", "birth", "sportQualification", "gup", "dan", "weight", 
 			               "personal tul", "team tul", "tradition tul", "personal sparring",
-			               "team sparring", "tradition sparring", "impact force", "specTech"
+			               "team sparring", "tradition sparring", "impact force", "specTech", "club"
 				]
 			values = []
 			for i in range(0, len(fieldsList)):
@@ -134,11 +135,12 @@ def main():
 					values.append(entry[i])
 			values[2] = str(values[2])
 			query = query[:-1] + ") VALUES ("
-			query += str(values)[1:-1] + ")"
+			query += str(values)[1:-1] + ");"
 			categCursor.execute(query)
 	categCursor.close()
 	mainCursor.close()
 	mainDB.close()
+	categoriesDB.commit()
 	categoriesDB.close()
 
 if __name__ == "__main__":
