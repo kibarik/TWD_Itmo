@@ -15,6 +15,11 @@ Rectangle {
         width: 320
         height: 70
         text: qsTr("Мальчики Личные Спарринг\nот 14 до 17 лет\n10гуп-3дан 70-75 кг")
+        rightPadding: 1
+        leftPadding: 1
+        bottomPadding: 1
+        topPadding: 2
+        focusPolicy: Qt.WheelFocus
         autoRepeat: false
         autoExclusive: false
         checked: false
@@ -23,7 +28,7 @@ Rectangle {
         checkable: false
         highlighted: false
         flat: false
-        display: AbstractButton.TextBesideIcon
+        display: AbstractButton.TextOnly
         transformOrigin: Item.Top
     }
 
@@ -38,7 +43,7 @@ Rectangle {
 
     Time{
         id: time
-        height: 50
+        height: 46
         anchors.top: now_after.bottom
         anchors.topMargin: 0
 
@@ -46,6 +51,7 @@ Rectangle {
 
     PointsTable {
         id: points
+        height: 70
         anchors.top: time.bottom
         anchors.topMargin: 0
     }
@@ -63,6 +69,12 @@ Rectangle {
 
 
 }
+
+
+
+
+
+
 
 
 

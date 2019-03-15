@@ -3,6 +3,7 @@ import QtQuick.Controls 2.4
 import QtQuick.Window 2.12
 import "Sparring/"
 import "OutMonitor/"
+import "Tul/"
 
 
 Window {
@@ -12,6 +13,18 @@ Window {
     visible: true
 
     Sparring {
+    }
+
+    Tul {
+        visible: false
+    }
+
+    OutMonitorSparring {
+        visible: true
+    }
+
+    OutMonitorTul {
+        visible: false
     }
 
 }
