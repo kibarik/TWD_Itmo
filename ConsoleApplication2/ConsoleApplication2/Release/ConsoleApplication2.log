@@ -1,0 +1,21 @@
+﻿  ConsoleApplication2.cpp
+c:\users\ae_mc\source\repos\consoleapplication2\consoleapplication2\consoleapplication2.cpp(57): warning C4018: '<': signed/unsigned mismatch
+c:\users\ae_mc\source\repos\consoleapplication2\consoleapplication2\array.h(61): warning C4018: '>=': signed/unsigned mismatch
+  c:\users\ae_mc\source\repos\consoleapplication2\consoleapplication2\array.h(60): note: while compiling class template member function 'Type &Array<Type>::operator [](int)'
+          with
+          [
+              Type=Category
+          ]
+  c:\users\ae_mc\source\repos\consoleapplication2\consoleapplication2\consoleapplication2.cpp(58): note: see reference to function template instantiation 'Type &Array<Type>::operator [](int)' being compiled
+          with
+          [
+              Type=Category
+          ]
+  c:\users\ae_mc\source\repos\consoleapplication2\consoleapplication2\consoleapplication2.cpp(32): note: see reference to class template instantiation 'Array<Category>' being compiled
+     Creating library C:\Users\Ae_Mc\source\repos\ConsoleApplication2\Release\ConsoleApplication2.lib and object C:\Users\Ae_Mc\source\repos\ConsoleApplication2\Release\ConsoleApplication2.exp
+  Generating code
+  1 of 129 functions ( 0.8%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  ConsoleApplication2.vcxproj -> C:\Users\Ae_Mc\source\repos\ConsoleApplication2\Release\ConsoleApplication2.exe
