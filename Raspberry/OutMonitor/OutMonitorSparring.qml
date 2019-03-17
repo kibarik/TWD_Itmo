@@ -5,12 +5,12 @@ Window {
     id: window
     width: Screen.desktopAvailableWidth
     height: Screen.desktopAvailableHeight
-    visible: true
+    color: "#000000"
 
     Grid {
-        id: grid
+        id: tableNames
         height: 100
-        anchors.top: row1.bottom
+        anchors.top: categoryName.bottom
         anchors.right: parent.right
         anchors.left: parent.left
         anchors.topMargin: 0
@@ -62,7 +62,7 @@ Window {
     }
 
     Row {
-        id: row1
+        id: categoryName
         width: parent.width
         height: parent.height/8
         anchors.top: parent.top
@@ -90,15 +90,15 @@ Window {
     }
 
     Row {
-        id: row
+        id: points
         width: parent.width
-        height: width
-        anchors.top: grid.bottom
+        height: 350
+        anchors.top: tableNames.bottom
 
         Rectangle {
             id: rectangle2
             width: parent.width/3
-            height: width
+            height: width/4*3
             color: "#ff0000"
             Text {
                 id: redPoints
@@ -115,7 +115,7 @@ Window {
         Rectangle {
             id: rectangle
             width: parent.width/3
-            height: width
+            height: width/4*3
             color: "Grey"
 
             Text {
@@ -126,7 +126,7 @@ Window {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 anchors.fill: parent
-                font.pixelSize: parent.width/2
+                font.pixelSize: parent.width/4*3
                 font.family: "Times New Roman"
             }
         }
@@ -134,7 +134,7 @@ Window {
         Rectangle {
             id: rectangle3
             width: parent.width/3
-            height: width
+            height: width/4*3
             color: "#0000ff"
             Text {
                 id: bluePoints
@@ -150,5 +150,11 @@ Window {
         }
     }
 
+    SparringInfoMonitor {
+        anchors.bottom: parent.bottom
+        anchors.top: points.bottom
+    }
 }
+
+
 

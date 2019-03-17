@@ -5,6 +5,7 @@
         <file>Style.qml</file>
         <file>OutMonitor/OutMonitorTul.qml</file>
         <file>OutMonitor/OutMonitorSparring.qml</file>
+        <file>OutMonitor/SparringInfoMonitor.qml</file>
         <file>PointsTable.qml</file>
         <file>PairDisplay.qml</file>
         <file>Sparring/Time.qml</file>

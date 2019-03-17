@@ -5,6 +5,7 @@ Window {
     id: window
     width: Screen.desktopAvailableWidth
     height: Screen.desktopAvailableHeight
+    color: "#000000"
     visible: true
 
     Grid {
@@ -26,7 +27,7 @@ Window {
             Text {
                 id: blueName1
                 color: "#ffffff"
-                text: qsTr("Корчинский Дмитрий Андреевич")
+                text: qsTr("Корчинский Дмитрий Андреевич\n'Орел' Калинингрдская область")
                 wrapMode: Text.WordWrap
                 fontSizeMode: Text.Fit
                 horizontalAlignment: Text.AlignHCenter
@@ -47,7 +48,7 @@ Window {
             Text {
                 id: blueName
                 color: "#ffffff"
-                text: qsTr("Ишманов Алексей Юрьевич \т 'Фанат' Ленинградская область")
+                text: qsTr("Ишманов Алексей Юрьевич \n 'Фанат' Ленинградская область")
                 wrapMode: Text.WordWrap
                 font.pixelSize: parent.height/3
                 font.family: "Tahoma"
@@ -92,7 +93,6 @@ Window {
     Row {
         id: row
         width: parent.width
-        height: width
         anchors.top: grid.bottom
 
         Rectangle {
