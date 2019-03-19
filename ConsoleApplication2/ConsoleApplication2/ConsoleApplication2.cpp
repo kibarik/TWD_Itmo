@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Array.h"
+#include <vector>
 #include <iostream>
 #include <mysql.h>
 #include <string.h>
@@ -16,54 +16,89 @@ public:
 	std::string name, birth, club;
 };
 
+std::vector <std::string> split(std::string str, char delim) {
+	std::vector <std::string> result;
+	std::string temp;
+	for (unsigned int i = 0; i < str.length(); i++) {
+		if (str[i] == delim) {
+			result.push_back(temp);
+			temp = "";
+			continue;
+		}
+		temp += str[i];
+	}
+	if (temp != "")
+		result.push_back(temp);
+	return result;
+}
+
 class Category {
 public:
 	std::string name;
-	Array <Participant> participants;
+	enum MODE {
+		PERSONAL_TUL, PERSONAL_SPARRING, TEAM_TUL, TEAM_SPARRING, TRADITIONAL_TUL, TRADITIONAL_SPARRING
+	} mode;
+	std::vector <Participant> participants;
 	Participant &operator[](size_t index) {
 		return participants[index];
 	}
 
-	Array <Participant> &operator()() {
+	std::vector <Participant> &operator()() {
 		return participants;
 	}
 };
 
-Array <Category> getCategories() {
+std::vector <Category> getCategories() {
 	MYSQL *conn;
 	MYSQL_RES *res;
 	MYSQL_ROW row;
 
-	if ((conn = mysql_init(NULL)) == NULL) { // Если не удалось инициализировать MySQL
+	if ((conn = mysql_init(NULL)) == NULL) { // Р•СЃР»Рё РЅРµ СѓРґР°Р»РѕСЃСЊ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°С‚СЊ MySQL
 		std::cout << "Error with mysql_init();" << std::endl;
 		exit(1);
 	}
 
-	if (mysql_real_connect(conn, HOST, USER, PASS, "categories", PORT, NULL, NULL) == NULL) { // Если не удалось соединиться с сервером
+	if (mysql_real_connect(conn, HOST, USER, PASS, "categories", PORT, NULL, NULL) == NULL) { // Р•СЃР»Рё РЅРµ СѓРґР°Р»РѕСЃСЊ СЃРѕРµРґРёРЅРёС‚СЊСЃСЏ СЃ СЃРµСЂРІРµСЂРѕРј
 		std::cout << "Error with mysql_real_connect();" << std::endl;
 		exit(1);
 	}
 
-	mysql_set_character_set(conn, "utf8_general_ci"); // Устанавливаем кодировку сервера
-	mysql_query(conn, LOCALENCODING); // Устанавливаем кодировку для корректного выполнения запросов на русском языке
-	mysql_query(conn, "SHOW TABLES"); // Делаем запрос к базе и получаем список таблиц
-	Array <Category> categs; // Создаём массив категорий
+	mysql_set_character_set(conn, "utf8_general_ci"); // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РєРѕРґРёСЂРѕРІРєСѓ СЃРµСЂРІРµСЂР°
+	mysql_query(conn, LOCALENCODING); // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РєРѕРґРёСЂРѕРІРєСѓ РґР»СЏ РєРѕСЂСЂРµРєС‚РЅРѕРіРѕ РІС‹РїРѕР»РЅРµРЅРёСЏ Р·Р°РїСЂРѕСЃРѕРІ РЅР° СЂСѓСЃСЃРєРѕРј СЏР·С‹РєРµ
+	mysql_query(conn, "SHOW TABLES"); // Р”РµР»Р°РµРј Р·Р°РїСЂРѕСЃ Рє Р±Р°Р·Рµ Рё РїРѕР»СѓС‡Р°РµРј СЃРїРёСЃРѕРє С‚Р°Р±Р»РёС†
+	std::vector <Category> categs; // РЎРѕР·РґР°С‘Рј РјР°СЃСЃРёРІ РєР°С‚РµРіРѕСЂРёР№
 
-	if (res = mysql_store_result(conn)) { // Если есть результаты
-		while (row = mysql_fetch_row(res)) { // Цикл проходит по всем полученным результатам
-			categs.append(); // Добавляем категорию
-			categs.last().name = std::string(row[0]); // Задаём её имя
+	if (res = mysql_store_result(conn)) { // Р•СЃР»Рё РµСЃС‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚С‹
+		while (row = mysql_fetch_row(res)) { // Р¦РёРєР» РїСЂРѕС…РѕРґРёС‚ РїРѕ РІСЃРµРј РїРѕР»СѓС‡РµРЅРЅС‹Рј СЂРµР·СѓР»СЊС‚Р°С‚Р°Рј
+			Category temp;
+			std::vector <std::string> tempData = split(row[0], ' ');
+			if (tempData[5] == "1")
+				temp.mode = Category::MODE::PERSONAL_TUL;
+			else if (tempData[6] == "1")
+				temp.mode = Category::MODE::TEAM_TUL;
+			else if (tempData[7] == "1")
+				temp.mode = Category::MODE::TRADITIONAL_TUL;
+			else if (tempData[8] == "1")
+				temp.mode = Category::MODE::PERSONAL_SPARRING;
+			else if (tempData[9] == "1")
+				temp.mode = Category::MODE::TEAM_SPARRING;
+			else if (tempData[10] == "1")
+				temp.mode = Category::MODE::TRADITIONAL_SPARRING;
+
+			temp.name = std::string(row[0]); // Р—Р°РґР°С‘Рј РёРјСЏ РєР°С‚РµРіРѕСЂРёРё
+			categs.push_back(temp); // Р”РѕР±Р°РІР»СЏРµРј РєР°С‚РµРіРѕСЂРёСЋ
 		}
-		for (int i = 0; i < categs.length(); i++) {
-			const char *query = static_cast<std::string>(FIELDS + categs[i].name + "`;").c_str(); // Формируем текст запроса
-			mysql_query(conn, static_cast<const char*>(query)); // Посылаем запрос в БД
-			if (res = mysql_store_result(conn)) { // Если запрос вернул не пустой результат
-				while (row = mysql_fetch_row(res)) { // Проходим по всем результатам
-					// Заполняем поля участника
-					categs[i].participants.append();
-					categs[i].participants.last().name = row[0];
-					categs[i].participants.last().birth = row[1];
-					categs[i].participants.last().club = row[2];
+		for (int i = 0; i < categs.size(); i++) {
+			const char *query = static_cast<std::string>(FIELDS + categs[i].name + "`;").c_str(); // Р¤РѕСЂРјРёСЂСѓРµРј С‚РµРєСЃС‚ Р·Р°РїСЂРѕСЃР°
+			mysql_query(conn, static_cast<const char*>(query)); // РџРѕСЃС‹Р»Р°РµРј Р·Р°РїСЂРѕСЃ РІ Р‘Р”
+			if (res = mysql_store_result(conn)) { // Р•СЃР»Рё Р·Р°РїСЂРѕСЃ РІРµСЂРЅСѓР» РЅРµ РїСѓСЃС‚РѕР№ СЂРµР·СѓР»СЊС‚Р°С‚
+				while (row = mysql_fetch_row(res)) { // РџСЂРѕС…РѕРґРёРј РїРѕ РІСЃРµРј СЂРµР·СѓР»СЊС‚Р°С‚Р°Рј
+					// Р—Р°РїРѕР»РЅСЏРµРј РїРѕР»СЏ СѓС‡Р°СЃС‚РЅРёРєР°
+					Participant temp;
+					temp.name = row[0];
+					temp.birth = row[1];
+					temp.club = row[2];
+					categs[i].participants.push_back(temp); // Р—Р°РЅРѕСЃРёРј СѓС‡Р°СЃС‚РЅРёРєР° РІ Р±Р°Р·Сѓ
 				}
 			}
 		}
@@ -74,17 +109,88 @@ Array <Category> getCategories() {
 	return categs;
 }
 
+std::vector <Category> getCategTemplate() {
+	std::vector <Category> categs;
+	std::string categsNames[] = {
+		"Рј 2000 2001 10-7 РіСѓРї 1 0 0 0 0 0 0 0 0",
+		"Рј 2000 2002 10-6 РіСѓРї 1 0 0 0 0 0 0 0 0",
+		"Рј 2000 2002 10-8 РіСѓРї 1 0 0 0 0 0 0 0 0",
+		"Рј 2000 2003 10-4 РіСѓРї 1 0 0 0 0 0 0 0 0",
+		"Рј 2000 2004 10-2 РіСѓРї 1 0 0 0 0 0 0 0 0",
+		"Рј 2000 2005 10-5 РіСѓРї 1 0 0 0 0 0 0 0 0",
+		"Рј 2000 2006 10-1 РіСѓРї 1 0 0 0 0 0 0 0 0",
+		"Рј 2000 2006 10-3 РіСѓРї 1 0 0 0 0 0 0 0 0",
+		"Рј 2000 2008 1-5 РґР°РЅ 1 0 0 0 0 0 0 0 0"
+	};
+	std::string humans[9][2][3] = {
+		{
+			{"РўР°Р»Р°С€РёРЅ РРІР°РЅ РРІР°РЅРѕРІРёС‡", "2003-12-16", "Р РћР”РРќРђ"},
+			{"", "", ""}
+		},
+		{
+			{"РўР°Р»Р°С€РёРЅ РРІР°РЅ РРІР°РЅРѕРІРёС‡1", "2003-12-16", "Р РћР”РРќРђ"},
+			{"", "", ""}
+		},
+		{
+			{"РўР°Р»Р°С€РёРЅ РРІР°РЅ РРІР°РЅРѕРІРёС‡2", "2003-12-16", "Р РћР”РРќРђ"},
+			{"", "", ""}
+		},
+		{
+			{"РўР°Р»Р°С€РёРЅ РРІР°РЅ РРІР°РЅРѕРІРёС‡3", "2003-12-16", "Р РћР”РРќРђ"},
+			{"", "", ""}
+		},
+		{
+			{"РўР°Р»Р°С€РёРЅ РРІР°РЅ РРІР°РЅРѕРІРёС‡4", "2003-12-16", "Р РћР”РРќРђ"},
+			{"", "", ""}
+		},
+		{
+			{"РўР°Р»Р°С€РёРЅ РРІР°РЅ РРІР°РЅРѕРІРёС‡5", "2003-12-16", "Р РћР”РРќРђ"},
+			{"", "", ""}
+		},
+		{
+			{"РўР°Р»Р°С€РёРЅ РРІР°РЅ РРІР°РЅРѕРІРёС‡6", "2003-12-16", "Р РћР”РРќРђ"},
+			{"", "", ""}
+		},
+		{
+			{"РўР°Р»Р°С€РёРЅ РРІР°РЅ РРІР°РЅРѕРІРёС‡7", "2003-12-16", "Р РћР”РРќРђ"},
+			{"", "", ""}
+		},
+		{
+			{"РўР°Р»Р°С€РёРЅ РРІР°РЅ РРІР°РЅРѕРІРёС‡8", "2003-12-16", "Р РћР”РРќРђ"},
+			{"РўР°Р»Р°С€РёРЅ РРІР°РЅ РРІР°РЅРѕРІРёС‡8", "2003-12-16", "Р РћР”РРќРђ"}
+		},
+	};
+
+	for (size_t i = 0; i < 9; i++)
+	{
+		Category temp;
+		temp.name = categsNames[i];
+		for (int j = 0; j < 2; j++) {
+			if (humans[i][j][0] != "") {
+				Participant tempPart;
+				tempPart.name = humans[i][j][0];
+				tempPart.birth = humans[i][j][1];
+				tempPart.club = humans[i][j][2];
+				temp.participants.push_back(tempPart);
+			}
+		}
+		categs.push_back(temp);
+	}
+
+};
+
 int main()
 {
 	setlocale(LC_ALL, "Rus");
-	Array <Category> categories = getCategories();
+	std::vector <Category> categories = getCategories();
+	std::cout << categories[0].mode << std::endl;
 	/*
-	categories.length() - Количество категорий
-	categories[i].name - Имя категории с индексом i
-	categories[i].length() - Количество людей в категории с индексом i
-	categories[i][j].name - Имя человека с индексом j в категории с индексом i
-	categories[i][j].birth - Дата рождения человека с индексом j в категории с индексом i
-	categories[i][j].club - Клуб человека с индексом j в категории с индексом i
+	categories.length() - РљРѕР»РёС‡РµСЃС‚РІРѕ РєР°С‚РµРіРѕСЂРёР№
+	categories[i].name - РРјСЏ РєР°С‚РµРіРѕСЂРёРё СЃ РёРЅРґРµРєСЃРѕРј i
+	categories[i].length() - РљРѕР»РёС‡РµСЃС‚РІРѕ Р»СЋРґРµР№ РІ РєР°С‚РµРіРѕСЂРёРё СЃ РёРЅРґРµРєСЃРѕРј i
+	categories[i][j].name - РРјСЏ С‡РµР»РѕРІРµРєР° СЃ РёРЅРґРµРєСЃРѕРј j РІ РєР°С‚РµРіРѕСЂРёРё СЃ РёРЅРґРµРєСЃРѕРј i
+	categories[i][j].birth - Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ С‡РµР»РѕРІРµРєР° СЃ РёРЅРґРµРєСЃРѕРј j РІ РєР°С‚РµРіРѕСЂРёРё СЃ РёРЅРґРµРєСЃРѕРј i
+	categories[i][j].club - РљР»СѓР± С‡РµР»РѕРІРµРєР° СЃ РёРЅРґРµРєСЃРѕРј j РІ РєР°С‚РµРіРѕСЂРёРё СЃ РёРЅРґРµРєСЃРѕРј i
 	*/
 	return 0;
 }
