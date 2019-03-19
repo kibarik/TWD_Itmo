@@ -1,5 +1,4 @@
-#include "pch.h"
-#include <iostream>
+﻿#include <iostream>
 #include <vector>
 #ifdef _WIN32
 #include <conio.h>
@@ -24,7 +23,7 @@ public:
 		return sum;
 	};
 
-	void redo() { history.pop_back(); };
+	void redo() { history.size() ? history.pop_back():void(NULL); };
 	
 	void AddPoints(int points) { history.push_back(points); };
 };
@@ -33,7 +32,11 @@ int main()
 {
 	Score red, blue;
 	char ch;
+	#ifdef _WIN32
 	while ((ch = _getch()) != 27) { // 27 - код клавиши Escape
+	#else
+	while((ch = getch()) != 27) {
+	#endif
 		switch (ch) {
 			case 'f':
 				red.AddPoints(1);
@@ -45,7 +48,7 @@ int main()
 				red.AddPoints(3);
 				break;
 			case 'a':
-				red.redo;
+				red.redo();
 				break;
 			case 'j':
 				blue.AddPoints(1);
