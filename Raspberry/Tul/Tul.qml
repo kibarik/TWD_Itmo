@@ -9,6 +9,7 @@ Rectangle {
     height: 480
     color: "#424141"
     border.color: "#ffffff"
+    signal categoryShow
 
     Button {
         id: categorybButton
@@ -25,6 +26,10 @@ Rectangle {
         flat: false
         display: AbstractButton.TextBesideIcon
         transformOrigin: Item.Top
+
+        onClicked: {
+            sparringWindow.categoryShow()
+        }
     }
 
     PairDisplay {

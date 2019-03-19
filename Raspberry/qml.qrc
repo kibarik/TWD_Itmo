@@ -15,5 +15,8 @@
         <file>Tul/TulInfo.qml</file>
         <file>main.cpp</file>
         <file>Tul/ControlButtons.qml</file>
+        <file>Categories/Category.qml</file>
+        <file>Img/start.png</file>
+        <file>Img/stop.png</file>
     </qresource>
 </RCC>

@@ -9,33 +9,26 @@ Rectangle {
     height: 480
     color: "#424141"
     border.color: "#ffffff"
+    signal categoryShow
 
     Button {
-        id: categorybButton
+        id: button
         width: 320
         height: 70
         text: qsTr("Мальчики Личные Спарринг\nот 14 до 17 лет\n10гуп-3дан 70-75 кг")
-        rightPadding: 1
-        leftPadding: 1
-        bottomPadding: 1
-        topPadding: 2
-        focusPolicy: Qt.WheelFocus
-        autoRepeat: false
-        autoExclusive: false
-        checked: false
-        font.family: "Verdana"
-        spacing: 5
-        checkable: false
-        highlighted: false
-        flat: false
+        anchors.top: parent.top
+        anchors.topMargin: 0
         display: AbstractButton.TextOnly
-        transformOrigin: Item.Top
+
+        onClicked: { //нажимаем на кнопку категорий
+            sparringWindow.categoryShow()
+        }
+
     }
 
     PairDisplay {
         id: now_after
-        anchors.top: categorybButton.bottom
-        anchors.topMargin: 0
+        anchors.top: button.bottom
         height: 200
         width: 320
         visible: true
@@ -69,6 +62,18 @@ Rectangle {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

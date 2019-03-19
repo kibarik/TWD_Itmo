@@ -1,13 +1,23 @@
 import QtQuick 2.5
 import QtQuick.Window 2.0
 
+/*
+    на монитор выводится только общее количество, сколько судей за красного и за синего
+    получив сигнал, слот направляет его в соответствующую колонку
+    имена также, как в PairDisplay.qml
+
+
+    QObject::connect(qml, SIGNAL(transmitOldText(QString)),
+                     &ASD, SLOT(getOldText(QString)));
+
+    https://habr.com/ru/post/171341/
+    https://habr.com/ru/post/138837/
+*/
+
 Item {
     id: name
     width: 320
     height: 100
-
-
-
 
     Grid {
         id: chui

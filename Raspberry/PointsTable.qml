@@ -1,5 +1,23 @@
 import QtQuick 2.0
 
+
+/*
+    Из файла логику пультов cpp при присуждении баллов получаем сигналы
+    signalRedPlus() signalBluePlus() и т.п.
+
+    id: redPoints прописываем слота приема сигнала.
+    Сигнал отдает баллы спортсмена, слот записывает в redPoints.texе
+
+
+    QObject::connect(qml, SIGNAL(transmitOldText(QString)),
+                     &ASD, SLOT(getOldText(QString)));
+
+
+    https://habr.com/ru/post/171341/
+    https://habr.com/ru/post/138837/
+
+*/
+
 Row {
 id: bigPoints
 width: 320
@@ -18,7 +36,7 @@ Column {
         color: "#cd0000"
         transformOrigin: Item.Right
         Text {
-            id: element7
+            id: redPoints
             color: "#ffffff"
             text: qsTr("0")
             anchors.fill: parent
@@ -32,7 +50,6 @@ Column {
 
 Column {
     id: column3
-    x: 0
     width: 160
     height: 70
     Rectangle {
@@ -43,7 +60,7 @@ Column {
         border.width: 0
         transformOrigin: Item.Left
         Text {
-            id: element11
+            id: bluePoints
             color: "#ffffff"
             text: qsTr("0")
             anchors.fill: parent

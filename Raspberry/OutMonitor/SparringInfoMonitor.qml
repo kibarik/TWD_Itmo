@@ -1,6 +1,23 @@
 import QtQuick 2.5
 import QtQuick.Window 2.0
 
+
+/*
+    Из файла логику пультов cpp при присуждении баллов получаем сигналы
+    signalRedPlus() signalBluePlus() и т.п.
+
+    id: redPoints прописываем слота приема сигнала.
+    Сигнал отдает баллы спортсмена, слот записывает в redPoints.texе
+
+
+    QObject::connect(qml, SIGNAL(transmitOldText(QString)),
+                     &ASD, SLOT(getOldText(QString)));
+
+
+    https://habr.com/ru/post/171341/
+    https://habr.com/ru/post/138837/
+
+*/
 Item {
     id: name
     width: Screen.desktopAvailableWidth
