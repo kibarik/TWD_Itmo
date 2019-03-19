@@ -156,7 +156,7 @@ std::vector <Category> getCategTemplate() {
 			{"", "", ""}
 		},
 		{
-			{"Талашин Иван Иванович8", "2003-12-16", "РОДИНА"},
+			{"Талашин Иван Иванович8", "2006-12-16", "РОДИНА"},
 			{"Талашин Иван Иванович8", "2003-12-16", "РОДИНА"}
 		},
 	};
@@ -165,6 +165,7 @@ std::vector <Category> getCategTemplate() {
 	{
 		Category temp;
 		temp.name = categsNames[i];
+		temp.mode = Category::MODE(i % 2);
 		for (int j = 0; j < 2; j++) {
 			if (humans[i][j][0] != "") {
 				Participant tempPart;
@@ -177,13 +178,14 @@ std::vector <Category> getCategTemplate() {
 		categs.push_back(temp);
 	}
 
+	return categs;
 };
 
 int main()
 {
 	setlocale(LC_ALL, "Rus");
-	std::vector <Category> categories = getCategories();
-	std::cout << categories[0].mode << std::endl;
+	std::vector <Category> categories = getCategTemplate();
+	//std::cout << categories[2][0].name.c_str() << std::endl;
 	/*
 	categories.length() - Количество категорий
 	categories[i].name - Имя категории с индексом i
