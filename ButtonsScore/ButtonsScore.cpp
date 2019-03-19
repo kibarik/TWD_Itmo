@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 #include "pch.h"
 #include <iostream>
+=======
+﻿#include <iostream>
+>>>>>>> develop
 #include <vector>
 #ifdef _WIN32
 #include <conio.h>
@@ -24,7 +28,11 @@ public:
 		return sum;
 	};
 
+<<<<<<< HEAD
 	void redo() { history.pop_back(); };
+=======
+	void redo() { history.size() ? history.pop_back():void(NULL); };
+>>>>>>> develop
 	
 	void AddPoints(int points) { history.push_back(points); };
 };
