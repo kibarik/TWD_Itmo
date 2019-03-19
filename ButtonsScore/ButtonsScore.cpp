@@ -33,7 +33,11 @@ int main()
 {
 	Score red, blue;
 	char ch;
+	#ifdef _WIN32
 	while ((ch = _getch()) != 27) { // 27 - код клавиши Escape
+	#else
+	while((ch = getch()) != 27) {
+	#endif
 		switch (ch) {
 			case 'f':
 				red.AddPoints(1);
@@ -45,7 +49,7 @@ int main()
 				red.AddPoints(3);
 				break;
 			case 'a':
-				red.redo;
+				red.redo();
 				break;
 			case 'j':
 				blue.AddPoints(1);
