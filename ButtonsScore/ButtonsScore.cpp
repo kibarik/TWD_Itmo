@@ -9,7 +9,7 @@
 #include <conio.h>
 #else
 #include <ncurses.h>
-#endif !_WINDOWS_
+#endif //!_WINDOWS_
 
 class Score {
 private:
