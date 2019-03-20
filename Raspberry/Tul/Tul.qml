@@ -23,7 +23,6 @@ Rectangle {
         spacing: 5
         checkable: false
         highlighted: false
-        flat: false
         display: AbstractButton.TextBesideIcon
         transformOrigin: Item.Top
 
@@ -67,20 +66,18 @@ Rectangle {
             id: start
             width: parent.width/3
             height: parent.height
-            color: "Green"
+            color: "#27ae60"
             clip: false
 
-            Image {
-                id: image
-                anchors.rightMargin: 5
-                anchors.leftMargin: 5
-                anchors.bottomMargin: 5
-                anchors.topMargin: 5
+            Text {
+                id: element2
+                color: "#ffffff"
+                text: qsTr("Старт")
+                fontSizeMode: Text.Fit
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
                 anchors.fill: parent
-                sourceSize.height: 50
-                sourceSize.width: 50
-                source: "../Img/start.png"
-                fillMode: Image.PreserveAspectFit
+                font.pixelSize: 17
             }
         }
 
@@ -88,14 +85,18 @@ Rectangle {
             id: stop
             width: parent.width/3
             height: parent.height
-            color: "Red"
+            color: "#e74c3c"
             clip: false
 
-            Image {
-                id: image1
-                source: "../Img/stop.png"
-                fillMode: Image.PreserveAspectFit
+            Text {
+                id: element3
+                color: "#ffffff"
+                text: qsTr("Стоп")
+                horizontalAlignment: Text.AlignHCenter
+                fontSizeMode: Text.Fit
                 anchors.fill: parent
+                font.pixelSize: 17
+                verticalAlignment: Text.AlignVCenter
             }
         }
 
@@ -103,11 +104,12 @@ Rectangle {
             id: level
             width: parent.width/3
             height: parent.height
-            color: "Yellow"
+            color: "#f39c12"
             clip: false
 
             Text {
                 id: element
+                color: "#ffffff"
                 text: "1"
                 font.family: "Tahoma"
                 fontSizeMode: Text.Fit
@@ -122,6 +124,7 @@ Rectangle {
 
             Text {
                 id: element1
+                color: "#ffffff"
                 text: qsTr("Суд. уровень")
                 horizontalAlignment: Text.AlignHCenter
                 anchors.right: parent.right
@@ -132,6 +135,7 @@ Rectangle {
                 font.pixelSize: 12
             }
         }
+
 
     }
 
@@ -205,8 +209,12 @@ Rectangle {
 
 
 
+
+
+
+
 /*##^## Designer {
-    D{i:4;anchors_height:100;anchors_width:320;anchors_x:0;anchors_y:331}D{i:7;anchors_height:100;anchors_width:100}
-D{i:9;anchors_height:100;anchors_width:100}D{i:12;anchors_x:213;anchors_y:0}
+    D{i:4;anchors_height:100;anchors_width:320;anchors_x:0;anchors_y:331}D{i:7;anchors_x:107;anchors_y:0}
+D{i:9;anchors_x:107;anchors_y:0}D{i:12;anchors_x:213;anchors_y:0}
 }
  ##^##*/

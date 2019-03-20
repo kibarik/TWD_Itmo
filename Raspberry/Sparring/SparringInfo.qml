@@ -29,7 +29,7 @@ Item {
         Rectangle {
             width: 50
             height: chui.height/2
-            color: "#ff0000"
+            color: "#ea2027"
             Text {
                 id: redChui
                 color: "#ffffff"
@@ -43,7 +43,7 @@ Item {
         Rectangle {
             width: 220
             height: chui.height/2
-            color: "#808080"
+            color: "#34495e"
             Text {
                 id: vlavla
                 width: 320
@@ -58,7 +58,7 @@ Item {
         Rectangle {
             width: 50
             height: chui.height/2
-            color: "#0000ff"
+            color: "#0652dd"
             Text {
                 id: blueChui
                 color: "#ffffff"
@@ -72,7 +72,7 @@ Item {
         Rectangle {
             width: 50
             height: chui.height/2
-            color: "#ff0000"
+            color: "#ea2027"
             Text {
                 id: redGamj
                 color: "#ffffff"
@@ -86,7 +86,7 @@ Item {
         Rectangle {
             width: 220
             height: chui.height/2
-            color: "#808080"
+            color: "#34495e"
             Text {
                 id: name2
                 text: qsTr("Предупреждение")
@@ -99,7 +99,7 @@ Item {
         Rectangle {
             width: 50
             height: chui.height/2
-            color: "#0000ff"
+            color: "#0652dd"
                 Text {
                     id: blueGamj
                     color: "#ffffff"
@@ -200,7 +200,7 @@ Item {
         Rectangle {
             width: parent.width/8
             height: parent.height
-            color: "Red"
+            color: "#ea2027"
 
             Text{
                 id: j2rp
@@ -215,7 +215,7 @@ Item {
         Rectangle {
             width: parent.width/8
             height: parent.height
-            color: "Blue"
+            color: "#0652dd"
 
             Text{
                 id: j2bp
@@ -230,7 +230,7 @@ Item {
         Rectangle {
             width: parent.width/8
             height: parent.height
-            color: "Red"
+            color: "#ea2027"
 
             Text{
                 id: j3rp
@@ -245,7 +245,7 @@ Item {
         Rectangle {
             width: parent.width/8
             height: parent.height
-            color: "Blue"
+            color: "#0652dd"
 
             Text{
                 id: j3bp

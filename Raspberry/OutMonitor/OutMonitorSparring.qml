@@ -33,7 +33,7 @@ Window {
         Rectangle {
             width: parent.width/2
             height: parent.height
-            color: "Red"
+            color: "#ea2027"
             border.width: 4
 
             Text {
@@ -112,7 +112,7 @@ Window {
             id: rectangle2
             width: parent.width/3
             height: width/4*3
-            color: "#ff0000"
+            color: "#ea2027"
             Text {
                 id: redPoints
                 color: "#ffffff"
@@ -129,17 +129,17 @@ Window {
             id: rectangle
             width: parent.width/3
             height: width/4*3
-            color: "Grey"
+            color: "#95a5a6"
 
             Text {
                 id: otherPoint
                 color: "#ffffff"
                 text: qsTr("0")
-                fontSizeMode: Text.VerticalFit
+                fontSizeMode: Text.Fit
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 anchors.fill: parent
-                font.pixelSize: parent.width/4*3
+                font.pixelSize: parent.width/2
                 font.family: "Times New Roman"
             }
         }
@@ -153,7 +153,7 @@ Window {
                 id: bluePoints
                 color: "#ffffff"
                 text: qsTr("0")
-                fontSizeMode: Text.VerticalFit
+                fontSizeMode: Text.Fit
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 anchors.fill: parent

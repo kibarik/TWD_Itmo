@@ -34,7 +34,7 @@ Window {
         Rectangle {
             width: parent.width/2
             height: parent.height
-            color: "Red"
+            color: "#ea2027"
             border.width: 4
 
             Text {
@@ -112,7 +112,7 @@ Window {
             id: rectangle2
             width: parent.width/3
             height: width
-            color: "#ff0000"
+            color: "#ea2027"
             Text {
                 id: redPoints
                 color: "#ffffff"
@@ -129,7 +129,7 @@ Window {
             id: rectangle
             width: parent.width/3
             height: width
-            color: "Grey"
+            color: "#95a5a6"
 
             Text {
                 id: otherPoint

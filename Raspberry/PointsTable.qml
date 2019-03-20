@@ -33,7 +33,7 @@ Column {
         id: red1
         width: 160
         height: 70
-        color: "#cd0000"
+        color: "#c0392b"
         transformOrigin: Item.Right
         Text {
             id: redPoints
@@ -56,7 +56,7 @@ Column {
         id: blue1
         width: 160
         height: 70
-        color: "#0b00cc"
+        color: "#2980b9"
         border.width: 0
         transformOrigin: Item.Left
         Text {

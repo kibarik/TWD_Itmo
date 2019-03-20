@@ -34,7 +34,7 @@ import QtQuick.Controls 2.5
             height: 100
             Rectangle {
                 id: rectangle1
-                color: "#3a8817"
+                color: "#27ae60"
                 anchors.fill: parent
                 Label {
                     id: label
@@ -57,7 +57,7 @@ import QtQuick.Controls 2.5
                 id: rectangle2
                 width: 300
                 height: 50
-                color: "#cd0000"
+                color: "#c0392b"
                 ItemDelegate {
                     id: first
                     width: 300
@@ -79,7 +79,7 @@ import QtQuick.Controls 2.5
                 x: 0
                 width: 300
                 height: 50
-                color: "#0043d2"
+                color: "#3867d6"
                 anchors.bottom: parent.bottom
                 ItemDelegate {
                     id: second
@@ -107,7 +107,7 @@ import QtQuick.Controls 2.5
             height: 100
             Rectangle {
                 id: rectangle4
-                color: "#ffa500"
+                color: "#f1c40f"
                 anchors.fill: parent
                 Label {
                     id: label1
@@ -130,7 +130,7 @@ import QtQuick.Controls 2.5
                 id: rectangle5
                 width: 300
                 height: 50
-                color: "#808080"
+                color: "#95a5a6"
                 ItemDelegate {
                     id: next1
                     width: 300
@@ -148,7 +148,7 @@ import QtQuick.Controls 2.5
                 x: 0
                 width: 300
                 height: 50
-                color: "#808080"
+                color: "#95a5a6"
                 anchors.bottom: parent.bottom
                 ItemDelegate {
                     id: next2
