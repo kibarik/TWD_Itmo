@@ -1,0 +1,43 @@
+Section "Device"
+    Identifier "myFB"
+    Driver "fbdev"
+    Option "fbdev" "/dev/fb0"
+EndSection
+
+Section "Device"
+    Identifier "myFTF"
+    Driver "fbdev"
+    Option "fbdev" "/dev/fb1"
+EndSection
+
+Section "Screen"
+    Identifier "HDMI"
+    Device  "myFB"
+    Monitor "Monitor_TV"
+    Option "Xinerama" "1"
+EndSection
+
+Section "Screen"
+    Identifier "TFT"
+    Device "myFTF"
+    Monitor "Monitor_TFT"
+    Option "Xinerama" "1"
+EndSection
+
+Section "ServerLayout"
+    Identifier "Default Layout"
+    Screen 0 "HDMI"
+    Screen 1 "TFT"
+    Screen 1 "HDMI" RightOf "TFT"
+    Option  "Xinerama" "1"
+EndSection
+
+#The different server layouts are:
+#   Screen 0 "HDMI"
+#   Screen 1 "TFT"
+#   Screen 1 "HDMI" RightOf "TFT"
+#   Screen 1 "ScreenTFT" LeftOf "ScreenHDMI"
+#   Screen 1 "ScreenTFT" Above "ScreenHDMI"
+#   Screen 1 "ScreenTFT" Below "ScreenHDMI"
+#   Screen 1 "ScreenTFT" Relative "ScreenHDMI" x y
+#   Screen 1 "ScreenTFT" Absolute x y

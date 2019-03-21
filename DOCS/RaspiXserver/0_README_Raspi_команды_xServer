@@ -1,0 +1,10 @@
+ 
+ sudo service lightdm restart //перезапуск локального сервера отрисовки
+ /usr/share/X11/xorg.conf.d/99-fbturbo.conf //конфигурация запуска экранов fb0 стандарт fb1 TFT экран именно здесь определяются экраны и конфигурация
+ /etc/X11/xorg.conf.d/99-fbturbo.conf //настройка x сервера https://losst.ru/nastrojka-videokarty-linux-cherez-xorg
+ /boot/cmdline.txt //отвечает за первоначальные комманды и настройки запуска системы. Здесь же настраивается шрифт и фреймбуффер
+ xrandr //отрисовка и вывод изображений на xserver https://losst.ru/razreshenie-ekrana-v-linux
+ /boot/config.txt // отвечает за настройки  http://wikihandbk.com/wiki/Raspberry_Pi:%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0/config.txt
+ 
+ /boot/config.txt //dtoverlay=tft35a отвечает за запуск именно монитора tft все остальные устройства также запусскаются здесь
+ 

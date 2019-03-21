@@ -1,0 +1,9 @@
+ 
+# Enable audio (loads snd_bcm2835)
+dtparam=audio=on
+dtparam=i2c_arm=on, spi=on
+dtoverlay=tft35a, rotate=270 speed=48000000 fps=30
+#dtoverlay=ads7846,cs=1,penirq=17,penirq_pull=2,speed=1000000,keep_vref_on=1,swap$
+
+
+
