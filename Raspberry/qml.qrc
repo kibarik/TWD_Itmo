@@ -18,6 +18,5 @@
         <file>Categories/Category.qml</file>
         <file>Img/start.png</file>
         <file>Img/stop.png</file>
-        <file>CategoryLib.h</file>
     </qresource>
 </RCC>

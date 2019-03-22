@@ -1,0 +1,4 @@
+#ifndef CATEGORYLIB_H
+#define CATEGORYLIB_H
+
+#endif // CATEGORYLIB_H
