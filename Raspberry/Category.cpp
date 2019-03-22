@@ -1,4 +1,4 @@
-#include "Logic.h"
+#include "Category.h"
 
 //MySQL connection data
 #define HOST "localhost"

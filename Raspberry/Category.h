@@ -45,13 +45,21 @@ class CategoryAPI : public QObject {
     public:
         CategoryAPI();
 
-    signals: //From C++ to QML ->>
         std::vector <std::string> split(std::string str, char delim);
         std::vector <Category> getCategories();
         std::vector <Category> getCategTemplate(); //temlate categoru for tests
         int printCategories(const std::vector <Category>& categories);
         Category::MODE getMode(const Category& category);
         std::vector<Participant> getParticipants(const Category& category);
+
+/*
+    signals: //From C++ to QML (Server to client) ->>
+        void categoriesChanged(); // ->> Send new Categories
+        void noCategories(); //Error signal
+        void serverOff();
+        void wifiOff();
+        void displayOff();
+
 
     public slots: //From QML to C++ <<-
         void categoryEnd();
@@ -68,5 +76,5 @@ class CategoryAPI : public QObject {
 
         //tul
         void nextLvl(); //уровень судейства
-
+*/
 };
