@@ -2,6 +2,8 @@ from os import listdir
 from xlrd import open_workbook, xldate_as_datetime
 import mysql.connector
 
+PASSWORD = "45214521"
+
 class Participant(dict):
 	def __init__(self, positions, params):
 		for name, val in positions.items():
@@ -82,7 +84,7 @@ class Participant(dict):
 def main():
 	try:
 		db = mysql.connector.connect( user = "root",
-		                              password = "lasjbdkashbdabsg123t1762dlm12393y4hfbkwsd8ye283heHIBUSDUIAH&@rnq2987y238",
+		                              password = PASSWORD,
 		                              host = "localhost",
 		                              database = "participants")
 	except mysql.connector.Error as err:

@@ -2,6 +2,8 @@ from os import listdir
 from datetime import date
 import mysql.connector as mysql
 
+PASSWORD = "45214521"
+
 defaultTable = (
 		"CREATE TABLE IF NOT EXISTS `{tabName}` ("
 		  "`name` tinytext NOT NULL COMMENT 'имя',"
@@ -101,11 +103,11 @@ def main():
 	templates = []
 	try:
 		mainDB = mysql.connect( user = "root",
-  	                        password = "lasjbdkashbdabsg123t1762dlm12393y4hfbkwsd8ye283heHIBUSDUIAH&@rnq2987y238",
+  	                        password = PASSWORD,
 		                        host = "localhost",
                             database = "participants")
 		categoriesDB = mysql.connect( user = "root",
-		                         password = "lasjbdkashbdabsg123t1762dlm12393y4hfbkwsd8ye283heHIBUSDUIAH&@rnq2987y238",
+		                         password = PASSWORD,
 		                         host = "localhost",
 		                         database = "categories")
 	except mysql.Error as err:
@@ -114,7 +116,7 @@ def main():
 
 	mainCursor = mainDB.cursor()
 	categCursor = categoriesDB.cursor()
-	
+
 	#print(GetTemplate(0).items())
 	for key, val in GetTemplate("categories.txt").items():
 		query = val
@@ -124,7 +126,7 @@ def main():
 		for entry in mainCursor:
 			query = "INSERT INTO `" + key + "` ("
 			fieldsList = [
-			               "name", "sex", "birth", "sportQualification", "gup", "dan", "weight", 
+			               "name", "sex", "birth", "sportQualification", "gup", "dan", "weight",
 			               "personal tul", "team tul", "tradition tul", "personal sparring",
 			               "team sparring", "tradition sparring", "impact force", "specTech", "club"
 				]
