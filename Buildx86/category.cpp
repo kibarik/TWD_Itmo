@@ -1,4 +1,4 @@
-#include "Category.h"
+#include "category.h"
 
 //MySQL connection data
 #define HOST "localhost"
@@ -9,7 +9,7 @@
 #define FIELDS "SELECT name, birth, club FROM `"
 
 
-std::vector <std::string> split(std::string str, char delim) {
+std::vector<std::string> split(std::string str, char delim) {
     std::vector <std::string> result;
     std::string temp;
     for (unsigned int i = 0; i < str.length(); i++) {
@@ -25,7 +25,7 @@ std::vector <std::string> split(std::string str, char delim) {
     return result;
 }
 
-//std::vector <Category> getCategories() {
+//std::vector<Category> getCategories() {
 //    MYSQL *conn;
 //    MYSQL_RES *res;
 //    MYSQL_ROW row;
@@ -86,26 +86,98 @@ std::vector <std::string> split(std::string str, char delim) {
 //    return categs;
 //}*/
 
-//int printCategories(const std::vector <Category>& categories)
-//{
-//    setlocale(LC_ALL, "Rus");
-//    for(auto& category : categories){
-//        std::cout << "->"<< category.name << std::endl;
-//        std::cout<< "--> size is:" << categories.size() << std::endl;
-//        std::cout << "--> mode id:" << category.mode <<' '<< std::endl;
-//        std::cout << "--> Totaly: " << category.participants.size() << " sportsmens in category" << std::endl;
+int printCategories(const std::vector <Category>& categories)
+{
+    setlocale(LC_ALL, "Rus");
+    for(auto& category : categories){
+        std::cout << "->"<< category.name << std::endl;
+        std::cout<< "--> size is:" << categories.size() << std::endl;
+        std::cout << "--> mode id:" << category.mode <<' '<< std::endl;
+        std::cout << "--> Totaly: " << category.participants.size() << " sportsmens in category" << std::endl;
 
-//        for(const Participant& Sportsmen: category.participants){
-//            std::cout << "---->sportsmen:" << Sportsmen.name << ' '
-//                        << Sportsmen.birth << ' '
-//                        << Sportsmen.club << ' '
-//                        << std::endl;
-//            }
-//        std::cout << "---------------------------------------------------------"<<std::endl;
-//    }
+        for(const Participant& Sportsmen: category.participants){
+            std::cout << "---->sportsmen:" << Sportsmen.name << ' '
+                        << Sportsmen.birth << ' '
+                        << Sportsmen.club << ' '
+                        << std::endl;
+            }
+        std::cout << "---------------------------------------------------------"<<std::endl;
+    }
 
-//    return 0;
-//}
+    return 0;
+}
+
+std::vector <Category> getCategTemplate() {
+    std::vector <Category> categs;
+    std::string categsNames[] = {
+        "м 2000 2001 10-7 гуп 1 0 0 0 0 0 0 0 0",
+        "м 2000 2002 10-6 гуп 1 0 0 0 0 0 0 0 0",
+        "м 2000 2002 10-8 гуп 1 0 0 0 0 0 0 0 0",
+        "м 2000 2003 10-4 гуп 1 0 0 0 0 0 0 0 0",
+        "м 2000 2004 10-2 гуп 1 0 0 0 0 0 0 0 0",
+        "м 2000 2005 10-5 гуп 1 0 0 0 0 0 0 0 0",
+        "м 2000 2006 10-1 гуп 1 0 0 0 0 0 0 0 0",
+        "м 2000 2006 10-3 гуп 1 0 0 0 0 0 0 0 0",
+        "м 2000 2008 1-5 дан 1 0 0 0 0 0 0 0 0"
+    };
+    std::string humans[9][2][3] = {
+        {
+            {"Талашин Иван Иванович", "2003-12-16", "РОДИНА"},
+            {"", "", ""}
+        },
+        {
+            {"Талашин Иван Иванович1", "2003-12-16", "РОДИНА"},
+            {"", "", ""}
+        },
+        {
+            {"Талашин Иван Иванович2", "2003-12-16", "РОДИНА"},
+            {"", "", ""}
+        },
+        {
+            {"Талашин Иван Иванович3", "2003-12-16", "РОДИНА"},
+            {"", "", ""}
+        },
+        {
+            {"Талашин Иван Иванович4", "2003-12-16", "РОДИНА"},
+            {"", "", ""}
+        },
+        {
+            {"Талашин Иван Иванович5", "2003-12-16", "РОДИНА"},
+            {"", "", ""}
+        },
+        {
+            {"Талашин Иван Иванович6", "2003-12-16", "РОДИНА"},
+            {"", "", ""}
+        },
+        {
+            {"Талашин Иван Иванович7", "2003-12-16", "РОДИНА"},
+            {"", "", ""}
+        },
+        {
+            {"Талашин Иван Иванович8", "2006-12-16", "РОДИНА"},
+            {"Талашин Иван Иванович8", "2003-12-16", "РОДИНА"}
+        },
+    };
+
+    for (size_t i = 0; i < 9; i++)
+    {
+        Category temp;
+        temp.name = categsNames[i];
+        temp.mode = Category::MODE(i % 2);
+        for (int j = 0; j < 2; j++) {
+            if (humans[i][j][0] != "") {
+                Participant tempPart;
+                tempPart.name = humans[i][j][0];
+                tempPart.birth = humans[i][j][1];
+                tempPart.club = humans[i][j][2];
+                temp.participants.push_back(tempPart);
+            }
+        }
+        categs.push_back(temp);
+    }
+
+    return categs;
+};
 
 Category::MODE getMode(const Category& category){
   return category.mode;
@@ -114,4 +186,3 @@ Category::MODE getMode(const Category& category){
 std::vector<Participant> getParticipants(const Category& category){
       return category.participants;
 }
-
