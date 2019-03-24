@@ -1,10 +1,10 @@
 //#include "pch.h"
-﻿#include <iostream>
+#include <iostream>
 #include <vector>
 #ifdef _WIN32
 #include <conio.h>
 #else
-#include <curses.h>
+#include <ncurses.h>
 #endif //!_WINDOWS_
 
 class Score {
@@ -36,6 +36,9 @@ int main()
 	#ifdef _WIN32
 	while ((ch = _getch()) != 27) { // 27 - код клавиши Escape
 	#else
+	initscr();
+	raw();
+	noecho();
 	while((ch = getch()) != 27) {
 	#endif
 		switch (ch) {
@@ -64,7 +67,15 @@ int main()
 				blue.redo();
 				break;
 			default:
+#ifdef _WIN32
 				std::cout << "RED: " << red.score() << "\nBLUE: " << blue.score() << std::endl;
+#else
+				printw("RED: %d\nBLUE: %d\n", red.score(), blue.score());
+				refresh();
+#endif
 		}
 	}
+#ifndef _WIN32
+	endwin();
+#endif
 }
