@@ -25,66 +25,66 @@ std::vector<std::string> split(std::string str, char delim) {
     return result;
 }
 
-//std::vector<Category> getCategories() {
-//    MYSQL *conn;
-//    MYSQL_RES *res;
-//    MYSQL_ROW row;
+std::vector<Category> getCategories() {
+    MYSQL *conn;
+    MYSQL_RES *res;
+    MYSQL_ROW row;
 
-//    if ((conn = mysql_init(NULL)) == NULL) { // Если не удалось инициализировать MySQL
-//        std::cout << "Error with mysql_init();" << std::endl;
-//        exit(1);
-//    }
+    if ((conn = mysql_init(NULL)) == NULL) { // Если не удалось инициализировать MySQL
+        std::cout << "Error with mysql_init();" << std::endl;
+        exit(1);
+    }
 
-//    if (mysql_real_connect(conn, HOST, USER, PASS, "categories", PORT, NULL, NULL) == NULL) { // Если не удалось соединиться с сервером
-//        std::cout << "Error with mysql_real_connect();" << std::endl;
-//        exit(1);
-//    }
+    if (mysql_real_connect(conn, HOST, USER, PASS, "categories", PORT, NULL, NULL) == NULL) { // Если не удалось соединиться с сервером
+        std::cout << "Error with mysql_real_connect();" << std::endl;
+        exit(1);
+    }
 
-//    mysql_set_character_set(conn, "utf8_general_ci"); // Устанавливаем кодировку сервера
-//    mysql_query(conn, LOCALENCODING); // Устанавливаем кодировку для корректного выполнения запросов на русском языке
-//    mysql_query(conn, "SHOW TABLES"); // Делаем запрос к базе и получаем список таблиц
-//    std::vector <Category> categs; // Создаём массив категорий
+    mysql_set_character_set(conn, "utf8_general_ci"); // Устанавливаем кодировку сервера
+    mysql_query(conn, LOCALENCODING); // Устанавливаем кодировку для корректного выполнения запросов на русском языке
+    mysql_query(conn, "SHOW TABLES"); // Делаем запрос к базе и получаем список таблиц
+    std::vector <Category> categs; // Создаём массив категорий
 
-//    if (res = mysql_store_result(conn)) { // Если есть результаты
-//        while (row = mysql_fetch_row(res)) { // Цикл проходит по всем полученным результатам
-//            Category temp;
-//            std::vector <std::string> tempData = split(row[0], ' ');
-//            if (tempData[5] == "1")
-//                temp.mode = Category::MODE::PERSONAL_TUL;
-//            else if (tempData[6] == "1")
-//                temp.mode = Category::MODE::TEAM_TUL;
-//            else if (tempData[7] == "1")
-//                temp.mode = Category::MODE::TRADITIONAL_TUL;
-//            else if (tempData[8] == "1")
-//                temp.mode = Category::MODE::PERSONAL_SPARRING;
-//            else if (tempData[9] == "1")
-//                temp.mode = Category::MODE::TEAM_SPARRING;
-//            else if (tempData[10] == "1")
-//                temp.mode = Category::MODE::TRADITIONAL_SPARRING;
+    if (res = mysql_store_result(conn)) { // Если есть результаты
+        while (row = mysql_fetch_row(res)) { // Цикл проходит по всем полученным результатам
+            Category temp;
+            std::vector <std::string> tempData = split(row[0], ' ');
+            if (tempData[5] == "1")
+                temp.mode = Category::MODE::PERSONAL_TUL;
+            else if (tempData[6] == "1")
+                temp.mode = Category::MODE::TEAM_TUL;
+            else if (tempData[7] == "1")
+                temp.mode = Category::MODE::TRADITIONAL_TUL;
+            else if (tempData[8] == "1")
+                temp.mode = Category::MODE::PERSONAL_SPARRING;
+            else if (tempData[9] == "1")
+                temp.mode = Category::MODE::TEAM_SPARRING;
+            else if (tempData[10] == "1")
+                temp.mode = Category::MODE::TRADITIONAL_SPARRING;
 
-//            temp.name = std::string(row[0]); // Задаём имя категории
-//            categs.push_back(temp); // Добавляем категорию
-//        }
-//        for (int i = 0; i < categs.size(); i++) {
-//            const char *query = static_cast<std::string>(FIELDS + categs[i].name + "`;").c_str(); // Формируем текст запроса
-//            mysql_query(conn, static_cast<const char*>(query)); // Посылаем запрос в БД
-//            if (res = mysql_store_result(conn)) { // Если запрос вернул не пустой результат
-//                while (row = mysql_fetch_row(res)) { // Проходим по всем результатам
-//                    // Заполняем поля участника
-//                    Participant temp;
-//                    temp.name = row[0];
-//                    temp.birth = row[1];
-//                    temp.club = row[2];
-//                    categs[i].participants.push_back(temp); // Заносим участника в базу
-//                }
-//            }
-//        }
-//    }
-//    else
-//        std::cout << mysql_error(conn) << std::endl;
-//    mysql_close(conn);
-//    return categs;
-//}*/
+            temp.name = std::string(row[0]); // Задаём имя категории
+            categs.push_back(temp); // Добавляем категорию
+        }
+        for (int i = 0; i < categs.size(); i++) {
+            const char *query = static_cast<std::string>(FIELDS + categs[i].name + "`;").c_str(); // Формируем текст запроса
+            mysql_query(conn, static_cast<const char*>(query)); // Посылаем запрос в БД
+            if (res = mysql_store_result(conn)) { // Если запрос вернул не пустой результат
+                while (row = mysql_fetch_row(res)) { // Проходим по всем результатам
+                    // Заполняем поля участника
+                    Participant temp;
+                    temp.name = row[0];
+                    temp.birth = row[1];
+                    temp.club = row[2];
+                    categs[i].participants.push_back(temp); // Заносим участника в базу
+                }
+            }
+        }
+    }
+    else
+        std::cout << mysql_error(conn) << std::endl;
+    mysql_close(conn);
+    return categs;
+}*/
 
 int printCategories(const std::vector <Category>& categories)
 {

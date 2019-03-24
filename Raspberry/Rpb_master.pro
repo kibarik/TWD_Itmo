@@ -1,6 +1,9 @@
 QT += quick
 CONFIG += c++11
 
+INCLUDEPATH+=%mysql%\include" "LIBS+=%mysql%\lib\opt\libmysql.lib" -o Makefile mysql.pro
+mingw32-make
+
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
 # depend on your compiler). Refer to the documentation for the
@@ -14,7 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    Category.cpp
+    category.cpp
 
 RESOURCES += qml.qrc
 
@@ -32,4 +35,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES +=
 
 HEADERS += \
-    Category.h
+    category.h

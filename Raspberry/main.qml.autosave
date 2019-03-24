@@ -66,8 +66,11 @@ Window {
         onSignalExit: { //из Category.qml сигнал на возврат в гл. окно
             mainWindow.opacity = 1.0
             categoryWindow.close()
+            
         }
     }
+    
+    
 
 
 

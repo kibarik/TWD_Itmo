@@ -13,10 +13,13 @@
         <file>Sparring/Chui_Gamjun.qml</file>
         <file>Tul/Tul.qml</file>
         <file>Tul/TulInfo.qml</file>
-        <file>main.cpp</file>
         <file>Tul/ControlButtons.qml</file>
         <file>Categories/Category.qml</file>
         <file>Img/start.png</file>
         <file>Img/stop.png</file>
+        
+        <file>main.cpp</file>
+        <file>category.cpp</file>
+        <file>category.h</file>
     </qresource>
 </RCC>
