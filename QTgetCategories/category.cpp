@@ -86,7 +86,7 @@ QVector <Category> getCategories() {
         }
     }
     else
-		std::cout << "No results!!!" << std::endl;
+		std::cout << "No categories in database " << DBNAME << "!!!" << std::endl;
 	conn.close();
     return categs;
 }
