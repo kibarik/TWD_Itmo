@@ -2,7 +2,11 @@ from os import listdir
 from datetime import date
 import mysql.connector as mysql
 
+HOST = "localhost"
+USER = "root"
 PASSWORD = "45214521"
+MAINDB = "participants"
+CATEGDB = "categories"
 
 defaultTable = (
 		"CREATE TABLE IF NOT EXISTS `{tabName}` ("
@@ -102,14 +106,14 @@ def GetTemplate(fileName):
 def main():
 	templates = []
 	try:
-		mainDB = mysql.connect( user = "root",
+		mainDB = mysql.connect( user = USER,
   	                        password = PASSWORD,
-		                        host = "localhost",
-                            database = "participants")
-		categoriesDB = mysql.connect( user = "root",
+		                        host = HOST,
+                            database = MAINDB)
+		categoriesDB = mysql.connect( user = USER,
 		                         password = PASSWORD,
-		                         host = "localhost",
-		                         database = "categories")
+		                         host = HOST,
+		                         database = CATEGDB)
 	except mysql.Error as err:
 		print(err)
 		raise err
