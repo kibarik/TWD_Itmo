@@ -3,60 +3,61 @@
 //#include <mysql.h>
 //#include <pch.h>
 #include <iostream>
-#include <vector>
+#include <QVector>
 #include <iostream>
-#include <string>
+#include <QString>
 #include <utility>
-
 #include <QObject>
 
-
-
 struct Participant{
-    std::string name, birth, club;
+	QString name, birth, club;
 };
 
 class Category
 {
 public:
-    std::string name;
-    enum MODE {
-        PERSONAL_TUL,
-        PERSONAL_SPARRING,
-        TEAM_TUL,
-        TEAM_SPARRING,
-        TRADITIONAL_TUL,
-        TRADITIONAL_SPARRING
-    } mode;
+	QString name;
+	enum MODE {
+		PERSONAL_TUL,
+		PERSONAL_SPARRING,
+		TEAM_TUL,
+		TEAM_SPARRING,
+		TRADITIONAL_TUL,
+		TRADITIONAL_SPARRING
+	} mode;
 
-    std::vector <Participant> participants;
+	QVector <Participant> participants;
 
-    Participant &operator[](size_t index) {
-        return participants[index];
-    }
+	Participant &operator[](int index) {
+		return participants[index];
+	}
 
-    std::vector <Participant> &operator()() {
-        return participants;
-    }
+	QVector <Participant> &operator()() {
+		return participants;
+	}
+
+	QVector <Participant> getParticipants(){
+		return participants;
+	}
+	Category::MODE getMode(const Category& category){
+	  return category.mode;
+	}
 };
 
 
-std::vector <std::string> split(std::string str, char delim);
-int printCategories(const std::vector <Category>& categories);
-Category::MODE getMode(const Category& category);
-std::vector<Participant> getParticipants(const Category& category);
-std::vector <Category> getCategTemplate(); //temlate category for tests
+
+QVector <QString> split(QString, char delim);
+int printCategories(const QVector <Category>& categories);
+//Category::MODE getMode(const Category& category);
+//std::vector<Participant> getParticipants(const Category& category);
+QVector <Category> getCategTemplate(); //temlate category for tests
 
 
 class CategoryAPI : public QObject {
     //API for interfaces
-     Q_OBJECT
+	Q_OBJECT
     public:
 //        CategoryAPI();
-        Category::MODE getMode(const Category& category);
-        std::vector<Participant> getParticipants(const Category& category);
-        std::vector <Category> getCategTemplate(); //temlate category for tests
-
 
     signals: //From C++ to QML (Server to client) ->>
         //void noCategories(); //Error signal

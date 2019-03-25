@@ -6,19 +6,19 @@
 
 int main(int argc, char *argv[])
 {
-    printCategories(getCategTemplate());
+	printCategories(getCategTemplate());
 
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
-    QGuiApplication app(argc, argv);
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+	QGuiApplication app(argc, argv);
+	QQmlApplicationEngine engine;
+	engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
-    CategoryAPI *categoryAPI = new CategoryAPI();
-    engine.rootContext()->setContextProperty("categoryAPI", categoryAPI);
+	CategoryAPI *categoryAPI = new CategoryAPI();
+	engine.rootContext()->setContextProperty("categoryAPI", categoryAPI);
 
-    if (engine.rootObjects().isEmpty())
-        return -1;
+	if (engine.rootObjects().isEmpty())
+		return -1;
 
-    return app.exec();
-    }
+	return app.exec();
+}
