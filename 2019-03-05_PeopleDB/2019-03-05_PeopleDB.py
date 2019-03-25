@@ -2,7 +2,12 @@ from os import listdir
 from xlrd import open_workbook, xldate_as_datetime
 import mysql.connector
 
+HOST = "localhost"
+USER = "root"
 PASSWORD = "45214521"
+DATABASE = "paricipants"
+
+STARTROW = 11
 
 class Participant(dict):
 	def __init__(self, positions, params):
@@ -83,10 +88,10 @@ class Participant(dict):
 
 def main():
 	try:
-		db = mysql.connector.connect( user = "root",
+		db = mysql.connector.connect( user = USER,
 		                              password = PASSWORD,
-		                              host = "localhost",
-		                              database = "participants")
+		                              host = HOST,
+		                              database = DATABASE)
 	except mysql.connector.Error as err:
 		print(err)
 		raise err
@@ -133,7 +138,7 @@ def main():
 		elif fileName.endswith(".xlsx") or fileName.endswith(".xls"):
 			workbook = open_workbook(fileName)
 			sheet = workbook.sheet_by_index(0)
-			for rownum in range(6, sheet.nrows):
+			for rownum in range(STARTROW, sheet.nrows):
 				cells = sheet.row_values(rownum)
 				if cells[2] == "":
 					break
