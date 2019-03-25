@@ -1,18 +1,8 @@
-#include "category.h"
 
-//MySQL connection data
-#define HOST "localhost"
-#define USER "root"
-#define PASS "lasjbdkashbdabsg123t1762dlm12393y4hfbkwsd8ye283heHIBUSDUIAH&@rnq2987y238"
-#define PORT NULL
-#define LOCALENCODING "set names utf8"
-#define FIELDS "SELECT name, birth, club FROM `"
-
-
-std::vector<std::string> split(std::string str, char delim) {
-    std::vector <std::string> result;
-    std::string temp;
-    for (unsigned int i = 0; i < str.length(); i++) {
+QVector <QString> split(QString str, char delim) {
+    QVector <QString> result;
+    QString temp;
+    for (int i = 0; i < str.length(); i++) {
         if (str[i] == delim) {
             result.push_back(temp);
             temp = "";
@@ -25,30 +15,31 @@ std::vector<std::string> split(std::string str, char delim) {
     return result;
 }
 
-std::vector<Category> getCategories() {
-    MYSQL *conn;
-    MYSQL_RES *res;
-    MYSQL_ROW row;
+QVector <Category> getCategories() {
 
-    if ((conn = mysql_init(NULL)) == NULL) { // Если не удалось инициализировать MySQL
-        std::cout << "Error with mysql_init();" << std::endl;
+    QSqlDatabase conn = QSqlDatabase::addDatabase("QMYSQL");
+    conn.setHostName(HOST);
+    conn.setDatabaseName(DBNAME);
+    conn.setUserName(USER);
+    conn.setPassword(PASS);
+
+    if (!conn.open()) { // Если не удалось подключиться к БД
+        std::cout << "MySQL ERROR connection();" << std::endl;
         exit(1);
     }
 
-    if (mysql_real_connect(conn, HOST, USER, PASS, "categories", PORT, NULL, NULL) == NULL) { // Если не удалось соединиться с сервером
-        std::cout << "Error with mysql_real_connect();" << std::endl;
-        exit(1);
-    }
+    //QTextCodec * myTextCodec = QTextCodec::codecForName("UTF-8");   // Устанавливаем кодировку сервера НЕ ТОЧНО ЧТО РАБОТАЕТ
 
-    mysql_set_character_set(conn, "utf8_general_ci"); // Устанавливаем кодировку сервера
-    mysql_query(conn, LOCALENCODING); // Устанавливаем кодировку для корректного выполнения запросов на русском языке
-    mysql_query(conn, "SHOW TABLES"); // Делаем запрос к базе и получаем список таблиц
-    std::vector <Category> categs; // Создаём массив категорий
+    QSqlQuery res; //создаем упращение для вызова, вместо QSqlQuery query.exec()
 
-    if (res = mysql_store_result(conn)) { // Если есть результаты
-        while (row = mysql_fetch_row(res)) { // Цикл проходит по всем полученным результатам
+    res.exec(LOCALENCODING); // Устанавливаем кодировку для корректного выполнения запросов на русском языке
+    res.exec("SHOW TABLES"); // Делаем запрос к базе и получаем список таблиц
+    QVector <Category> categs; // Создаём массив категорий
+
+    if (res.size() > 0) { // Если есть результаты
+        while (res.next()) { // Цикл проходит по всем полученным результатам
             Category temp;
-            std::vector <std::string> tempData = split(row[0], ' ');
+            QVector <QString> tempData = split(res.value(0).toString(), ' ');
             if (tempData[5] == "1")
                 temp.mode = Category::MODE::PERSONAL_TUL;
             else if (tempData[6] == "1")
@@ -62,43 +53,44 @@ std::vector<Category> getCategories() {
             else if (tempData[10] == "1")
                 temp.mode = Category::MODE::TRADITIONAL_SPARRING;
 
-            temp.name = std::string(row[0]); // Задаём имя категории
+            temp.name = res.value(0).toString(); // Задаём имя категории
             categs.push_back(temp); // Добавляем категорию
         }
         for (int i = 0; i < categs.size(); i++) {
-            const char *query = static_cast<std::string>(FIELDS + categs[i].name + "`;").c_str(); // Формируем текст запроса
-            mysql_query(conn, static_cast<const char*>(query)); // Посылаем запрос в БД
-            if (res = mysql_store_result(conn)) { // Если запрос вернул не пустой результат
-                while (row = mysql_fetch_row(res)) { // Проходим по всем результатам
+            const QString query = static_cast<QString>(FIELDS + categs[i].name + "`;"); // Формируем текст запроса
+            res = QSqlQuery(query, conn);
+            res.exec(); // Посылаем запрос в БД
+            if (res.size() > 0) { // Если запрос вернул не пустой результат
+                while (res.next()) { // Проходим по всем результатам
                     // Заполняем поля участника
                     Participant temp;
-                    temp.name = row[0];
-                    temp.birth = row[1];
-                    temp.club = row[2];
+                    temp.name = res.value(0).toString();
+                    temp.birth = res.value(1).toString();
+                    temp.club = res.value(2).toString();
                     categs[i].participants.push_back(temp); // Заносим участника в базу
                 }
             }
         }
     }
     else
-        std::cout << mysql_error(conn) << std::endl;
-    mysql_close(conn);
+        std::cout << "No results!!!" << std::endl;
+    conn.close();
     return categs;
-}*/
+}
 
-int printCategories(const std::vector <Category>& categories)
+int printCategories(const QVector <Category>& categories)
 {
     setlocale(LC_ALL, "Rus");
     for(auto& category : categories){
-        std::cout << "->"<< category.name << std::endl;
+        std::cout << "->" << category.name.toStdString() << std::endl;
         std::cout<< "--> size is:" << categories.size() << std::endl;
         std::cout << "--> mode id:" << category.mode <<' '<< std::endl;
         std::cout << "--> Totaly: " << category.participants.size() << " sportsmens in category" << std::endl;
 
         for(const Participant& Sportsmen: category.participants){
-            std::cout << "---->sportsmen:" << Sportsmen.name << ' '
-                        << Sportsmen.birth << ' '
-                        << Sportsmen.club << ' '
+            std::cout << "---->sportsmen:" << Sportsmen.name.toStdString() << ' '
+                        << Sportsmen.birth.toStdString() << ' '
+                        << Sportsmen.club.toStdString() << ' '
                         << std::endl;
             }
         std::cout << "---------------------------------------------------------"<<std::endl;
@@ -107,9 +99,9 @@ int printCategories(const std::vector <Category>& categories)
     return 0;
 }
 
-std::vector <Category> getCategTemplate() {
-    std::vector <Category> categs;
-    std::string categsNames[] = {
+QVector <Category> getCategTemplate() {
+    QVector <Category> categs;
+    QString categsNames[] = {
         "м 2000 2001 10-7 гуп 1 0 0 0 0 0 0 0 0",
         "м 2000 2002 10-6 гуп 1 0 0 0 0 0 0 0 0",
         "м 2000 2002 10-8 гуп 1 0 0 0 0 0 0 0 0",
@@ -120,7 +112,7 @@ std::vector <Category> getCategTemplate() {
         "м 2000 2006 10-3 гуп 1 0 0 0 0 0 0 0 0",
         "м 2000 2008 1-5 дан 1 0 0 0 0 0 0 0 0"
     };
-    std::string humans[9][2][3] = {
+    QString humans[9][2][3] = {
         {
             {"Талашин Иван Иванович", "2003-12-16", "РОДИНА"},
             {"", "", ""}
@@ -178,11 +170,3 @@ std::vector <Category> getCategTemplate() {
 
     return categs;
 };
-
-Category::MODE getMode(const Category& category){
-  return category.mode;
-}
-
-std::vector<Participant> getParticipants(const Category& category){
-      return category.participants;
-}

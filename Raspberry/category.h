@@ -46,7 +46,7 @@ int printCategories(const std::vector <Category>& categories);
 Category::MODE getMode(const Category& category);
 std::vector<Participant> getParticipants(const Category& category);
 std::vector <Category> getCategTemplate(); //temlate category for tests
-
+QVector <Category> getCategories();
 
 class CategoryAPI : public QObject {
     //API for interfaces

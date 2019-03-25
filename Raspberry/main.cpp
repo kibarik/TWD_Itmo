@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-    printCategories(getCategTemplate());
+    printCategories(getCategories());
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 

@@ -1,8 +1,5 @@
-QT += quick
+QT += quick sql core
 CONFIG += c++11
-
-INCLUDEPATH+=%mysql%\include" "LIBS+=%mysql%\lib\opt\libmysql.lib" -o Makefile mysql.pro
-mingw32-make
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings

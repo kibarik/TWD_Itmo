@@ -4,7 +4,6 @@ import QtQuick.Window 2.12
 import "Sparring/"
 import "OutMonitor/"
 import "Tul/"
-import "Categories/"
 
 /*
   подключение структуры
@@ -59,15 +58,18 @@ Window {
         visible: true
     }
 
-    Category {
-        visible: false
-        id: categoryWindow
+//    Category {
+//        visible: false
+//        id: categoryWindow
 
-        onSignalExit: { //из Category.qml сигнал на возврат в гл. окно
-            mainWindow.opacity = 1.0
-            categoryWindow.close()
-        }
-    }
+//        onSignalExit: { //из Category.qml сигнал на возврат в гл. окно
+//            mainWindow.opacity = 1.0
+//            categoryWindow.close()
+            
+//        }
+//    }
+    
+    
 
 
 
