@@ -6,7 +6,7 @@
 
 #define HOST "localhost"
 #define USER "root"
-#define PASS "lasjbdkashbdabsg123t1762dlm12393y4hfbkwsd8ye283heHIBUSDUIAH&@rnq2987y238"
+#define PASS "45214521"
 #define PORT NULL
 #define LOCALENCODING "set names utf8"
 #define FIELDS "SELECT name, birth, club FROM `"
