@@ -5,9 +5,10 @@ import mysql.connector
 HOST = "localhost"
 USER = "root"
 PASSWORD = "45214521"
-DATABASE = "paricipants"
+DATABASE = "participants"
 
 STARTROW = 11
+CELLSHIFT = 1
 
 class Participant(dict):
 	def __init__(self, positions, params):
@@ -28,11 +29,18 @@ class Participant(dict):
 			else:
 				input("Sex. Error with file format!!!")
 				exit(1)
+
 		if positions["techQualification"] != None:
-			if self["techQualification"].split(" ")[1] == "гуп":
-				self["gup"] = self["techQualification"].split(" ")[0]
+			if self["techQualification"].split(" ")[0] == self["techQualification"]:
+				if self["techQualification"].endswith("гуп"):
+					self["gup"] = self["techQualification"].split("г")[0]
+				else:
+					self["dan"] = self["techQualification"].split("д")[0]
 			else:
-				self["dan"] = self["techQualification"].split(" ")[0]
+				if self["techQualification"].split(" ")[1] == "гуп":
+					self["gup"] = self["techQualification"].split(" ")[0]
+				else:
+					self["dan"] = self["techQualification"].split(" ")[0]
 			self.pop("techQualification", None)
 
 		for boolVal in [
@@ -49,7 +57,7 @@ class Participant(dict):
 					input(boolVal + ". Error with file format!!!")
 					exit(1)
 		if positions["weight"] != None:
-			if self["weight"] == "0" or self["weight"] == "":
+			if self["weight"] == "0" or self["weight"] == "" or self["weight"] == "-":
 				self["weight"] = "NULL"
 
 	def getAllValues(self, start = 0, to = None):
@@ -95,7 +103,11 @@ def main():
 	except mysql.connector.Error as err:
 		print(err)
 		raise err
-
+	cursor = db.cursor()
+	cursor.execute("TRUNCATE `humans`")
+	cursor.fetchone()
+	cursor.close()
+	db.commit()
 	positions = { # Задаёт очерёдность столбцов в файлах с таблицами
 		"name": 0,
 		"sex": 1,
@@ -127,7 +139,7 @@ def main():
 					break
 				if FIRST_LINE == False:
 					participant = Participant(positions, line[:-1].split(";"))
-					query = "INSERT INTO `humans`(" + participant.getAllNames() + ") VALUES (" + participant.getAllValues() +");"
+					query = "REPLACE INTO `humans`(" + participant.getAllNames() + ") VALUES (" + participant.getAllValues() +");"
 					#print(participant.getAllNames())
 					cursor = db.cursor()
 					cursor.execute(query)
@@ -136,18 +148,23 @@ def main():
 				else:
 					FIRST_LINE = False
 		elif fileName.endswith(".xlsx") or fileName.endswith(".xls"):
+			#print(fileName)
 			workbook = open_workbook(fileName)
 			sheet = workbook.sheet_by_index(0)
 			for rownum in range(STARTROW, sheet.nrows):
 				cells = sheet.row_values(rownum)
-				if cells[2] == "":
+				if cells[2 + CELLSHIFT] == "":
 					break
-				cells[4] = str(xldate_as_datetime(cells[4], workbook.datemode)).split(" ")[0]
+				#print(cells[4 + CELLSHIFT])
+				cells[4 + CELLSHIFT] = str(xldate_as_datetime(cells[4 + CELLSHIFT], workbook.datemode)).split(" ")[0]
 				cells = [str(val) for val in cells]
-				participant = Participant(positions, cells[2:])
+				participant = Participant(positions, cells[(2 + CELLSHIFT):])
 				#print(participant.getAllNames())
 				#print(participant.getAllValues())
-				query = "INSERT INTO `humans`(" + participant.getAllNames() + ") VALUES (" + participant.getAllValues() +");"
+				query = "REPLACE INTO `humans` (" + \
+				participant.getAllNames() + ") VALUES (" + participant.getAllValues() +\
+				");"
+				#print(query)
 				cursor = db.cursor()
 				cursor.execute(query)
 				cursor.fetchone()
