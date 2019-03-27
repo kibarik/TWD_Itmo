@@ -33,3 +33,4 @@ DISTFILES +=
 
 HEADERS += \
     category.h
+

@@ -1,3 +1,16 @@
+#include "category.h"
+#include <QtSql>
+#include <QSqlDatabase>
+#include <QString>
+
+//MySQL connection data
+#define HOST "localhost"
+#define USER "root"
+#define DBNAME "categories"
+#define PASS "dreamroad"
+#define PORT NULL
+#define LOCALENCODING "set names windows-1251"
+#define FIELDS "SELECT name, birth, club FROM `"
 
 QVector <QString> split(QString str, char delim) {
     QVector <QString> result;
@@ -73,7 +86,7 @@ QVector <Category> getCategories() {
         }
     }
     else
-        std::cout << "No results!!!" << std::endl;
+        std::cout << "No categories in database " << DBNAME << "!!!" << std::endl;
     conn.close();
     return categs;
 }

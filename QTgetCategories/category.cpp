@@ -7,9 +7,9 @@
 #define HOST "localhost"
 #define USER "root"
 #define DBNAME "categories"
-#define PASS "45214521"
+#define PASS "dreamroad"
 #define PORT NULL
-#define LOCALENCODING "set names utf8"
+#define LOCALENCODING "set names windows-1251"
 #define FIELDS "SELECT name, birth, club FROM `"
 
 QVector <QString> split(QString str, char delim) {
@@ -30,7 +30,7 @@ QVector <QString> split(QString str, char delim) {
 
 QVector <Category> getCategories() {
 
-	QSqlDatabase conn = QSqlDatabase::addDatabase("QMYSQL");
+    QSqlDatabase conn = QSqlDatabase::addDatabase("QMYSQL");
     conn.setHostName(HOST);
 	conn.setDatabaseName(DBNAME);
     conn.setUserName(USER);
