@@ -4,10 +4,10 @@
 //#include <pch.h>
 #include <iostream>
 #include <QVector>
-#include <iostream>
 #include <QString>
 #include <utility>
 #include <QObject>
+#include <QQueue>
 
 struct Participant{
     QString name, birth, club;
@@ -57,18 +57,17 @@ class CategoryAPI : public QObject {
     //API for interfaces
     Q_OBJECT
     public:
-//        CategoryAPI();
+    //CategoryAPI();
 
-    signals: //From C++ to QML (Server to client) ->>
+    signals: //From QML to C++ (Server to client) ->>
+
         //void noCategories(); //Error signal
-
         //std::vector <Category> getCategories();
         //void serverOff();
         //void wifiOff();
         //void displayOff();
-
-
-//    public slots: //From QML to C++ <<-
+    public slots: //From С++ to QML <<-
+          QQueue<QString> SetCategoriesNames(); //на сигнал getCategory от CategoryWindow.qml;
 //        void categoryEnd();
 //        void setWin(); //присудить место участнику
 //        std::pair<Participant, Participant> nextPair();

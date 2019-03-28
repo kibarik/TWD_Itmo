@@ -9,6 +9,7 @@ Window {
     flags: Qt.FramelessWindowHint // Отключаем обрамление окна
 
     signal signalExit
+    signal getCategory
 
     ListView {
         id: listView

@@ -1,4 +1,4 @@
-#include <QGuiApplication>
+﻿#include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
@@ -6,8 +6,6 @@
 
 int main(int argc, char *argv[])
 {
-    printCategories(getCategories());
-
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
@@ -19,6 +17,8 @@ int main(int argc, char *argv[])
 
     if (engine.rootObjects().isEmpty())
         return -1;
+
+    printCategories(getCategories()); // Этап тестирования для отображения категорий
 
     return app.exec();
     }

@@ -2,6 +2,7 @@
 #include <QtSql>
 #include <QSqlDatabase>
 #include <QString>
+#include <QDebug>
 
 //MySQL connection data
 #define HOST "localhost"
@@ -9,7 +10,7 @@
 #define DBNAME "categories"
 #define PASS "dreamroad"
 #define PORT NULL
-#define LOCALENCODING "set names windows-1251"
+#define LOCALENCODING "set names utf8"
 #define FIELDS "SELECT name, birth, club FROM `"
 
 QVector <QString> split(QString str, char delim) {
@@ -29,7 +30,6 @@ QVector <QString> split(QString str, char delim) {
 }
 
 QVector <Category> getCategories() {
-
     QSqlDatabase conn = QSqlDatabase::addDatabase("QMYSQL");
     conn.setHostName(HOST);
     conn.setDatabaseName(DBNAME);
@@ -93,20 +93,20 @@ QVector <Category> getCategories() {
 
 int printCategories(const QVector <Category>& categories)
 {
-    setlocale(LC_ALL, "Rus");
+
+    //setlocale(LC_//    QTextStream cout(stdout); cout.setCodec("utf8"); //русская категорвкаALL,"Russian"); //русская локализация вывода std::cout
     for(auto& category : categories){
-        std::cout << "->" << category.name.toStdString() << std::endl;
-        std::cout<< "--> size is:" << categories.size() << std::endl;
-        std::cout << "--> mode id:" << category.mode <<' '<< std::endl;
-        std::cout << "--> Totaly: " << category.participants.size() << " sportsmens in category" << std::endl;
+        qDebug() << "->" << category.name;
+        qDebug()<< "--> We find: " << categories.size() << " categories";
+        qDebug() << "--> mode id: " << category.mode;
+        qDebug() << "--> Totaly: " << category.participants.size() << " sportsmens in category";
 
         for(const Participant& Sportsmen: category.participants){
-            std::cout << "---->sportsmen:" << Sportsmen.name.toStdString() << ' '
-                        << Sportsmen.birth.toStdString() << ' '
-                        << Sportsmen.club.toStdString() << ' '
-                        << std::endl;
+            qDebug() << "---->sportsmen:" << Sportsmen.name << " "
+                        << Sportsmen.birth << " "
+                        << Sportsmen.club << " ";
             }
-        std::cout << "---------------------------------------------------------"<<std::endl;
+        qDebug() << "---------------------------------------------------------"<<endl;
     }
 
     return 0;
@@ -182,4 +182,15 @@ QVector <Category> getCategTemplate() {
     }
 
     return categs;
+};
+
+QQueue<QString> CategoryAPI::SetCategoriesNames(){
+    QVector<Category> categories = getCategories();
+    QQueue <QString> CategoriesNames;
+
+    for (const Category& category : categories) {
+        CategoriesNames << category.name;
+    };
+
+    return CategoriesNames;
 };

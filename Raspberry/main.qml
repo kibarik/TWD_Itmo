@@ -59,16 +59,14 @@ Window {
         visible: true
     }
 
-    Category {
+    CategoryWindow {
         visible: false
         id: categoryWindow
 
         onSignalExit: { //из Category.qml сигнал на возврат в гл. окно
             mainWindow.opacity = 1.0
             categoryWindow.close()
+            
         }
     }
-
-
-
 }
