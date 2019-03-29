@@ -3,8 +3,9 @@
 #include <QSqlDatabase>
 #include <QString>
 #include <QDebug>
+#include <QPair>
 
-//MySQL connection data
+//MySQL connection data--------------------------
 #define HOST "localhost"
 #define USER "root"
 #define DBNAME "categories"
@@ -13,6 +14,7 @@
 #define LOCALENCODING "set names utf8"
 #define FIELDS "SELECT name, birth, club FROM `"
 
+//------------------------------------------------
 QVector <QString> split(QString str, char delim) {
     QVector <QString> result;
     QString temp;
@@ -184,7 +186,7 @@ QVector <Category> getCategTemplate() {
     return categs;
 };
 
-QQueue<QString> CategoryAPI::SetCategoriesNames(){
+QQueue<QString> CategoryAPI::setCategoriesNames(){
     QVector<Category> categories = getCategories();
     QQueue <QString> CategoriesNames;
 
@@ -193,4 +195,30 @@ QQueue<QString> CategoryAPI::SetCategoriesNames(){
     };
 
     return CategoriesNames;
+};
+
+
+QQueue<QPair<QString, QString>> CategoryAPI::setParticipants(const Category& category){
+   QQueue<QPair<QString, QString>> now;
+   qint32 i = 1;
+   QString temp="";
+
+   for(const Participant& participant: category.participants){
+       if (i%2==0){
+           qDebug() << temp << "<->" << participant.name;
+           now.push_back(qMakePair(temp, participant.name));
+           temp.clear();
+       }
+       else if(i==category.participants.size()) { //для заполнения нечетного кол-ва людей
+           now.push_back(qMakePair(temp, ""));
+           qDebug() << "Нечетное кол-во участников найдено!";
+           break;
+      }
+       else temp = participant.name;
+       i++;
+   };
+
+   qDebug() << "setParticipants END!!!";
+   return now;
+
 };

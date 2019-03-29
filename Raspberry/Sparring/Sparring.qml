@@ -28,8 +28,8 @@ Rectangle {
 
     PairDisplay {
         id: now_after
-        anchors.top: button.bottom
         height: 200
+        anchors.top: button.bottom
         width: 320
         visible: true
     }
@@ -62,6 +62,8 @@ Rectangle {
 
 
 }
+
+
 
 
 

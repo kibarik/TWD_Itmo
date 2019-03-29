@@ -1,6 +1,5 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.5
-
+import QtQuick 2.5
+import QtQuick.Controls 2.0 as Controls
 
 /*
     Отображение участников определяется выбранной категорией
@@ -24,10 +23,9 @@ import QtQuick.Controls 2.5
 
     Row {
         id: now
-        x: 0
         width: 320
         height: 100
-        anchors.top: categorybButton.bottom
+
         Column {
             id: n_lbl
             width: 20
@@ -35,17 +33,17 @@ import QtQuick.Controls 2.5
             Rectangle {
                 id: rectangle1
                 color: "#27ae60"
-                anchors.fill: parent
-                Label {
+                anchors.fill: n_lbl
+                border.width: 0
+                Controls.Label {
                     id: label
                     color: "#ffffff"
                     text: qsTr("Сейчас")
-                    anchors.fill: parent
+                    anchors.fill: rectangle1
                     rotation: 90
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
-                border.width: 0
             }
         }
 
@@ -53,39 +51,34 @@ import QtQuick.Controls 2.5
             id: column
             width: 300
             height: 100
+            anchors.right: parent.right
             Rectangle {
                 id: rectangle2
                 width: 300
                 height: 50
                 color: "#c0392b"
-                ItemDelegate {
+                Controls.ItemDelegate {
                     id: first
                     width: 300
                     height: 50
-                    text: qsTr("Ишманов Алексей\nВыборг 'Фанат'")
+                    text: qsTr("Спортсмен 1\n Город 'Клуб'")
                     padding: 5
-                    display: AbstractButton.TextOnly
                     font.family: "Times New Roman"
                     font.pointSize: 10
-
-                    onClicked: {
-
-                    }
                 }
             }
 
             Rectangle {
                 id: rectangle3
-                x: 0
                 width: 300
                 height: 50
                 color: "#3867d6"
                 anchors.bottom: parent.bottom
-                ItemDelegate {
+                Controls.ItemDelegate {
                     id: second
                     width: 300
                     height: 50
-                    text: qsTr("Ишманов Алексей\nВыборг 'Фанат'")
+                    text: qsTr("Спортсмен 2\n Город 'Клуб'");
                     padding: 5
                     font.family: "Times New Roman"
                     font.pointSize: 10
@@ -93,7 +86,6 @@ import QtQuick.Controls 2.5
                 }
             }
         }
-        anchors.topMargin: 0
     }
 
     Row {
@@ -101,24 +93,26 @@ import QtQuick.Controls 2.5
         width: 320
         height: 100
         anchors.top: now.bottom
+
         Column {
             id: n_lbl1
             width: 20
             height: 100
             Rectangle {
                 id: rectangle4
-                color: "#f1c40f"
+                color: "#22313F"
                 anchors.fill: parent
-                Label {
+                border.width: 0
+                Controls.Label {
                     id: label1
-                    color: "#ffffff"
+                    color: "#fff"
                     text: qsTr("Следующий")
                     anchors.fill: parent
                     rotation: 90
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
-                border.width: 0
+
             }
         }
 
@@ -131,13 +125,12 @@ import QtQuick.Controls 2.5
                 width: 300
                 height: 50
                 color: "#95a5a6"
-                ItemDelegate {
+                Controls.ItemDelegate {
                     id: next1
                     width: 300
                     height: 50
-                    text: qsTr("Ишманов Алексей\nВыборг 'Фанат'")
+                    text: qsTr("Спортсмен 1\n Город 'Клуб'")
                     padding: 5
-                    display: AbstractButton.TextOnly
                     font.pointSize: 10
                     font.family: "Times New Roman"
                 }
@@ -150,12 +143,11 @@ import QtQuick.Controls 2.5
                 height: 50
                 color: "#95a5a6"
                 anchors.bottom: parent.bottom
-                ItemDelegate {
+                Controls.ItemDelegate {
                     id: next2
                     width: 300
                     height: 50
-                    text: qsTr("Ишманов Алексей\nВыборг 'Фанат'")
-                    padding: 5
+                    text: qsTr("Следующий спортсмен 2\n Город 'Клуб'");                  padding: 5
                     font.pointSize: 10
                     font.family: "Times New Roman"
                     hoverEnabled: false
@@ -164,3 +156,18 @@ import QtQuick.Controls 2.5
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+/*##^## Designer {
+    D{i:2;anchors_width:20}
+}
+ ##^##*/

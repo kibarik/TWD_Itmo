@@ -17,8 +17,17 @@ int main(int argc, char *argv[])
 
     if (engine.rootObjects().isEmpty())
         return -1;
+//------------------------------------------------------//
 
-    printCategories(getCategories()); // Этап тестирования для отображения категорий
+    CategoryAPI* debug = new CategoryAPI;
 
+    QVector<Category> testcats = getCategories();
+    printCategories(testcats); // Этап тестирования для отображения категорий
+
+    for(const Category& category : testcats){
+        debug->setParticipants(category);
+    }
+
+//---------------------------------------------------------
     return app.exec();
     }

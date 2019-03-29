@@ -31,7 +31,7 @@ Window {
     height: 480
     visible: true
 
-    flags: Qt.FramelessWindowHint // Отключаем обрамление окна
+    //flags: Qt.FramelessWindowHint // Отключаем обрамление окна
 
 
 
