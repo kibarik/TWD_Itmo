@@ -20,6 +20,6 @@
         <file>category.cpp</file>
         <file>category.h</file>
         <file>Tul/ControlButtons.qml</file>
-        <file>Categories/CategoryModel.qml</file>
+        <file>Categories/ParticipantsWindow.qml</file>
     </qresource>
 </RCC>

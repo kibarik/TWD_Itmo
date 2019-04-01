@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.5
-import QtQuick.Window 2.0
+import QtQuick.Window 2.5
 
 Window {
     id: mainWindow
@@ -9,30 +9,21 @@ Window {
     flags: Qt.FramelessWindowHint // Отключаем обрамление окна
 
     signal signalExit
-    signal getCategory
-    signal getParticipants
+    signal openParticipants
+    signal categoryShow
 
     property var categoryNames: categoryAPI.setCategoriesNames()
 
-    Button {
-        id: getcateg
-        text: "GetCategories"
-        width: 320
-        height: 50
-        anchors.top: parent.top
-
-        onClicked: {
-
-           if (listModel.rowCount()=== 0){
-               for(var i = 0; i < categoryNames.length; i++){
-                   listModel.append({categoryName: categoryNames[i]})
-                   console.log(i, ">", categoryNames[i])
-                }
-           }
+    function showCategories() {
+        if (listModel.rowCount()=== 0){
+            for(var i = 0; i < categoryNames.length; i ++){
+                listModel.append({categoryName:categoryNames[i]})
+                console.log(i, ">", categoryNames[i])
+            }
         }
     }
 
-    ListView {
+   ListView {
         id: listView
         width: 320
         height: 380
@@ -66,10 +57,12 @@ Window {
                         border.color: control.down ? "#FA8072" : "#696969"
                         border.width: 1
                     }
-                }
 
-
+                    onClicked: {
+                        categoryWindow.openParticipants();
+                    }
                 }
+            }
         }
 
         model: ListModel {
@@ -79,11 +72,11 @@ Window {
 
     Button {
         id: back
+        x: 0
         width: 320
         height: 50
         text: qsTr("> Назад <")
         anchors.bottom: parent.bottom
-        anchors.top: listView.bottom
 
         onClicked: {
             mainWindow.signalExit()

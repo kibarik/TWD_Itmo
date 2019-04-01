@@ -68,7 +68,7 @@ class CategoryAPI : public QObject {
         //void displayOff();
     public slots: //From С++ to QML <<-
           QList<QString> setCategoriesNames(); //на сигнал getCategory от CategoryWindow.qml;
-          QQueue<QPair<QString, QString>> setParticipants(const Category& category); //на сигнал getParticipant
+          QList<QPair<QString, QString>> setParticipants(const Category& category); //на сигнал getParticipant
 //        void categoryEnd();
 //        void setWin(); //присудить место участнику
 //        std::pair<Participant, Participant> nextPair();

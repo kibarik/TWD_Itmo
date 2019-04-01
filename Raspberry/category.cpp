@@ -221,7 +221,7 @@ QList<QString> CategoryAPI::setCategoriesNames(){
 };
 
 
-QQueue<QPair<QString, QString>> CategoryAPI::setParticipants(const Category& category){
+QList<QPair<QString, QString>> CategoryAPI::setParticipants(const Category& category){
    QQueue<QPair<QString, QString>> now;
    qint32 i = 1;
    QString temp="";
