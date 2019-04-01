@@ -7,17 +7,16 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
+//----------------------------Objects----------------------------
     CategoryAPI *categoryAPI = new CategoryAPI();
     engine.rootContext()->setContextProperty("categoryAPI", categoryAPI);
 
-    if (engine.rootObjects().isEmpty())
-        return -1;
-//------------------------------------------------------//
+//    QObject::connect(qml,SIGNAL(getCategory()), categoryAPI, SLOT(setCategoriesNames()));
+//----------------------Debugger--------------------------------//
 
     CategoryAPI* debug = new CategoryAPI;
 
@@ -29,5 +28,8 @@ int main(int argc, char *argv[])
     }
 
 //---------------------------------------------------------
+    if (engine.rootObjects().isEmpty())
+        return -1;
+
     return app.exec();
     }

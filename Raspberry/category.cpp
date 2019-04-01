@@ -7,15 +7,15 @@
 
 //MySQL connection data--------------------------
 #define HOST "localhost"
-#define USER "root"
+#define USER "debugger"
 #define DBNAME "categories"
-#define PASS "dreamroad"
+#define PASS "tester0"
 #define PORT NULL
 #define LOCALENCODING "set names utf8"
 #define FIELDS "SELECT name, birth, club FROM `"
 
 //------------------------------------------------
-QVector <QString> split(QString str, char delim) {
+QVector <QString> split(QString str, char delim) { //техническая функция
     QVector <QString> result;
     QString temp;
     for (int i = 0; i < str.length(); i++) {
@@ -31,7 +31,7 @@ QVector <QString> split(QString str, char delim) {
     return result;
 }
 
-QVector <Category> getCategories() {
+QVector <Category> getCategories() { //функция обращения к БД
     QSqlDatabase conn = QSqlDatabase::addDatabase("QMYSQL");
     conn.setHostName(HOST);
     conn.setDatabaseName(DBNAME);
@@ -54,21 +54,34 @@ QVector <Category> getCategories() {
     if (res.size() > 0) { // Если есть результаты
         while (res.next()) { // Цикл проходит по всем полученным результатам
             Category temp;
-            QVector <QString> tempData = split(res.value(0).toString(), ' ');
-            if (tempData[5] == "1")
+            QVector <QString> tempData = split(res.value(0).toString(), ' '); //определение модели (туль, спарринг и т.п)
+            if (tempData[5] == "1"){
                 temp.mode = Category::MODE::PERSONAL_TUL;
-            else if (tempData[6] == "1")
+                temp.textMode = "Туль личный";
+            }
+            else if (tempData[6] == "1"){
                 temp.mode = Category::MODE::TEAM_TUL;
-            else if (tempData[7] == "1")
+                temp.textMode = "Туль коммандный";
+            }
+            else if (tempData[7] == "1"){
                 temp.mode = Category::MODE::TRADITIONAL_TUL;
-            else if (tempData[8] == "1")
+                temp.textMode = "Туль традиционный";
+            }
+            else if (tempData[8] == "1"){
                 temp.mode = Category::MODE::PERSONAL_SPARRING;
-            else if (tempData[9] == "1")
-                temp.mode = Category::MODE::TEAM_SPARRING;
-            else if (tempData[10] == "1")
-                temp.mode = Category::MODE::TRADITIONAL_SPARRING;
+                temp.textMode = "Спарринг личный";
 
-            temp.name = res.value(0).toString(); // Задаём имя категории
+            }
+            else if (tempData[9] == "1"){
+                temp.mode = Category::MODE::TEAM_SPARRING;
+                temp.textMode = "Спарринг коммандный";
+            }
+            else if (tempData[10] == "1"){
+                temp.mode = Category::MODE::TRADITIONAL_SPARRING;
+                temp.textMode = "Спарринг традиционный";
+            }
+
+            temp.name = tempData[0] +' '+ tempData[1] +'-'+ tempData[2] +" г.р. "+ tempData[3] +' '+ tempData[4] +' '+ temp.textMode; // Задаём имя категории
             categs.push_back(temp); // Добавляем категорию
         }
         for (int i = 0; i < categs.size(); i++) {
@@ -97,10 +110,11 @@ int printCategories(const QVector <Category>& categories)
 {
 
     //setlocale(LC_//    QTextStream cout(stdout); cout.setCodec("utf8"); //русская категорвкаALL,"Russian"); //русская локализация вывода std::cout
-    for(auto& category : categories){
+    for(const Category& category : categories){
         qDebug() << "->" << category.name;
+
         qDebug()<< "--> We find: " << categories.size() << " categories";
-        qDebug() << "--> mode id: " << category.mode;
+        qDebug() << "--> mode id: " << category.textMode;
         qDebug() << "--> Totaly: " << category.participants.size() << " sportsmens in category";
 
         for(const Participant& Sportsmen: category.participants){
@@ -194,11 +208,12 @@ QVector <Category> getCategTemplate() {
     return categs;
 };
 
-QQueue<QString> CategoryAPI::setCategoriesNames(){
+QList<QString> CategoryAPI::setCategoriesNames(){
     QVector<Category> categories = getCategories();
-    QQueue <QString> CategoriesNames;
+    QList <QString> CategoriesNames;
 
     for (const Category& category : categories) {
+        qDebug()<<category.name;
         CategoriesNames << category.name;
     };
 

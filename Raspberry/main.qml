@@ -37,7 +37,7 @@ Window {
 
     Sparring {
         id: sparringWindow
-        visible: false
+        visible: true
         onCategoryShow: { // сигнал на отображение экрана категорий
             categoryWindow.show()
             mainWindow.opacity = 0.0
@@ -46,17 +46,17 @@ Window {
     }
 
     OutMonitorSparring {
-        visible: false
+        visible: true
     }
 
 
     Tul {
-        visible: true
+        visible: false
     }
 
 
     OutMonitorTul {
-        visible: true
+        visible: false
     }
 
     CategoryWindow {
@@ -66,7 +66,10 @@ Window {
         onSignalExit: { //из Category.qml сигнал на возврат в гл. окно
             mainWindow.opacity = 1.0
             categoryWindow.close()
-            
+        }
+
+        onGetCategory: {
+            categoryAPI.setCategoriesNames();
         }
     }
 }

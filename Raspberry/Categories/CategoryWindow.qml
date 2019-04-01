@@ -10,51 +10,70 @@ Window {
 
     signal signalExit
     signal getCategory
+    signal getParticipants
+
+    property var categoryNames: categoryAPI.setCategoriesNames()
+
+    Button {
+        id: getcateg
+        text: "GetCategories"
+        width: 320
+        height: 50
+        anchors.top: parent.top
+
+        onClicked: {
+
+           if (listModel.rowCount()=== 0){
+               for(var i = 0; i < categoryNames.length; i++){
+                   listModel.append({categoryName: categoryNames[i]})
+                   console.log(i, ">", categoryNames[i])
+                }
+           }
+        }
+    }
 
     ListView {
         id: listView
         width: 320
-        height: 430
+        height: 380
+        anchors.top: getcateg.bottom
+
         delegate: Item {
-            x: 5
-            width: 80
-            height: 40
+            width: parent.width
+            height: 50
             Row {
                 id: row1
-                spacing: 10
-                Rectangle {
-                    width: 40
-                    height: 40
-                    color: colorCode
+                spacing: 1
+                width: 320
+                height: 50
+                Button {
+                    id: control
+                    text: categoryName
+                    contentItem: Text {
+                        text: control.text
+                        font: control.font
+                        opacity: enabled ? 1.0 : 0.3
+                        color: control.down ? "#22313f" : "#696969"
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        elide: Text.ElideRight
+
+                    }
+                    background: Rectangle {
+                        implicitWidth: 320
+                        implicitHeight: 50
+                        opacity: enabled ? 1 : 0.3
+                        border.color: control.down ? "#FA8072" : "#696969"
+                        border.width: 1
+                    }
                 }
 
-                Text {
-                    text: name
-                    font.bold: true
-                    anchors.verticalCenter: parent.verticalCenter
+
                 }
-            }
         }
+
         model: ListModel {
-            ListElement {
-                name: "Grey"
-                colorCode: "grey"
-            }
-
-            ListElement {
-                name: "Red"
-                colorCode: "red"
-            }
-
-            ListElement {
-                name: "Blue"
-                colorCode: "blue"
-            }
-
-            ListElement {
-                name: "Green"
-                colorCode: "green"
-            }
+            id: listModel
         }
     }
 

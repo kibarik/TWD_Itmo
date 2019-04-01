@@ -17,6 +17,7 @@ class Category
 {
 public:
     QString name;
+    QString textMode;
     enum MODE {
         PERSONAL_TUL,
         PERSONAL_SPARRING,
@@ -39,11 +40,10 @@ public:
     QVector <Participant> getParticipants(){
         return participants;
     }
-    Category::MODE getMode(const Category& category){
+    Category::MODE getNumMode(const Category& category){
       return category.mode;
     }
 };
-
 
 
 QVector <QString> split(QString, char delim);
@@ -67,7 +67,7 @@ class CategoryAPI : public QObject {
         //void wifiOff();
         //void displayOff();
     public slots: //From С++ to QML <<-
-          QQueue<QString> setCategoriesNames(); //на сигнал getCategory от CategoryWindow.qml;
+          QList<QString> setCategoriesNames(); //на сигнал getCategory от CategoryWindow.qml;
           QQueue<QPair<QString, QString>> setParticipants(const Category& category); //на сигнал getParticipant
 //        void categoryEnd();
 //        void setWin(); //присудить место участнику

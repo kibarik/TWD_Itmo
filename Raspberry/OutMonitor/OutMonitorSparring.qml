@@ -26,7 +26,6 @@ Window {
         anchors.top: categoryName.bottom
         anchors.right: parent.right
         anchors.left: parent.left
-        anchors.topMargin: 0
         rows: 1
         columns: 2
 
@@ -70,34 +69,6 @@ Window {
                 anchors.fill: parent
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
-            }
-        }
-    }
-
-    Row {
-        id: categoryName
-        width: parent.width
-        height: parent.height/8
-        anchors.top: parent.top
-        anchors.topMargin: 0
-
-        Rectangle {
-            color: "#000000"
-            border.width: 2
-            anchors.fill: parent
-
-            Text {
-                id: element
-                height: 100
-                color: "#ffffff"
-                text: qsTr("Туль Мальчики 14-17 лет 3 гуп - 1 дан")
-                font.family: "Verdana"
-                font.pixelSize: parent.height/3
-                fontSizeMode: Text.Fit
-                font.capitalization: Font.AllUppercase
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                anchors.fill: parent
             }
         }
     }
@@ -167,7 +138,48 @@ Window {
         anchors.bottom: parent.bottom
         anchors.top: points.bottom
     }
+
+    Rectangle {
+        id: categoryName
+        width: parent.width
+        height: parent.height/8
+        color: "#000000"
+        anchors.right: parent.right
+        anchors.rightMargin: 0
+        anchors.left: parent.left
+        anchors.leftMargin: 0
+        anchors.top: parent.top
+        anchors.topMargin: 0
+        border.width: 2
+
+        Text {
+            id: element
+            height: parent.height/8
+            color: "#ffffff"
+            text: qsTr("Туль Мальчики 14-17 лет 3 гуп - 1 дан")
+            font.family: "Verdana"
+            font.pixelSize: parent.height/3
+            fontSizeMode: Text.Fit
+            font.capitalization: Font.AllUppercase
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            anchors.fill: parent
+        }
+    }
 }
 
 
 
+
+
+
+
+
+
+
+
+
+/*##^## Designer {
+    D{i:14;anchors_height:92.25;anchors_width:1366}
+}
+ ##^##*/

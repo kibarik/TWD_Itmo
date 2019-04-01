@@ -11,12 +11,12 @@ import QtQuick.Controls 2.0 as Controls
     first.text: categoryFighters[0].first()
     second.text: categoryFighters[0].second()
 
-    next1.text: categoryFighters[1].first()
+    next1.text: categoryFighters[1].firstr()
     next2.text: categorybFightets[1].second()
 
 */
 
-    Rectangle {
+Rectangle {
     width: 320
     height: 200
     id: designer__Selection
@@ -25,27 +25,6 @@ import QtQuick.Controls 2.0 as Controls
         id: now
         width: 320
         height: 100
-
-        Column {
-            id: n_lbl
-            width: 20
-            height: 100
-            Rectangle {
-                id: rectangle1
-                color: "#27ae60"
-                anchors.fill: n_lbl
-                border.width: 0
-                Controls.Label {
-                    id: label
-                    color: "#ffffff"
-                    text: qsTr("Сейчас")
-                    anchors.fill: rectangle1
-                    rotation: 90
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-            }
-        }
 
         Column {
             id: column
@@ -86,40 +65,40 @@ import QtQuick.Controls 2.0 as Controls
                 }
             }
         }
+
+        Rectangle {
+            id: rectangle1
+            color: "#27ae60"
+            anchors.right: column.left
+            anchors.bottom: column.bottom
+            anchors.top: parent.top
+            anchors.left: parent.left
+            border.width: 0
+
+            Controls.Label {
+                id: label
+                color: "#ffffff"
+                text: qsTr("Сейчас")
+                anchors.fill: rectangle1
+                rotation: 90
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
+        }
     }
 
     Row {
         id: after
         width: 320
         height: 100
-        anchors.top: now.bottom
-
-        Column {
-            id: n_lbl1
-            width: 20
-            height: 100
-            Rectangle {
-                id: rectangle4
-                color: "#22313F"
-                anchors.fill: parent
-                border.width: 0
-                Controls.Label {
-                    id: label1
-                    color: "#fff"
-                    text: qsTr("Следующий")
-                    anchors.fill: parent
-                    rotation: 90
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-
-            }
-        }
+        anchors.bottom: parent.bottom
+        anchors.top: parent.butt
 
         Column {
             id: column1
             width: 300
             height: 100
+            anchors.right: parent.right
             Rectangle {
                 id: rectangle5
                 width: 300
@@ -154,6 +133,30 @@ import QtQuick.Controls 2.0 as Controls
                 }
             }
         }
+
+        Rectangle {
+            id: rectangle4
+            color: "#22313F"
+            anchors.right: column1.left
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.top: parent.top
+            border.width: 0
+
+            Controls.Label {
+                id: label1
+                x: 0
+                y: 0
+                color: "#fff"
+                text: qsTr("Следующий")
+                anchors.fill: parent
+                rotation: 90
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
+
+        }
+
     }
 }
 
@@ -167,7 +170,15 @@ import QtQuick.Controls 2.0 as Controls
 
 
 
+
+
+
+
+
+
+
+
 /*##^## Designer {
-    D{i:2;anchors_width:20}
+    D{i:7;anchors_x:5;anchors_y:3}
 }
  ##^##*/

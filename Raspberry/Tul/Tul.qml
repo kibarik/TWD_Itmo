@@ -33,9 +33,8 @@ Rectangle {
 
     PairDisplay {
         id: now_after
-        anchors.top: categorybButton.bottom
-        anchors.topMargin: 0
         height: 200
+        anchors.top: categorybButton.bottom
         width: 320
         visible: true
     }

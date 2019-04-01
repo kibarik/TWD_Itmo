@@ -12,8 +12,6 @@ Item {
         id: judjesText
         width: 320
         height: 15
-        anchors.top: chui.bottom
-        anchors.topMargin: 0
         columns: 5
         rows: 1
 
