@@ -7,12 +7,13 @@
 
 //MySQL connection data--------------------------
 #define HOST "localhost"
-#define USER "debugger"
+#define USER "root"
 #define DBNAME "categories"
-#define PASS "tester0"
+#define PASS "45214521"
 #define PORT NULL
 #define LOCALENCODING "set names utf8"
 #define FIELDS "SELECT name, birth, club FROM `"
+#define CONTESTSSTART 7
 
 //------------------------------------------------
 QVector <QString> split(QString str, char delim) { //техническая функция
@@ -55,28 +56,28 @@ QVector <Category> getCategories() { //функция обращения к БД
         while (res.next()) { // Цикл проходит по всем полученным результатам
             Category temp;
             QVector <QString> tempData = split(res.value(0).toString(), ' '); //определение модели (туль, спарринг и т.п)
-            if (tempData[5] == "1"){
+            if (tempData[CONTESTSSTART] == "1"){
                 temp.mode = Category::MODE::PERSONAL_TUL;
                 temp.textMode = "Туль личный";
             }
-            else if (tempData[6] == "1"){
+            else if (tempData[CONTESTSSTART + 1] == "1"){
                 temp.mode = Category::MODE::TEAM_TUL;
                 temp.textMode = "Туль коммандный";
             }
-            else if (tempData[7] == "1"){
+            else if (tempData[CONTESTSSTART + 2] == "1"){
                 temp.mode = Category::MODE::TRADITIONAL_TUL;
                 temp.textMode = "Туль традиционный";
             }
-            else if (tempData[8] == "1"){
+            else if (tempData[CONTESTSSTART + 3] == "1"){
                 temp.mode = Category::MODE::PERSONAL_SPARRING;
                 temp.textMode = "Спарринг личный";
 
             }
-            else if (tempData[9] == "1"){
+            else if (tempData[CONTESTSSTART + 4] == "1"){
                 temp.mode = Category::MODE::TEAM_SPARRING;
                 temp.textMode = "Спарринг коммандный";
             }
-            else if (tempData[10] == "1"){
+            else if (tempData[CONTESTSSTART + 5] == "1"){
                 temp.mode = Category::MODE::TRADITIONAL_SPARRING;
                 temp.textMode = "Спарринг традиционный";
             }
