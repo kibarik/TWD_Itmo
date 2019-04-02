@@ -52,7 +52,8 @@ QVector <Category> getCategories() {
 	if (res.size() > 0) { // Если есть результаты
 		while (res.next()) { // Цикл проходит по всем полученным результатам
             Category temp;
-			QVector <QString> tempData = split(res.value(0).toString(), ' ');
+						temp.name = res.value(0).toString(); // Задаём имя категории
+						QVector <QString> tempData = split(res.value(0).toString(), ' ');
             if (tempData[5] == "1")
                 temp.mode = Category::MODE::PERSONAL_TUL;
             else if (tempData[6] == "1")
@@ -66,7 +67,6 @@ QVector <Category> getCategories() {
             else if (tempData[10] == "1")
                 temp.mode = Category::MODE::TRADITIONAL_SPARRING;
 
-			temp.name = res.value(0).toString(); // Задаём имя категории
             categs.push_back(temp); // Добавляем категорию
         }
 		for (int i = 0; i < categs.size(); i++) {
