@@ -29,6 +29,16 @@ defaultTable = (
 		") ENGINE=InnoDB DEFAULT CHARSET=utf8;"
 	)
 
+paramsPos = {
+	"sex": 0,
+	"birthFrom": 1,
+	"birthTo": 2,
+	"lvlFrom": 3,
+	"lvlTo": 4,
+	"lvlFromType": 5,
+	"lvlToType": 6,
+	"contestsStart": 7
+}
 #Класс со всеми параметрами категорий
 def parseCategory(categoryStr):
 	contests = [
@@ -40,40 +50,33 @@ def parseCategory(categoryStr):
 
 	params = categoryStr.split()
 	category = {}
-	category["sex"] = sex[params[0]]
-	category["birthFrom"] = params[1] + "-01-01"
-	category["birthTo"] = params[2] + "-12-31"
-	category["gupFrom"] = None
-	category["danFrom"] = None
+	category["sex"] = sex[params[paramsPos["sex"]]]
+	category["birthFrom"] = params[paramsPos["birthFrom"]] + "-01-01"
+	category["birthTo"] = params[paramsPos["birthTo"]] + "-12-31"
 
 	#Определяем техническую квалификацию
-	if params[4] == "гуп":
-		if len(params[3].split("-")) == 2:
-			category["gupFrom"] = params[3].split("-")[1]
-			category["gupTo"] = params[3].split("-")[0]
-		else:
-			category["gupFrom"] = category["gupTo"] = params[3]
-	else:
-		if len(params[3].split("-")) == 2:
-			category["danFrom"] = params[3].split("-")[0]
-			category["danTo"] = params[3].split("-")[1]
-		else:
-			category["danFrom"] = category["danTo"] = params[3]
+	category["lvlFromType"] = params[paramsPos["lvlFromType"]]
+	category["lvlToType"] = params[paramsPos["lvlToType"]]
+	category["lvlFrom"] = params[paramsPos["lvlFrom"]]
+	category["lvlTo"] = params[paramsPos["lvlTo"]]
+
 
 	#Определяем тип соревнований
 	category["contest"] = None
-	for i in range(5, 5 + len(contests)):
-		if params[i] == '1':
-			category["contest"] = contests[i - 5]
+	for i in range(0, len(contests)):
+		if params[i + paramsPos["contestsStart"]] == '1':
+			category["contest"] = contests[i]
 			break
 
 	#Определяем весовую категорию
 	category["weightFrom"] = None
-	if params[5  + len(contests)] != '0':
-		category["weightFrom"] = params[5 + len(contests)].split("-")[0]
-		category["weightTo"] = params[5 + len(contests)].split("-")[1]
+	if params[paramsPos["contestsStart"]  + len(contests)] != '0':
+		category["weightFrom"] = params[paramsPos["contestsStart"] + len(contests)].split("-")[0]
+		category["weightTo"] = params[paramsPos["contestsStart"] + len(contests)].split("-")[1]
 
 	return category
+
+
 
 def GetTemplate(fileName):
 	categories = {}
@@ -87,16 +90,31 @@ def GetTemplate(fileName):
 			                  birthFrom = params["birthFrom"],
 			                  birthTo = params["birthTo"]
 			                )
-			if params["gupFrom"] != None:
-				query += " AND `gup`>={gupFrom} AND `gup`<={gupTo}".format(
-				            gupFrom = params["gupFrom"],
-				            gupTo = params["gupTo"]
-				          )
-			elif params["danFrom"] != None:
-				query += " AND `dan`>={danFrom} AND `dan`<={danTo}".format(
-				            danFrom = params["danFrom"],
-				            danTo = params["danTo"]
-				          )
+			# Формирование условия по технической квалификации
+
+			if params["lvlFromType"] == "гуп":
+				query += " AND (`gup`<="
+			elif params["lvlFromType"] == "дан":
+				query += " AND (`dan`>="
+			else:
+				print("Error with lvlFromType: " + params["lvlFromType"])
+				raise
+			query += params["lvlFrom"]
+
+			if params["lvlFromType"] == params["lvlToType"]:
+				query += " AND "
+			else:
+				query += " OR "
+
+			if params["lvlToType"] == "гуп":
+				query += "`gup`>="
+			elif params["lvlToType"] == "дан":
+				query += "`dan`<="
+			else:
+				print("Error with lvlToType: " + params["lvlToType"])
+				raise
+			query += params["lvlTo"] + ")"
+
 			if params["contest"] != None:
 				query += " AND `" + params["contest"] + "`=1"
 			categories[line.replace("\n", "").replace("\r", "")] = query + ")"
