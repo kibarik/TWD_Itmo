@@ -22,7 +22,7 @@ Rectangle {
 
         onClicked: { //нажимаем на кнопку категорий
             sparringWindow.categoryShow()
-            categoryWindow.categoryShow();
+			categoryWindow.categoryShow()
         }
 
     }

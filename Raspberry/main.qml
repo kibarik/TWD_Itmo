@@ -26,14 +26,12 @@ import "Categories/"
 */
 
 Window {
-    id: mainWindow
+	id: mainWindow
     width: 320
     height: 480
     visible: true
 
     //flags: Qt.FramelessWindowHint // Отключаем обрамление окна
-    property var categoryNames: categoryAPI.setCategoriesNames()
-
 
     Sparring {
         id: sparringWindow
@@ -42,7 +40,6 @@ Window {
         onCategoryShow: { // сигнал на отображение экрана категорий
             categoryWindow.show()
             mainWindow.opacity = 0.0
-
         }
 
     }
@@ -82,9 +79,9 @@ Window {
         }
 
         onOpenParticipants: {
-            participantsWindow.show()
+			participantsWindow.show()
             categoryWindow.opacity = 0.0
-//          categoryAPI.setParticipants();
+			//остальные действия прописаны в CategoryWindow control.onclicked
         }
     }
 
@@ -93,9 +90,9 @@ Window {
         id: participantsWindow
 
         onSignalExit: {
-            categoryWindow.opacity = 1.0
+			categoryWindow.opacity = 1.0
             participantsWindow.close()
-        }
+		}
 
     }
 }

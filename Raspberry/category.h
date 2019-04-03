@@ -18,6 +18,7 @@ class Category
 public:
     QString name;
     QString textMode;
+	QString qmlName;
     enum MODE {
         PERSONAL_TUL,
         PERSONAL_SPARRING,
@@ -45,13 +46,13 @@ public:
     }
 };
 
-
+//--------------------общие функции работы с категориями---------------------
 QVector <QString> split(QString, char delim);
 int printCategories(const QVector <Category>& categories);
 //Category::MODE getMode(const Category& category);
-//std::vector<Participant> getParticipants(const Category& category);
 QVector <Category> getCategTemplate(); //temlate category for tests
 QVector <Category> getCategories();
+//----------------------------------------------------------------------------
 
 class CategoryAPI : public QObject {
     //API for interfaces
@@ -67,8 +68,8 @@ class CategoryAPI : public QObject {
         //void wifiOff();
         //void displayOff();
     public slots: //From С++ to QML <<-
-          QList<QString> setCategoriesNames(); //на сигнал getCategory от CategoryWindow.qml;
-          QList<QPair<QString, QString>> setParticipants(const Category& category); //на сигнал getParticipant
+	      QList<QString> setQmlCategoriesNames(); //на сигнал getCategory от CategoryWindow.qml;
+		  QList<QString> setQmlParticipantsNames(const QString& category); //на сигнал getParticipant
 //        void categoryEnd();
 //        void setWin(); //присудить место участнику
 //        std::pair<Participant, Participant> nextPair();
@@ -84,3 +85,5 @@ class CategoryAPI : public QObject {
 //        //tul
 //        void nextLvl(); //уровень судейства
 };
+
+

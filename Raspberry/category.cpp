@@ -15,7 +15,19 @@
 #define FIELDS "SELECT name, birth, club FROM `"
 #define CONTESTSSTART 7
 
-//------------------------------------------------
+
+/*
+Чтобы снизить нагрузку на сервер, клиент будет работать
+через локальную копию категорий. Это позволяет снизить
+Количество запросов к базе.
+
+В дальнейшем localCategories будет автоматически
+обновляться как-только на сервере происходят изменения
+*/
+static QVector<Category> LOCALcategories = getCategories();
+//-------------------------------------------------------------
+
+
 QVector <QString> split(QString str, char delim) { //техническая функция
     QVector <QString> result;
     QString temp;
@@ -82,8 +94,11 @@ QVector <Category> getCategories() { //функция обращения к БД
                 temp.textMode = "Спарринг традиционный";
             }
 
-            temp.name = tempData[0] +' '+ tempData[1] +'-'+ tempData[2] +" г.р. "+ tempData[3] +' '+ tempData[4] +' '+ temp.textMode; // Задаём имя категории
-            categs.push_back(temp); // Добавляем категорию
+			temp.qmlName = tempData[0] +' '+ tempData[1] +'-'+ tempData[2] +" г.р. "+
+			        tempData[3]+ tempData[5] + " - "+ tempData[4]+ tempData[6]+' '+ temp.textMode; // Имя для QML
+
+			temp.name = res.value(0).toString(); // Задаём имя категории
+			categs.push_back(temp); // Добавляем категорию
         }
         for (int i = 0; i < categs.size(); i++) {
             const QString query = static_cast<QString>(FIELDS + categs[i].name + "`;"); // Формируем текст запроса
@@ -97,7 +112,7 @@ QVector <Category> getCategories() { //функция обращения к БД
                     temp.birth = res.value(1).toString();
                     temp.club = res.value(2).toString();
                     categs[i].participants.push_back(temp); // Заносим участника в базу
-                }
+				}
             }
         }
     }
@@ -112,7 +127,7 @@ int printCategories(const QVector <Category>& categories)
 
     //setlocale(LC_//    QTextStream cout(stdout); cout.setCodec("utf8"); //русская категорвкаALL,"Russian"); //русская локализация вывода std::cout
     for(const Category& category : categories){
-        qDebug() << "->" << category.name;
+		qDebug() << "->" << category.qmlName ;
 
         qDebug()<< "--> We find: " << categories.size() << " categories";
         qDebug() << "--> mode id: " << category.textMode;
@@ -209,41 +224,61 @@ QVector <Category> getCategTemplate() {
     return categs;
 };
 
-QList<QString> CategoryAPI::setCategoriesNames(){
-    QVector<Category> categories = getCategories();
+//------------------------CategoryAPI functions-----------------
+
+
+
+QList<QString> CategoryAPI::setQmlCategoriesNames(){
     QList <QString> CategoriesNames;
 
-    for (const Category& category : categories) {
-        qDebug()<<category.name;
-        CategoriesNames << category.name;
+	for (const Category& category : LOCALcategories) {
+//		qDebug()<<category.qmlName;
+		CategoriesNames << category.qmlName;
     };
 
     return CategoriesNames;
 };
 
+//функция для передачи всех участников в окно CategoryWindow.qml
+QList<QString> CategoryAPI::setQmlParticipantsNames(const QString& categoryName){
+	//qDebug()<< "setParticipantsNames started";
+   QList<QString> now;
+   Category category;
 
-QList<QPair<QString, QString>> CategoryAPI::setParticipants(const Category& category){
-   QQueue<QPair<QString, QString>> now;
-   qint32 i = 1;
-   QString temp="";
+   for (qint8 i = 0; i<LOCALcategories.size(); ++i) { //перебор по всем категория в локальном хранилище
+	   //qDebug()<< "In for: " << i;
+	   if(LOCALcategories.at(i).qmlName == categoryName){//ищем нашу категорию
+		   category = LOCALcategories[i];
+		   qDebug() << "<setQMLParticipantsNames> OK:" << LOCALcategories.at(i).qmlName
+		            << " opened!" <<" participants: " << LOCALcategories.at(i).participants.size();
+	   }
+   }
 
    for(const Participant& participant: category.participants){
-       if (i%2==0){
-           qDebug() << temp << "<->" << participant.name;
-           now.push_back(qMakePair(temp, participant.name));
-           temp.clear();
-       }
-       else if(i==category.participants.size()) { //для заполнения нечетного кол-ва людей
-           now.push_back(qMakePair(participant.name, temp));
-           qDebug() << "Нечет! " << participant.name << "<->" << temp;
-           break;
-      }
-       else temp = participant.name;
-
-       i++;
+//	   qDebug() << "inside for in qmlPartNames";
+	   now.push_back(participant.name);
    };
 
-   qDebug() << "setParticipants END!!!";
    return now;
 
 };
+
+/* вариант с попарным разделением участников в очередь QQueue(QPair<QString, QString>)
+ *
+   for(const Participant& participant: category.participants){
+	   if (i%2==0){
+		   qDebug() << temp << "<->" << participant.name;
+		   now.push_back(qMakePair(temp, participant.name));
+		   temp.clear();
+	   }
+	   else if(i==category.participants.size()) { //для заполнения нечетного кол-ва людей
+		   now.push_back(qMakePair(participant.name, temp));
+		   qDebug() << "Нечет! " << participant.name << "<->" << temp;
+		   break;
+	  }
+	   else temp = participant.name;
+
+	   i++;
+   };
+
+*/

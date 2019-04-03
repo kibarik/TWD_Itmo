@@ -12,20 +12,19 @@ int main(int argc, char *argv[])
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
 //----------------------------Objects----------------------------
-    CategoryAPI *categoryAPI = new CategoryAPI();
-    engine.rootContext()->setContextProperty("categoryAPI", categoryAPI);
+	CategoryAPI *categoryAPI = new CategoryAPI();
+	engine.rootContext()->setContextProperty("categoryAPI", categoryAPI);
 
-//    QObject::connect(qml,SIGNAL(getCategory()), categoryAPI, SLOT(setCategoriesNames()));
-//----------------------Debugger--------------------------------//
+//	//----------------------Debugger--------------------------------//
 
-    CategoryAPI* debug = new CategoryAPI;
+//    CategoryAPI* debug = new CategoryAPI;
 
-    QVector<Category> testcats = getCategories();
-    printCategories(testcats); // Этап тестирования для отображения категорий
+//    QVector<Category> testcats = getCategories();
+//	printCategories(testcats); // Этап тестирования для отображения категорий
 
-    for(const Category& category : testcats){
-        debug->setParticipants(category);
-    }
+//    for(const Category& category : testcats){
+//        debug->setParticipants(category);
+//    }
 
 //---------------------------------------------------------
     if (engine.rootObjects().isEmpty())

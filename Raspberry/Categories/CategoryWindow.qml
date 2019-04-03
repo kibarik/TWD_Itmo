@@ -6,28 +6,27 @@ Window {
     id: mainWindow
     width: 320
     height: 480
-    flags: Qt.FramelessWindowHint // Отключаем обрамление окна
+	//flags: Qt.FramelessWindowHint // Отключаем обрамление окна
 
     signal signalExit
     signal openParticipants
     signal categoryShow
 
-    property var categoryNames: categoryAPI.setCategoriesNames()
-
     function showCategories() {
-        if (listModel.rowCount()=== 0){
+		var categoryNames = categoryAPI.setQmlCategoriesNames();
+		listModel.clear()
+		if (listModel.rowCount()=== 0){
             for(var i = 0; i < categoryNames.length; i ++){
-                listModel.append({categoryName:categoryNames[i]})
-                console.log(i, ">", categoryNames[i])
+				listModel.append({categoryName:categoryNames[i]})
             }
         }
+		delete categoryNames;
     }
 
    ListView {
         id: listView
         width: 320
         height: 380
-        anchors.top: getcateg.bottom
 
         delegate: Item {
             width: parent.width
@@ -60,6 +59,10 @@ Window {
 
                     onClicked: {
                         categoryWindow.openParticipants();
+						participantsWindow.participantsNames = categoryAPI.setQmlParticipantsNames(control.text)
+						participantsWindow.showParticipants();
+
+					//	console.log(control.text, " category clicked")
                     }
                 }
             }
