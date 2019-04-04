@@ -1,27 +1,24 @@
-// Style.qml
+import QtQuick.Controls 2.0
 import QtQuick 2.0
-import QtQuick.Controls 2.5
-pragma Singleton
 
 Button {
-    id: control
-    text: qsTr("Button")
-    contentItem: Text {
-        text: control.text
-        font: control.font
-        opacity: enabled ? 1.0 : 0.3
-        color: control.down ? "#FA8072" : "#696969"
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        elide: Text.ElideRight
+	id: control
+	text: categoryName
+	contentItem: Text {
+		text: control.text
+		font: control.font
+		opacity: enabled ? 1.0 : 0.3
+		color: control.down ? "#22313f" : "#696969"
+		horizontalAlignment: Text.AlignHCenter
+		verticalAlignment: Text.AlignVCenter
+		elide: Text.ElideRight
 
-    }
-    background: Rectangle {
-        implicitWidth: 90
-        implicitHeight: 30
-        opacity: enabled ? 1 : 0.3
-        border.color: control.down ? "#FA8072" : "#696969"
-        border.width: 1
-        radius: 4
-    }
+	}
+	background: Rectangle {
+		implicitWidth: 320
+		implicitHeight: 50
+		opacity: enabled ? 1 : 0.3
+		border.color: control.down ? "#FA8072" : "#696969"
+		border.width: 1
+	}
 }

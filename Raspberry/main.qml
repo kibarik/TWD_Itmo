@@ -50,6 +50,7 @@ Window {
 
 
     Tul {
+		id: tulWindow
         visible: false
 
         onCategoryShow: { // сигнал на отображение экрана категорий
@@ -80,7 +81,7 @@ Window {
 
         onOpenParticipants: {
 			participantsWindow.show()
-            categoryWindow.opacity = 0.0
+			categoryWindow.close()
 			//остальные действия прописаны в CategoryWindow control.onclicked
         }
     }
@@ -90,8 +91,16 @@ Window {
         id: participantsWindow
 
         onSignalExit: {
-			categoryWindow.opacity = 1.0
-            participantsWindow.close()
+			categoryWindow.show()
+			participantsWindow.close()
+		}
+
+		onSelectPair: {
+			mainWindow.opacity = 1.0
+			participantsWindow.close()
+		//установить имена текущей и следующей пары
+		//	sparringWindow.
+		//	tulWindow.
 		}
 
     }
