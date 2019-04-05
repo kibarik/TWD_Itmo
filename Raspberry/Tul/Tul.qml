@@ -27,7 +27,8 @@ Rectangle {
         transformOrigin: Item.Top
 
         onClicked: {
-            sparringWindow.categoryShow()
+			tulWindow.categoryShow()
+			categoryWindow.categoryShow()
         }
     }
 

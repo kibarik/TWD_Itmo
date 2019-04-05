@@ -35,7 +35,7 @@ Window {
 
     Sparring {
         id: sparringWindow
-        visible: true
+		visible: false
 
         onCategoryShow: { // сигнал на отображение экрана категорий
             categoryWindow.show()
@@ -45,25 +45,23 @@ Window {
     }
 
     OutMonitorSparring {
-        visible: true
+		visible: true
     }
 
 
     Tul {
 		id: tulWindow
-        visible: false
+		visible: true
 
         onCategoryShow: { // сигнал на отображение экрана категорий
             categoryWindow.show()
             mainWindow.opacity = 0.0
-
-
         }
     }
 
 
     OutMonitorTul {
-        visible: false
+		visible: true
     }
 
     CategoryWindow {

@@ -98,7 +98,8 @@ Window {
 
 					onClicked: {
 						participantsWindow.selectPair();
-						console.log("Mouse clicked")
+						listModel.clear()
+						delete participantsNames
 					}
 				}
 
