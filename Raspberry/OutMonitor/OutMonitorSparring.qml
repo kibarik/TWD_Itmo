@@ -20,6 +20,10 @@ Window {
 	height: Screen.height
 	x: 0
 	y: 0
+	minimumHeight: 200
+	minimumWidth: 600
+//	maximumHeight: 2160
+//	maximumWidth: 3840
 	color: "#000000"
 
 	Grid {

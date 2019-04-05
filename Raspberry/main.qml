@@ -30,6 +30,10 @@ Window {
     width: 320
     height: 480
     visible: true
+	minimumHeight: 480
+	minimumWidth: 320
+	maximumHeight: 480
+	maximumWidth: 320
 
     //flags: Qt.FramelessWindowHint // Отключаем обрамление окна
 
