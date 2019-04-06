@@ -43,7 +43,7 @@ paramsPos = {
 def parseCategory(categoryStr):
 	contests = [
 	             "personal tul", "team tul", "tradition tul",
-	             "pesonal sparring", "team sparring", "tradition sparring",
+	             "personal sparring", "team sparring", "tradition sparring",
 	             "impact force", "specTech"
 	           ]
 	sex = {'м':1, 'ж':0}
