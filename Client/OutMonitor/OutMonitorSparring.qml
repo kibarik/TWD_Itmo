@@ -20,17 +20,20 @@ Window {
 	height: Screen.height
 	x: 0
 	y: 0
-	minimumHeight: 200
+	minimumHeight: 400
 	minimumWidth: 600
-	//	maximumHeight: Screen.height
-	//	maximumWidth: Screen.width
+//	maximumHeight: 2160
+//	maximumWidth: 3840
 	color: "#000000"
 
-	Row {
-		id: participantNames
-		width: parent.width
+	Grid {
+		id: tableNames
 		height: parent.height/8
 		anchors.top: categoryName.bottom
+		anchors.right: parent.right
+		anchors.left: parent.left
+		rows: 1
+		columns: 2
 
 		Rectangle {
 			width: parent.width/2
@@ -41,7 +44,7 @@ Window {
 			Text {
 				id: blueName1
 				color: "#ffffff"
-				text: qsTr("Корчинский Дмитрий Андреевич\n'Орел' Калинингрдская область")
+				text: qsTr("Красный")
 				wrapMode: Text.WordWrap
 				fontSizeMode: Text.Fit
 				horizontalAlignment: Text.AlignHCenter
@@ -62,10 +65,10 @@ Window {
 			Text {
 				id: blueName
 				color: "#ffffff"
-				text: qsTr("Ишманов Алексей Юрьевич \n 'Фанат' Ленинградская область")
+				text: qsTr("Синий")
 				wrapMode: Text.WordWrap
 				font.pixelSize: parent.height/3
-				font.family: "Tahoma"
+				font.family: "Times New Roman"
 				anchors.leftMargin: 15
 				textFormat: Text.PlainText
 				fontSizeMode: Text.Fit
@@ -79,13 +82,13 @@ Window {
 	Row {
 		id: points
 		width: parent.width
-		anchors.bottom: parent.bottom
-		anchors.top: participantNames.bottom
+		height: parent.height/2
+		anchors.top: tableNames.bottom
 
 		Rectangle {
 			id: rectangle2
 			width: parent.width/3
-			height: width
+			height: width/4*3
 			color: "#ea2027"
 			Text {
 				id: redPoints
@@ -102,14 +105,14 @@ Window {
 		Rectangle {
 			id: rectangle
 			width: parent.width/3
-			height: width
+			height: width/4*3
 			color: "#95a5a6"
 
 			Text {
 				id: otherPoint
 				color: "#ffffff"
 				text: qsTr("0")
-				fontSizeMode: Text.VerticalFit
+				fontSizeMode: Text.Fit
 				horizontalAlignment: Text.AlignHCenter
 				verticalAlignment: Text.AlignVCenter
 				anchors.fill: parent
@@ -121,13 +124,13 @@ Window {
 		Rectangle {
 			id: rectangle3
 			width: parent.width/3
-			height: width
+			height: width/4*3
 			color: "#0000ff"
 			Text {
 				id: bluePoints
 				color: "#ffffff"
 				text: qsTr("0")
-				fontSizeMode: Text.VerticalFit
+				fontSizeMode: Text.Fit
 				horizontalAlignment: Text.AlignHCenter
 				verticalAlignment: Text.AlignVCenter
 				anchors.fill: parent
@@ -137,18 +140,29 @@ Window {
 		}
 	}
 
+	SparringInfoMonitor {
+		anchors.top: points.bottom
+		anchors.left: parent.left
+		anchors.right: parent.right
+		anchors.bottom: parent.bottom
+	}
+
 	Rectangle {
 		id: categoryName
 		width: parent.width
 		height: parent.height/8
 		color: "#000000"
+		anchors.right: parent.right
+		anchors.rightMargin: 0
+		anchors.left: parent.left
+		anchors.leftMargin: 0
 		anchors.top: parent.top
-  anchors.topMargin: 0
-        border.width: 2
+		anchors.topMargin: 0
+		border.width: 2
 
 		Text {
 			id: element
-			height: 100
+			height: parent.height/8
 			color: "#ffffff"
 			text: qsTr("Туль Мальчики 14-17 лет 3 гуп - 1 дан")
 			font.family: "Verdana"
@@ -160,15 +174,10 @@ Window {
 			anchors.fill: parent
 		}
 	}
-
-
 }
 
 
-
-
-
-
-
-
-
+/*##^## Designer {
+	D{i:6;anchors_height:522}D{i:13;anchors_height:135}D{i:14;anchors_height:92.25;anchors_width:1366}
+}
+ ##^##*/

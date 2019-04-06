@@ -4,13 +4,15 @@ import QtQuick.Controls 2.0
 import QtQuick.Controls.Styles 1.4
 
 Window {
-	id: mainWindow
 	width: 320
 	height: 480
 
 	signal signalExit
 	signal selectPair
+	signal monitorSetTul
+	signal monitorSetSparring
 
+	property var categoryMode; //переменная для переключения экранов
 	property var participantsNames: ({});
 	property string categoryName;
 
@@ -42,7 +44,7 @@ Window {
 			transformOrigin: Item.Left
 
 			onClicked: {
-				mainWindow.signalExit()
+				participantsWindow.signalExit()
 				listModel.clear()
 				delete participantsNames
 			}
@@ -72,6 +74,20 @@ Window {
 				implicitHeight: 50
 				color: "#019875"
 				border.width: 0
+			}
+
+			onClicked: {
+				participantsWindow.close()
+				participantsWindow.selectPair()
+
+				switch(categoryMode){
+				case "Туль личный": participantsWindow.monitorSetTul(); console.log ("Tul changed"); break;
+				    case "Туль коммандный": participantsWindow.monitorSetTul(); break;
+					case "Спарринг традиционный": participantsWindow.monitorSetTul(); break;
+					case "Спарринг личный": participantsWindow.monitorSetSparring(); break;
+					case "Спарринг коммандный": participantsWindow.monitorSetSparring(); break;
+				}
+
 			}
 		}
 	}

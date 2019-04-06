@@ -6,10 +6,17 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QGuiApplication app(argc, argv);
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+
+	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+	QGuiApplication app(argc, argv);
+	QQmlApplicationEngine engine;
+
+	try { //тестирование системы на работспособность.
+		engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+	} catch (const std::string) {
+		std::cerr<<"Catched ";
+		//engine.load(QUrl(QStringLiteral("qrc:/Error.qml")));
+	}
 
 //----------------------------Objects----------------------------
 	CategoryAPI *categoryAPI = new CategoryAPI();

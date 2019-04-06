@@ -49,6 +49,7 @@ Window {
     }
 
     OutMonitorSparring {
+		id: monitorSparring
 		visible: true
     }
 
@@ -65,7 +66,8 @@ Window {
 
 
     OutMonitorTul {
-		visible: true
+		id: monitorTul
+		visible: false
     }
 
     CategoryWindow {
@@ -100,10 +102,26 @@ Window {
 		onSelectPair: {
 			mainWindow.opacity = 1.0
 			participantsWindow.close()
+
+		}
+
+		onMonitorSetTul: {
+			console.log("Monitor set TUL")
+			monitorTul.show()
+			monitorSparring.close()
+		}
+
+		onMonitorSetSparring: {
+			console.log("Monitor set TUL")
+			monitorTul.close()
+			monitorSparring.show()
+		}
+
+
 		//установить имена текущей и следующей пары
 		//	sparringWindow.
 		//	tulWindow.
-		}
+
 
     }
 }

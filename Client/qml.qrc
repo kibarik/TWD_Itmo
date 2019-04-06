@@ -21,5 +21,6 @@
         <file>Tul/ControlButtons.qml</file>
         <file>Categories/ParticipantsWindow.qml</file>
         <file>Style.qml</file>
+        <file>Error.qml</file>
     </qresource>
 </RCC>

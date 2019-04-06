@@ -15,7 +15,6 @@
 #define FIELDS "SELECT name, birth, club FROM `"
 #define CONTESTSSTART 7
 
-
 /*
 Чтобы снизить нагрузку на сервер, клиент будет работать
 через локальную копию категорий. Это позволяет снизить
@@ -24,7 +23,8 @@
 В дальнейшем localCategories будет автоматически
 обновляться как-только на сервере происходят изменения
 */
-static QVector<Category> LOCALcategories = getCategories();
+        static QVector<Category> LOCALcategories = getCategories();
+
 //-------------------------------------------------------------
 
 
@@ -51,10 +51,7 @@ QVector <Category> getCategories() { //функция обращения к БД
     conn.setUserName(USER);
     conn.setPassword(PASS);
 
-    if (!conn.open()) { // Если не удалось подключиться к БД
-        std::cout << "MySQL ERROR connection();" << std::endl;
-        exit(1);
-    }
+	assert (conn.open()); //ошибка подключения к БД в виде окошка
 
     //QTextCodec * myTextCodec = QTextCodec::codecForName("UTF-8");   // Устанавливаем кодировку сервера НЕ ТОЧНО ЧТО РАБОТАЕТ
 
@@ -68,7 +65,10 @@ QVector <Category> getCategories() { //функция обращения к БД
         while (res.next()) { // Цикл проходит по всем полученным результатам
             Category temp;
             QVector <QString> tempData = split(res.value(0).toString(), ' '); //определение модели (туль, спарринг и т.п)
-            if (tempData[CONTESTSSTART] == "1"){
+
+
+			//ВНИМАНИЕ! textMode в дальнейшем используется в ParticipantsWindow.qml-> start.onClicked() при изменении подправить qml
+			if (tempData[CONTESTSSTART] == "1"){
                 temp.mode = Category::MODE::PERSONAL_TUL;
                 temp.textMode = "Туль личный";
             }

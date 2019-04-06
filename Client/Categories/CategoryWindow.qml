@@ -2,6 +2,18 @@ import QtQuick 2.0
 import QtQuick.Controls 2.5
 import QtQuick.Window 2.5
 
+
+/*
+int categoryMode = переменная используется для запуска нужного монитора
+	туль личный -> OutMonitorTul.qml
+	туль коммандный -> OutMonitorTul.qml
+
+	спарринг личный -> OutMonitorSparring.qml
+	спарринг коммандный -> OutMonitorSparring.qml
+	спарринг традиционный -> OutMonitorTul.qml
+
+*/
+
 Window {
 	id: mainWindow
 	width: 320
@@ -13,13 +25,21 @@ Window {
 	signal categoryShow
 
 	function showCategories() {
-		var categoryNames = categoryAPI.setQmlCategoriesNames();
+		var categoryNames = categoryAPI.setQmlCategoriesNames(); //получаем все локальные категории
+		var mode;
 		listModel.clear()
-		if (listModel.rowCount()=== 0){
-			for(var i = 0; i < categoryNames.length; i ++){
-				listModel.append({categoryName:categoryNames[i]})
+//		if (listModel.rowCount()=== 0){ //защита от повторного заполнения
+		    for(var i = 0; i < categoryNames.length; i ++){ //проходимся по массиву
+				mode = categoryNames[i].split(' ');
+				mode = mode[6] + " " + mode[7] // Туль личные/Спарринг и др.
+
+				listModel.append({
+									 categoryName:categoryNames[i],
+									 categoryMode: mode
+								 })
+
 			}
-		}
+//		}
 		delete categoryNames;
 	}
 
@@ -34,11 +54,12 @@ Window {
 	    delegate: Item {
 			width: parent.width
 			height: 50
+
 			Row {
-				id: row1
 				spacing: 1
 				width: 320
 				height: 50
+
 				Button {
 					id: control
 					text: categoryName
@@ -64,7 +85,10 @@ Window {
 						categoryWindow.openParticipants();
 						participantsWindow.participantsNames = categoryAPI.setQmlParticipantsNames(control.text)
 						participantsWindow.showParticipants();
-						participantsWindow.categoryName = control.text
+						participantsWindow.categoryName = categoryName
+						participantsWindow.categoryMode = categoryMode
+						console.log(categoryMode)
+
 
 					//	console.log(control.text, " category clicked")
 					}
