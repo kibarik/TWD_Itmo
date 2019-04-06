@@ -70,7 +70,7 @@ def parseCategory(categoryStr):
 
 	#Определяем весовую категорию
 	category["weightFrom"] = None
-	if params[paramsPos["contestsStart"]  + len(contests)] != '0':
+	if params[paramsPos["contestsStart"]  + len(contests)+1] != '0':
 		category["weightFrom"] = params[paramsPos["contestsStart"] + len(contests) + 1].split("-")[0]
 		category["weightTo"] = params[paramsPos["contestsStart"] + len(contests) + 1].split("-")[1]
 
