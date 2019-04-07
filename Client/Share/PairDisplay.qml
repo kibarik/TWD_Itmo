@@ -53,6 +53,9 @@ Rectangle {
 
 				onClicked: {
 					participantsWindow.show()
+					participantsWindow.participantsNames = categoryAPI.setQmlParticipantsNames(mainQmlWindow.nowCategoryName)
+					participantsWindow.categoryName = nowCategoryName
+					participantsWindow.showParticipants()
 				}
 			}
 		}
@@ -81,6 +84,9 @@ Rectangle {
 
 			onClicked: {
 				participantsWindow.show()
+				participantsWindow.participantsNames = categoryAPI.setQmlParticipantsNames(mainQmlWindow.nowCategoryName)
+				participantsWindow.categoryName = nowCategoryName
+				participantsWindow.showParticipants()
 			}
 		}
 

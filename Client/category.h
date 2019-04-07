@@ -19,6 +19,7 @@ public:
     QString name;
     QString textMode;
 	QString qmlName;
+	QString weight;
     enum MODE {
         PERSONAL_TUL,
         PERSONAL_SPARRING,

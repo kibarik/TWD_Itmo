@@ -66,46 +66,54 @@ QVector <Category> getCategories() { //функция обращения к БД
             Category temp;
             QVector <QString> tempData = split(res.value(0).toString(), ' '); //определение модели (туль, спарринг и т.п)
 
+			//задаем имя для QML перед определением мода, в последующем опционально добавляем вес(для спарринга)
+			temp.qmlName = tempData[0] +' '+ tempData[1] +'-'+ tempData[2] +" г.р. "+
+			        tempData[3]+ tempData[5] + " - "+ tempData[4]+ tempData[6]+' ';
 
 			//ВНИМАНИЕ! textMode в дальнейшем используется в ParticipantsWindow.qml-> start.onClicked() при изменении подправить qml
 			if (tempData[CONTESTSSTART] == "1"){
                 temp.mode = Category::MODE::PERSONAL_TUL;
                 temp.textMode = "Туль личный";
+				temp.qmlName += temp.textMode;
             }
             else if (tempData[CONTESTSSTART + 1] == "1"){
                 temp.mode = Category::MODE::TEAM_TUL;
 				temp.textMode = "Туль командный";
+				temp.qmlName += temp.textMode;
             }
             else if (tempData[CONTESTSSTART + 2] == "1"){
                 temp.mode = Category::MODE::TRADITIONAL_TUL;
                 temp.textMode = "Туль традиционный";
+				temp.qmlName += temp.textMode;
             }
             else if (tempData[CONTESTSSTART + 3] == "1"){
                 temp.mode = Category::MODE::PERSONAL_SPARRING;
                 temp.textMode = "Спарринг личный";
-
+				temp.qmlName +=  tempData[CONTESTSSTART+9]+ " Кг " + temp.textMode;
             }
             else if (tempData[CONTESTSSTART + 4] == "1"){
                 temp.mode = Category::MODE::TEAM_SPARRING;
 				temp.textMode = "Спарринг командный";
+				temp.qmlName += temp.textMode;
+
             }
             else if (tempData[CONTESTSSTART + 5] == "1"){
                 temp.mode = Category::MODE::TRADITIONAL_SPARRING;
                 temp.textMode = "Спарринг традиционный";
+				temp.qmlName += temp.textMode;
             }
 
 			else if (tempData[CONTESTSSTART + 6] == "1"){
 				temp.mode = Category::MODE::IMPACT_FORCE;
 				temp.textMode = "Силовое разбивание";
+				temp.qmlName += temp.textMode;
 			}
 
 			else if (tempData[CONTESTSSTART + 7] == "1"){
 				temp.mode = Category::MODE::TRADITIONAL_SPARRING;
 				temp.textMode = "Спец. техника";
+				temp.qmlName += temp.textMode;
 			}
-
-			temp.qmlName = tempData[0] +' '+ tempData[1] +'-'+ tempData[2] +" г.р. "+
-			        tempData[3]+ tempData[5] + " - "+ tempData[4]+ tempData[6]+' '+ temp.textMode; // Имя для QML
 
 			temp.name = res.value(0).toString(); // Задаём имя категории
 			categs.push_back(temp); // Добавляем категорию
@@ -238,11 +246,10 @@ QVector <Category> getCategTemplate() {
 
 
 
-QList<QString> CategoryAPI::setQmlCategoriesNames(){
+QList<QString> CategoryAPI::setQmlCategoriesNames(){ //передаем имена категорий для отображения в QML
     QList <QString> CategoriesNames;
 
 	for (const Category& category : LOCALcategories) {
-//		qDebug()<<category.qmlName;
 		CategoriesNames << category.qmlName;
     };
 
@@ -251,12 +258,10 @@ QList<QString> CategoryAPI::setQmlCategoriesNames(){
 
 //функция для передачи всех участников в окно CategoryWindow.qml
 QList<QString> CategoryAPI::setQmlParticipantsNames(const QString& categoryName){
-	//qDebug()<< "setParticipantsNames started";
    QList<QString> now;
    Category category;
 
    for (qint8 i = 0; i<LOCALcategories.size(); ++i) { //перебор по всем категория в локальном хранилище
-	   //qDebug()<< "In for: " << i;
 	   if(LOCALcategories.at(i).qmlName == categoryName){//ищем нашу категорию
 		   category = LOCALcategories[i];
 		   qDebug() << "<setQMLParticipantsNames> OK:" << LOCALcategories.at(i).qmlName
@@ -265,8 +270,8 @@ QList<QString> CategoryAPI::setQmlParticipantsNames(const QString& categoryName)
    }
 
    for(const Participant& participant: category.participants){
-//	   qDebug() << "inside for in qmlPartNames";
-	   now.push_back(participant.name);
+	   //qDebug()<<participant.name<<"\n"<< participant.club;
+	   now.push_back(participant.name+"\n"+ participant.club);
    };
 
    return now;

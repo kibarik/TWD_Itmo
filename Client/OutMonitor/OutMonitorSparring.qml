@@ -44,7 +44,7 @@ Window {
 				color: "#ffffff"
 				text: mainQmlWindow.redParticipant
 				wrapMode: Text.WordWrap
-				fontSizeMode: Text.Fit
+				fontSizeMode: Text.VerticalFit
 				horizontalAlignment: Text.AlignHCenter
 				verticalAlignment: Text.AlignVCenter
 				anchors.leftMargin: 15

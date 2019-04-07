@@ -108,7 +108,7 @@ Window {
         id: participantsWindow
 		flags: Qt.FramelessWindowHint // Отключаем обрамление окна
 
-        onSignalExit: {
+		onSignalExit: {
 			categoryWindow.show()
 			participantsWindow.close()
 		}
@@ -117,11 +117,15 @@ Window {
 			mainQmlWindow.opacity = 1.0
 			participantsWindow.close()
 
-			//устанавливаем имена участников на главном экране для "Сейчас" и "Следующие"
-			mainQmlWindow.redParticipant = participantPairPositions[0]
-			mainQmlWindow.blueParticipant = participantPairPositions[1]
-			mainQmlWindow.nextParticipant1 = participantPairPositions[2]
-			mainQmlWindow.nextParticipant2 = participantPairPositions[3]
+			//устанавливаем имена участников на главном экране для "Сейчас"
+			mainQmlWindow.redParticipant = participantNowPairPositions[0]
+			mainQmlWindow.blueParticipant = participantNowPairPositions[1]
+
+			//устанавливаем имена участников на главном экране для "Следующие"
+			mainQmlWindow.nextParticipant1 = participantNextPairPositions[0]
+			mainQmlWindow.nextParticipant2 = participantNextPairPositions[1]
+
+
 
 		    }
 

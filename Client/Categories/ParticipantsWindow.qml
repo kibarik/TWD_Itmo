@@ -16,25 +16,33 @@ Window {
 	property var participantsNames: ({}); //получение структуры из C++ QList<QList<Participants>>
 	property string categoryName: "Выберите категорию";
 
-	property var participantPairPositions: [
+	property var participantNowPairPositions: [
 		    participantsNames[0],
-		    participantsNames[1],
+		    participantsNames[1]
+	] // динамический список. При выборе пары сюда передаются их порядковые номера
+
+	property var participantNextPairPositions: [
 		    participantsNames[2],
 		    participantsNames[3]
 	] // динамический список. При выборе пары сюда передаются их порядковые номера
 
 	function showParticipants(){
 		var temp = ""
-		for(var i = 1; i < participantsNames.length+1; i ++){
-			if(i%2==0){
-				listModel.append({ //четный
-									 participantName1:participantsNames[i-1],
-									 participantName2:temp,
-									 pairNum: Math.ceil(i/2) //округляем 1.5 до 2, 3.5 до 4 и т.п.
-								 })
+		if(listModel.rowCount()===0){ // защита от дублирования
+			for(var i = 1; i < participantsNames.length+1; i ++){
+				if(i%2==0){
+					listModel.append({ //четный
+										 participantName1: temp, //красный (каждый нечетный)
+										 participantName2: participantsNames[i-1], //синий (четные)
+										 pairNum: Math.ceil(i/2), //округляем 1.5 до 2, 3.5 до 4 и т.п.
+										 redID: i-2,
+										 blueID: i-1
+									 })
+				}
+				temp = participantsNames[i-1] //нечетные
 			}
-			temp = participantsNames[i-1] //нечетные
 		}
+		delete participantsNames;
 	}
 
 	Row {
@@ -51,13 +59,23 @@ Window {
 			transformOrigin: Item.Left
 
 			onClicked: {
-				participantsWindow.signalExit()
-				listModel.clear()
-				delete participantsNames
+				if (mainQmlWindow.nowCategoryName != categoryName){//очищать, если не зашли в непроводимую категория (баг пустого окна по выбору пары)
+					participantsWindow.signalExit()
+					listModel.clear()
+					delete participantsNames
+					console.log("очистка listModel для категории отличной от текущей")
+				}
+				else { //текущая и проводимая категория совпадают
+					console.log("условие else ", mainQmlWindow.visible)
+					participantsWindow.close()
+					mainQmlWindow.opacity = 1.0
+					listModel.clear()
+
+				}
 			}
 		}
 
-		Button {
+		Button { //провести категорию
 			id: start
 			width: parent.width-back.width
 			height: parent.height
@@ -85,15 +103,26 @@ Window {
 
 			onClicked: {
 				participantsWindow.close()
-				participantPairPositions =[
+
+				participantNowPairPositions =[
 							        participantsNames[0],
-							        participantsNames[1],
-							        participantsNames[2],
-							        participantsNames[3]
-						    ]; // автоматически ставим первую пару и готовим следующих
+							        participantsNames[1]
+						    ]; // автоматически ставим первую пару участников 0 и 1
+
+				participantNextPairPositions = [
+							participantsNames[2],
+							participantsNames[3]
+						]; //автоматически ставим следующей пару участников 2 и 3
 
 				mainQmlWindow.nowCategoryName = categoryName;
 				participantsWindow.selectPair()
+
+
+				if (mainQmlWindow.nowCategoryName != categoryName){//очищать, если не зашли в непроводимую категория (баг пустого окна по выбору пары)
+					listModel.clear()
+					delete participantsNames
+					console.log("очистка listModel для категории отличной от текущей")
+				}
 
 				switch(categoryMode){
 				    case "Туль личный":
@@ -131,6 +160,7 @@ Window {
 					default: console.log("UNKNOWN CATEGORY TYPE")
 				}
 
+				listModel.clear()
 			}
 		}
 	}
@@ -152,12 +182,19 @@ Window {
 				border.width: 0
 
 				MouseArea {
-					id: mouseArea
+					id: mouseAreaRed
 					anchors.fill: parent
 
 					onClicked: {
+						console.log("Select now pair->", redID, "-", blueID);
+
+						participantNowPairPositions =[
+									        participantsNames[redID],
+									    participantsNames[blueID],
+								    ]; // автоматически ставим первую пару и готовим следующих
+
 						participantsWindow.selectPair();
-						delete participantsNames
+						listModel.clear()
 					}
 				}
 
@@ -170,6 +207,7 @@ Window {
 					anchors.topMargin: parent.border.width
 
 					Label {
+						property int redID;
 						id: topL
 						color: "White"
 						text: participantName1
@@ -193,6 +231,7 @@ Window {
 				}
 
 				Rectangle {
+					property int blueID;
 					color: "#2980b9"
 					height: parent.height/2 - space.height
 
