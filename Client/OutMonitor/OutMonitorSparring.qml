@@ -22,8 +22,6 @@ Window {
 	y: 0
 	minimumHeight: 400
 	minimumWidth: 600
-//	maximumHeight: 2160
-//	maximumWidth: 3840
 	color: "#000000"
 
 	Grid {
@@ -44,7 +42,7 @@ Window {
 			Text {
 				id: blueName1
 				color: "#ffffff"
-				text: qsTr("Красный")
+				text: mainQmlWindow.redParticipant
 				wrapMode: Text.WordWrap
 				fontSizeMode: Text.Fit
 				horizontalAlignment: Text.AlignHCenter
@@ -53,7 +51,7 @@ Window {
 				anchors.fill: parent
 				font.pixelSize: parent.height/3
 				textFormat: Text.PlainText
-				font.family: "Tahoma"
+				font.family: "Arial"
 			}
 		}
 
@@ -65,7 +63,7 @@ Window {
 			Text {
 				id: blueName
 				color: "#ffffff"
-				text: qsTr("Синий")
+				text: mainQmlWindow.blueParticipant
 				wrapMode: Text.WordWrap
 				font.pixelSize: parent.height/3
 				font.family: "Times New Roman"
@@ -99,7 +97,7 @@ Window {
 				verticalAlignment: Text.AlignVCenter
 				anchors.fill: parent
 				font.pixelSize: parent.width/2
-				font.family: "Times New Roman"
+				font.family: "Verdana"
 			}
 		}
 		Rectangle {
@@ -117,7 +115,7 @@ Window {
 				verticalAlignment: Text.AlignVCenter
 				anchors.fill: parent
 				font.pixelSize: parent.width/2
-				font.family: "Times New Roman"
+				font.family: "Verdana"
 			}
 		}
 
@@ -135,7 +133,7 @@ Window {
 				verticalAlignment: Text.AlignVCenter
 				anchors.fill: parent
 				font.pixelSize: parent.width/2
-				font.family: "Times New Roman"
+				font.family: "Verdana"
 			}
 		}
 	}
@@ -164,8 +162,8 @@ Window {
 			id: element
 			height: parent.height/8
 			color: "#ffffff"
-			text: qsTr("Туль Мальчики 14-17 лет 3 гуп - 1 дан")
-			font.family: "Verdana"
+			text: mainQmlWindow.nowCategoryName
+			font.family: "Arial"
 			font.pixelSize: parent.height/3
 			fontSizeMode: Text.Fit
 			font.capitalization: Font.AllUppercase
@@ -176,8 +174,3 @@ Window {
 	}
 }
 
-
-/*##^## Designer {
-	D{i:6;anchors_height:522}D{i:13;anchors_height:135}D{i:14;anchors_height:92.25;anchors_width:1366}
-}
- ##^##*/

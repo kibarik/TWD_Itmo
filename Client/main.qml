@@ -26,7 +26,7 @@ import "Categories/"
 */
 
 Window {
-	id: mainWindow
+	id: mainQmlWindow
     width: 320
     height: 480
     visible: true
@@ -35,47 +35,60 @@ Window {
 	maximumHeight: 480
 	maximumWidth: 320
 
-    //flags: Qt.FramelessWindowHint // Отключаем обрамление окна
+	flags: Qt.FramelessWindowHint // Отключаем обрамление окна
+
+	property string redParticipant: "Красный";
+	property string blueParticipant: "Синий";
+	property string nextParticipant1;
+	property string nextParticipant2;
+	property string nowCategoryName: "Выберите категорию";
+
+/*===============Main Mode Windows=============================*/
+
 
     Sparring {
         id: sparringWindow
 		visible: false
+		onCategoryShow: {
 
-        onCategoryShow: { // сигнал на отображение экрана категорий
-            categoryWindow.show()
-            mainWindow.opacity = 0.0
-        }
-
+			categoryWindow.show()
+			mainQmlWindow.opacity = 0.0
+		}
     }
+
+
+	Tul {
+		id: tulWindow
+		visible: true
+		onCategoryShow: {
+			categoryWindow.show()
+			mainQmlWindow.opacity = 0.0
+		}
+	}
+
+/*===============Out Big monitors=============================*/
 
     OutMonitorSparring {
 		id: monitorSparring
-		visible: true
+		visible: false
     }
 
-
-    Tul {
-		id: tulWindow
-		visible: true
-
-        onCategoryShow: { // сигнал на отображение экрана категорий
-            categoryWindow.show()
-            mainWindow.opacity = 0.0
-        }
-    }
 
 
     OutMonitorTul {
 		id: monitorTul
-		visible: false
+		visible: true
     }
+
+/*===============Control Windows=============================*/
 
     CategoryWindow {
         visible: false
         id: categoryWindow
+		flags: Qt.FramelessWindowHint // Отключаем обрамление окна
 
         onSignalExit: { //из Category.qml сигнал на возврат в гл. окно
-            mainWindow.opacity = 1.0
+			mainQmlWindow.opacity = 1.0
             categoryWindow.close()
         }
 
@@ -93,6 +106,7 @@ Window {
     ParticipantsWindow {
         visible: false
         id: participantsWindow
+		flags: Qt.FramelessWindowHint // Отключаем обрамление окна
 
         onSignalExit: {
 			categoryWindow.show()
@@ -100,28 +114,33 @@ Window {
 		}
 
 		onSelectPair: {
-			mainWindow.opacity = 1.0
+			mainQmlWindow.opacity = 1.0
 			participantsWindow.close()
 
-		}
+			//устанавливаем имена участников на главном экране для "Сейчас" и "Следующие"
+			mainQmlWindow.redParticipant = participantPairPositions[0]
+			mainQmlWindow.blueParticipant = participantPairPositions[1]
+			mainQmlWindow.nextParticipant1 = participantPairPositions[2]
+			mainQmlWindow.nextParticipant2 = participantPairPositions[3]
 
-		onMonitorSetTul: {
+		    }
+
+		onMonitorSetTul: { //переключение монитора на туль
 			console.log("Monitor set TUL")
 			monitorTul.show()
 			monitorSparring.close()
+
+			sparringWindow.visible = false
+			tulWindow.visible = true
 		}
 
-		onMonitorSetSparring: {
-			console.log("Monitor set TUL")
+		onMonitorSetSparring: { //переключение монитора на спарринг
+			console.log("Monitor set SPARRING")
 			monitorTul.close()
 			monitorSparring.show()
+
+			sparringWindow.visible = true
+			tulWindow.visible = false
 		}
-
-
-		//установить имена текущей и следующей пары
-		//	sparringWindow.
-		//	tulWindow.
-
-
     }
 }

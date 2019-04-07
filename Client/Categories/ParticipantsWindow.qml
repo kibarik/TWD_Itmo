@@ -13,8 +13,15 @@ Window {
 	signal monitorSetSparring
 
 	property var categoryMode; //переменная для переключения экранов
-	property var participantsNames: ({});
-	property string categoryName;
+	property var participantsNames: ({}); //получение структуры из C++ QList<QList<Participants>>
+	property string categoryName: "Выберите категорию";
+
+	property var participantPairPositions: [
+		    participantsNames[0],
+		    participantsNames[1],
+		    participantsNames[2],
+		    participantsNames[3]
+	] // динамический список. При выборе пары сюда передаются их порядковые номера
 
 	function showParticipants(){
 		var temp = ""
@@ -78,14 +85,50 @@ Window {
 
 			onClicked: {
 				participantsWindow.close()
+				participantPairPositions =[
+							        participantsNames[0],
+							        participantsNames[1],
+							        participantsNames[2],
+							        participantsNames[3]
+						    ]; // автоматически ставим первую пару и готовим следующих
+
+				mainQmlWindow.nowCategoryName = categoryName;
 				participantsWindow.selectPair()
 
 				switch(categoryMode){
-				case "Туль личный": participantsWindow.monitorSetTul(); console.log ("Tul changed"); break;
-				    case "Туль коммандный": participantsWindow.monitorSetTul(); break;
-					case "Спарринг традиционный": participantsWindow.monitorSetTul(); break;
-					case "Спарринг личный": participantsWindow.monitorSetSparring(); break;
-					case "Спарринг коммандный": participantsWindow.monitorSetSparring(); break;
+				    case "Туль личный":
+						participantsWindow.monitorSetTul();
+						break;
+
+					case "Туль командный":
+						participantsWindow.monitorSetTul();
+						break;
+
+					case "Туль традиционный":
+						participantsWindow.monitorSetTul();
+						break;
+
+					case "Спарринг традиционный":
+						participantsWindow.monitorSetTul();
+						break;
+
+					case "Спарринг личный":
+						participantsWindow.monitorSetSparring();
+						break;
+
+					case "Спарринг командный":
+						participantsWindow.monitorSetSparring();
+						break;
+
+					case "Силовое разбивание":
+						participantsWindow.monitorSetSparring();
+						break;
+
+					case "Спец. техника":
+						participantsWindow.monitorSetSparring();
+						break;
+
+					default: console.log("UNKNOWN CATEGORY TYPE")
 				}
 
 			}
@@ -114,7 +157,6 @@ Window {
 
 					onClicked: {
 						participantsWindow.selectPair();
-						listModel.clear()
 						delete participantsNames
 					}
 				}

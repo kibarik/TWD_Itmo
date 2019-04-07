@@ -28,18 +28,16 @@ Window {
 		var categoryNames = categoryAPI.setQmlCategoriesNames(); //получаем все локальные категории
 		var mode;
 		listModel.clear()
-//		if (listModel.rowCount()=== 0){ //защита от повторного заполнения
-		    for(var i = 0; i < categoryNames.length; i ++){ //проходимся по массиву
-				mode = categoryNames[i].split(' ');
-				mode = mode[6] + " " + mode[7] // Туль личные/Спарринг и др.
+		for(var i = 0; i < categoryNames.length; i ++){ //проходимся по массиву
+			mode = categoryNames[i].split(' ');
+			mode = mode[6] + " " + mode[7] // Туль личные/Спарринг и др.
 
-				listModel.append({
-									 categoryName:categoryNames[i],
-									 categoryMode: mode
-								 })
+			listModel.append({
+								 categoryName:categoryNames[i],
+								 categoryMode: mode
+							 })
 
-			}
-//		}
+		}
 		delete categoryNames;
 	}
 
@@ -87,10 +85,6 @@ Window {
 						participantsWindow.showParticipants();
 						participantsWindow.categoryName = categoryName
 						participantsWindow.categoryMode = categoryMode
-						console.log(categoryMode)
-
-
-					//	console.log(control.text, " category clicked")
 					}
 				}
 			}

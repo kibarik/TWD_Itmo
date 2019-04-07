@@ -19,12 +19,6 @@ import QtQuick.Controls 2.0 as Controls
 Rectangle {
 	width: 320
 	height: 200
-	id: designer__Selection
-
-	property string redParticipant: "Красный";
-	property string blueParticipant: "Синий";
-	property string nextParticipant1;
-	property string nextParticipant2;
 
 	Item {
 		id: topInfo
@@ -44,7 +38,7 @@ Rectangle {
 				height: 50
 
 				contentItem: Text {
-					text: redParticipant
+					text: mainQmlWindow.redParticipant
 					color: "White"
 					horizontalAlignment: Text.AlignHCenter
 					verticalAlignment: Text.AlignVCenter
@@ -72,7 +66,7 @@ Rectangle {
 			height: 50
 
 			contentItem: Text {
-				text: blueParticipant
+				text: mainQmlWindow.blueParticipant
 				color: "White"
 				horizontalAlignment: Text.AlignHCenter
 				verticalAlignment: Text.AlignVCenter
@@ -123,7 +117,7 @@ Rectangle {
 		 height: 50
 		 contentItem: Text {
 			 color: "#ffffff"
-			 text: nextParticipant1
+			 text: mainQmlWindow.nextParticipant1
 			 elide: Text.ElideRight
 			 verticalAlignment: Text.AlignVCenter
 			 horizontalAlignment: Text.AlignHCenter
@@ -150,7 +144,7 @@ Rectangle {
 			 height: 50
 			 contentItem: Text {
 				 color: "#ffffff"
-				 text: nextParticipant2
+				 text: mainQmlWindow.nextParticipant2
 				 elide: Text.ElideRight
 				 verticalAlignment: Text.AlignVCenter
 				 horizontalAlignment: Text.AlignHCenter

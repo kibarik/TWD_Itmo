@@ -25,7 +25,9 @@ public:
         TEAM_TUL,
         TEAM_SPARRING,
         TRADITIONAL_TUL,
-        TRADITIONAL_SPARRING
+		TRADITIONAL_SPARRING,
+		IMPACT_FORCE,
+		SPEC_TECH
     } mode;
 
     QVector <Participant> participants;

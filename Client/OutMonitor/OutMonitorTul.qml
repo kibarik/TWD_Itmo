@@ -41,7 +41,8 @@ Window {
 			Text {
 				id: blueName1
 				color: "#ffffff"
-				text: qsTr("Красный")
+				text: mainQmlWindow.redParticipant
+				font.capitalization: Font.MixedCase
 				wrapMode: Text.WordWrap
 				fontSizeMode: Text.Fit
 				horizontalAlignment: Text.AlignHCenter
@@ -50,7 +51,7 @@ Window {
 				anchors.fill: parent
 				font.pixelSize: parent.height/3
 				textFormat: Text.PlainText
-				font.family: "Tahoma"
+				font.family: "Verdana"
 			}
 		}
 
@@ -62,7 +63,7 @@ Window {
 			Text {
 				id: blueName
 				color: "#ffffff"
-				text: qsTr("Синий")
+				text: mainQmlWindow.blueParticipant
 				wrapMode: Text.WordWrap
 				font.pixelSize: parent.height/3
 				font.family: "Tahoma"
@@ -96,7 +97,7 @@ Window {
 				verticalAlignment: Text.AlignVCenter
 				anchors.fill: parent
 				font.pixelSize: parent.width/2
-				font.family: "Times New Roman"
+				font.family: "Verdana"
 			}
 		}
 		Rectangle {
@@ -114,7 +115,7 @@ Window {
 				verticalAlignment: Text.AlignVCenter
 				anchors.fill: parent
 				font.pixelSize: parent.width/2
-				font.family: "Times New Roman"
+				font.family: "Verdana"
 			}
 		}
 
@@ -132,7 +133,7 @@ Window {
 				verticalAlignment: Text.AlignVCenter
 				anchors.fill: parent
 				font.pixelSize: parent.width/2
-				font.family: "Times New Roman"
+				font.family: "Verdana"
 			}
 		}
 	}
@@ -150,7 +151,7 @@ Window {
 			id: element
 			height: 100
 			color: "#ffffff"
-			text: qsTr("Туль Мальчики 14-17 лет 3 гуп - 1 дан")
+			text: mainQmlWindow.nowCategoryName
 			font.family: "Verdana"
 			font.pixelSize: parent.height/3
 			fontSizeMode: Text.Fit

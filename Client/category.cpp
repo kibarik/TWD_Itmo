@@ -74,7 +74,7 @@ QVector <Category> getCategories() { //функция обращения к БД
             }
             else if (tempData[CONTESTSSTART + 1] == "1"){
                 temp.mode = Category::MODE::TEAM_TUL;
-                temp.textMode = "Туль коммандный";
+				temp.textMode = "Туль командный";
             }
             else if (tempData[CONTESTSSTART + 2] == "1"){
                 temp.mode = Category::MODE::TRADITIONAL_TUL;
@@ -87,12 +87,22 @@ QVector <Category> getCategories() { //функция обращения к БД
             }
             else if (tempData[CONTESTSSTART + 4] == "1"){
                 temp.mode = Category::MODE::TEAM_SPARRING;
-                temp.textMode = "Спарринг коммандный";
+				temp.textMode = "Спарринг командный";
             }
             else if (tempData[CONTESTSSTART + 5] == "1"){
                 temp.mode = Category::MODE::TRADITIONAL_SPARRING;
                 temp.textMode = "Спарринг традиционный";
             }
+
+			else if (tempData[CONTESTSSTART + 6] == "1"){
+				temp.mode = Category::MODE::IMPACT_FORCE;
+				temp.textMode = "Силовое разбивание";
+			}
+
+			else if (tempData[CONTESTSSTART + 7] == "1"){
+				temp.mode = Category::MODE::TRADITIONAL_SPARRING;
+				temp.textMode = "Спец. техника";
+			}
 
 			temp.qmlName = tempData[0] +' '+ tempData[1] +'-'+ tempData[2] +" г.р. "+
 			        tempData[3]+ tempData[5] + " - "+ tempData[4]+ tempData[6]+' '+ temp.textMode; // Имя для QML
