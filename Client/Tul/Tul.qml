@@ -54,8 +54,10 @@ Rectangle {
 	TulInfo {
 		visible: true
 		id: j_info
-		x: 0
-		width: 320
+		anchors.right: parent.right
+		anchors.rightMargin: 0
+		anchors.left: parent.left
+		anchors.leftMargin: 0
 		anchors.bottom: controlButtons.top
 		anchors.top: points.bottom
 	}
@@ -229,8 +231,10 @@ Rectangle {
 
 
 
+
+
 /*##^## Designer {
-	D{i:4;anchors_height:100;anchors_width:320;anchors_x:0;anchors_y:331}D{i:9;anchors_x:107;anchors_y:0}
-D{i:12;anchors_x:213;anchors_y:0}D{i:7;anchors_x:107;anchors_y:0}
+	D{i:4;anchors_height:100;anchors_width:320;anchors_x:0;anchors_y:331}D{i:6;anchors_width:320;anchors_x:0}
+D{i:9;anchors_x:107;anchors_y:0}D{i:12;anchors_x:213;anchors_y:0}D{i:7;anchors_x:107;anchors_y:0}
 }
  ##^##*/

@@ -20,49 +20,45 @@ Rectangle {
 	width: 320
 	height: 200
 
+	signal pairDisplayButtonClicked
+
 	Item {
 		id: topInfo
 		width: 320
 		height: 100
 
-		Rectangle {
-			id: rectangle2
+		Controls.Button {
+			id: nowRed
 			width: 300
 			height: 50
-			color: "#c0392b"
+			anchors.top: parent.top
+			anchors.topMargin: 0
 			anchors.right: parent.right
 
-			Controls.Button {
-				id: control
-				width: 300
-				height: 50
+			contentItem: Text {
+				text: mainQmlWindow.redParticipant
+				color: "White"
+				horizontalAlignment: Text.AlignHCenter
+				verticalAlignment: Text.AlignVCenter
+				elide: Text.ElideRight
 
-				contentItem: Text {
-					text: mainQmlWindow.redParticipant
-					color: "White"
-					horizontalAlignment: Text.AlignHCenter
-					verticalAlignment: Text.AlignVCenter
-					elide: Text.ElideRight
-
-				}
-				background: Rectangle {
-					implicitWidth: control.width
-					implicitHeight: control.height
-					color: "#f02e2e"
-				}
-
-				onClicked: {
-					participantsWindow.show()
-					participantsWindow.participantsNames = categoryAPI.setQmlParticipantsNames(mainQmlWindow.nowCategoryName)
-					participantsWindow.categoryName = nowCategoryName
-					participantsWindow.showParticipants()
-				}
 			}
+
+			background: Rectangle {
+				implicitWidth: nowRed.width
+				implicitHeight: nowRed.height
+				color: "#f02e2e"
+			}
+
+			onClicked: {
+				pairDisplayShare.pairDisplayButtonClicked();
+			}
+
 		}
 
 
 		Controls.Button {
-			id: blue
+			id: nowBlue
 			width: 300
 			anchors.bottom: parent.bottom
 			anchors.right: parent.right
@@ -77,31 +73,28 @@ Rectangle {
 
 			}
 			background: Rectangle {
-				implicitWidth: control.width
-				implicitHeight: control.height
+				implicitWidth: nowRed.width
+				implicitHeight: nowRed.height
 				color: "#1F3A93"
 			}
 
 			onClicked: {
-				participantsWindow.show()
-				participantsWindow.participantsNames = categoryAPI.setQmlParticipantsNames(mainQmlWindow.nowCategoryName)
-				participantsWindow.categoryName = nowCategoryName
-				participantsWindow.showParticipants()
+				pairDisplayShare.pairDisplayButtonClicked();
 			}
 		}
 
 		Rectangle {
-			id: nextNow
+			id: textNow
 			width: 20
 			height: 100
 			color: "#27ae60"
 			border.width: 0
 
 			Controls.Label {
-				id: label
+				id: now
 				color: "#ffffff"
 				text: qsTr("Сейчас")
-				anchors.fill: nextNow
+				anchors.fill: textNow
 				rotation: 90
 				horizontalAlignment: Text.AlignHCenter
 				verticalAlignment: Text.AlignVCenter
@@ -111,113 +104,77 @@ Rectangle {
 
 	}
 
- Item {
-	 id: buttomInfo
-	 width: 320
-	 height: 100
-	 anchors.bottom: parent.bottom
+	Item {
+		id: buttomInfo
+		width: 320
+		height: 100
+		anchors.bottom: parent.bottom
 
-	 Controls.Button {
-		 id: blue1
-		 width: 300
-		 height: 50
-		 contentItem: Text {
-			 color: "#ffffff"
-			 text: mainQmlWindow.nextParticipant1
-			 elide: Text.ElideRight
-			 verticalAlignment: Text.AlignVCenter
-			 horizontalAlignment: Text.AlignHCenter
-		 }
-		 anchors.bottom: parent.bottom
-		 background: Rectangle {
-			 color: "#34495e"
-			 implicitWidth: control1.width
-			 implicitHeight: control1.height
-		 }
-		 anchors.right: parent.right
-	 }
+		Controls.Button {
+			id: nextBlue
+			width: 300
+			height: 50
+			anchors.bottom: parent.bottom
+			anchors.right: parent.right
+			contentItem: Text {
+				color: "#ffffff"
+				text: mainQmlWindow.nextParticipant1
+				elide: Text.ElideRight
+				verticalAlignment: Text.AlignVCenter
+				horizontalAlignment: Text.AlignHCenter
+			}
+			background: Rectangle {
+				color: "#34495e"
+				implicitWidth: nextRed.width
+				implicitHeight: nextRed.height
+			}
 
-	 Rectangle {
-		 id: rectangle3
-		 x: 20
-		 y: 0
-		 width: 300
-		 height: 50
-		 color: "#c0392b"
-		 Controls.Button {
-			 id: control1
-			 width: 300
-			 height: 50
-			 contentItem: Text {
-				 color: "#ffffff"
-				 text: mainQmlWindow.nextParticipant2
-				 elide: Text.ElideRight
-				 verticalAlignment: Text.AlignVCenter
-				 horizontalAlignment: Text.AlignHCenter
-			 }
-			 background: Rectangle {
-				 color: "#34495e"
-				 implicitWidth: control1.width
-				 implicitHeight: control1.height
-			 }
-		 }
-		 anchors.right: parent.right
-	 }
+			onClicked: {
+				pairDisplayShare.pairDisplayButtonClicked();
+				participantsWindow.isNextPairClicked = true;
+			}
+		}
 
-	 Rectangle {
-		 id: nextNow1
-		 width: 20
-		 height: 100
-		 color: "#95a5a6"
-		 Controls.Label {
-			 id: label2
-			 color: "#ffffff"
-			 text: qsTr("Готовятся")
-			 rotation: 90
-			 verticalAlignment: Text.AlignVCenter
-			 horizontalAlignment: Text.AlignHCenter
-			 anchors.fill: nextNow1
-		 }
-	 }
- }
+		Rectangle {
+			id: textNext
+			width: 20
+			height: 100
+			color: "#95a5a6"
+			Controls.Label {
+				id: next
+				color: "#ffffff"
+				text: qsTr("Готовятся")
+				rotation: 90
+				verticalAlignment: Text.AlignVCenter
+				horizontalAlignment: Text.AlignHCenter
+				anchors.fill: textNext
+			}
+		}
+
+		Controls.Button {
+			id: nextRed
+			x: 20
+			y: 0
+			width: 300
+			height: 50
+			contentItem: Text {
+				color: "#ffffff"
+				text: mainQmlWindow.nextParticipant2
+				elide: Text.ElideRight
+				verticalAlignment: Text.AlignVCenter
+				horizontalAlignment: Text.AlignHCenter
+			}
+			background: Rectangle {
+				color: "#34495e"
+				implicitWidth: nextRed.width
+				implicitHeight: nextRed.height
+			}
+
+			onClicked: {
+				pairDisplayShare.pairDisplayButtonClicked();
+				participantsWindow.isNextPairClicked = true;
+			}
+		}
+	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*##^## Designer {
-	D{i:2;anchors_width:300}
-}
- ##^##*/

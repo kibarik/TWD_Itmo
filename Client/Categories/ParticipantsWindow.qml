@@ -3,18 +3,39 @@ import QtQuick.Window 2.0
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Styles 1.4
 
+/*
+	В данном файле описаны функции выбора пары и отображения всех участников категории
+	Выбор пары устроен следующим образом:
+		1. Получаем название из mainQmlWindow.nowCategoryName
+		2. Через C++ быстро ищем нужную нам категорию из локальной структуры LOCALcategories
+		3. Отрисовываем всех участников через showParticipants(), каждый участник имеет уникальный ID
+			a. redID и blueID обновляются при каждом нажатии на pairDisplay->control Button.
+			b. Обновление отрисовки обязательное условие, иначе баг с очисткой.
+		4. После нажатия на MouseArea:
+			a. Текущая пара -> Заполняем список participantNowPairPositions парой через participantsNames[ПОРЯДКОЙ НОМЕР]
+			b. Следующая пара -> Заполняем список participantNextPairPositions парой через participantsNames[ПОРЯДКОЙ НОМЕР]
+			c. отправляем сигнал selectPair(), в слот (main.qml -> participantsWindow -> onSelectPair)
+			d. обработчик передает значения текущей пары на внешний монитор и pairDisplay
+			e. Если флаг isNextPairClicked true-> устанавливаются параметры для след. пары.
+
+*/
+
 Window {
-	width: 320
+	width: 321 //1px не опечатка
 	height: 480
 
 	signal signalExit
-	signal selectPair
+	signal selectNowPair
+	signal selectNextPair
 	signal monitorSetTul
 	signal monitorSetSparring
+
+	//pairDisplayButttonClicked //для исключения повторения в pairDisplayButttonClicked
 
 	property var categoryMode; //переменная для переключения экранов
 	property var participantsNames: ({}); //получение структуры из C++ QList<QList<Participants>>
 	property string categoryName: "Выберите категорию";
+	property bool isNextPairClicked: false //флаг используется для установки следующей пары приходит из pairDisplayShare nextRed, nextBlue
 
 	property var participantNowPairPositions: [
 		    participantsNames[0],
@@ -101,7 +122,7 @@ Window {
 				border.width: 0
 			}
 
-			onClicked: {
+			onClicked: { //проведение категории
 				participantsWindow.close()
 
 				participantNowPairPositions =[
@@ -115,7 +136,8 @@ Window {
 						]; //автоматически ставим следующей пару участников 2 и 3
 
 				mainQmlWindow.nowCategoryName = categoryName;
-				participantsWindow.selectPair()
+				participantsWindow.selectNowPair()
+				participantsWindow.selectNextPair()
 
 
 				if (mainQmlWindow.nowCategoryName != categoryName){//очищать, если не зашли в непроводимую категория (баг пустого окна по выбору пары)
@@ -123,6 +145,7 @@ Window {
 					delete participantsNames
 					console.log("очистка listModel для категории отличной от текущей")
 				}
+				    console.log(categoryMode);
 
 				switch(categoryMode){
 				    case "Туль личный":
@@ -142,7 +165,7 @@ Window {
 						break;
 
 					case "Спарринг личный":
-						participantsWindow.monitorSetSparring();
+						participantsWindow.monitorSetTul();
 						break;
 
 					case "Спарринг командный":
@@ -157,7 +180,7 @@ Window {
 						participantsWindow.monitorSetSparring();
 						break;
 
-					default: console.log("UNKNOWN CATEGORY TYPE")
+					default: participantsWindow.monitorSetSparring(); console.log("default set");//на Личный спарринг из-за того, как 10-100 кг попадается в mode
 				}
 
 				listModel.clear()
@@ -182,19 +205,30 @@ Window {
 				border.width: 0
 
 				MouseArea {
-					id: mouseAreaRed
+					id: mouseArea
 					anchors.fill: parent
 
 					onClicked: {
-						console.log("Select now pair->", redID, "-", blueID);
+						if(isNextPairClicked){
+							console.log("Select next pair->", redID, "-", blueID);
+							participantNextPairPositions =[
+										        participantsNames[redID],
+										        participantsNames[blueID],
+									    ];
+							participantsWindow.selectNextPair();
+							listModel.clear()
+						}
 
-						participantNowPairPositions =[
-									        participantsNames[redID],
-									    participantsNames[blueID],
-								    ]; // автоматически ставим первую пару и готовим следующих
+						else { //выбор основной пары
+							console.log("Select now pair->", redID, "-", blueID);
 
-						participantsWindow.selectPair();
-						listModel.clear()
+							participantNowPairPositions =[
+										        participantsNames[redID],
+										        participantsNames[blueID],
+									    ]; // автоматически ставим первую пару и готовим следующих
+							participantsWindow.selectNowPair();
+							listModel.clear()
+						}
 					}
 				}
 

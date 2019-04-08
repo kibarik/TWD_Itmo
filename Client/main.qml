@@ -5,6 +5,7 @@ import "Sparring/"
 import "OutMonitor/"
 import "Tul/"
 import "Categories/"
+import "Share/"
 
 /*
   подключение структуры
@@ -45,10 +46,10 @@ Window {
 
 /*===============Main Mode Windows=============================*/
 
-
     Sparring {
         id: sparringWindow
 		visible: false
+
 		onCategoryShow: {
 
 			categoryWindow.show()
@@ -82,6 +83,18 @@ Window {
 
 /*===============Control Windows=============================*/
 
+	PairDisplay {
+		id: pairDisplayShare
+		visible: false
+
+		onPairDisplayButtonClicked: {
+			participantsWindow.show()
+			participantsWindow.participantsNames = categoryAPI.setQmlParticipantsNames(mainQmlWindow.nowCategoryName)
+			participantsWindow.categoryName = nowCategoryName
+			participantsWindow.showParticipants()
+		}
+	}
+
     CategoryWindow {
         visible: false
         id: categoryWindow
@@ -113,7 +126,7 @@ Window {
 			participantsWindow.close()
 		}
 
-		onSelectPair: {
+		onSelectNowPair: {
 			mainQmlWindow.opacity = 1.0
 			participantsWindow.close()
 
@@ -121,13 +134,17 @@ Window {
 			mainQmlWindow.redParticipant = participantNowPairPositions[0]
 			mainQmlWindow.blueParticipant = participantNowPairPositions[1]
 
+		}
+
+		onSelectNextPair: {
+			mainQmlWindow.opacity = 1.0
+			participantsWindow.close()
+
 			//устанавливаем имена участников на главном экране для "Следующие"
 			mainQmlWindow.nextParticipant1 = participantNextPairPositions[0]
 			mainQmlWindow.nextParticipant2 = participantNextPairPositions[1]
 
-
-
-		    }
+		}
 
 		onMonitorSetTul: { //переключение монитора на туль
 			console.log("Monitor set TUL")

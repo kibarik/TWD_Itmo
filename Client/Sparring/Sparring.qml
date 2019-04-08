@@ -40,7 +40,7 @@ Rectangle {
 	}
 
 	PairDisplay {
-		id: now_after
+		id: pairDisplay
 		height: 200
 		anchors.top: button.bottom
 		width: 320
@@ -50,7 +50,7 @@ Rectangle {
 	Time{
 		id: time
 		height: 46
-		anchors.top: now_after.bottom
+		anchors.top: pairDisplay.bottom
 		anchors.topMargin: 0
 
 	}
