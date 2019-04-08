@@ -212,8 +212,8 @@ Window {
 						if(isNextPairClicked){
 							console.log("Select next pair->", redID, "-", blueID);
 							participantNextPairPositions =[
-										        participantsNames[redID],
 										        participantsNames[blueID],
+										        participantsNames[redID]
 									    ];
 							participantsWindow.selectNextPair();
 							listModel.clear()
