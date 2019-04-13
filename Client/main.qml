@@ -36,7 +36,7 @@ Window {
 	maximumHeight: 480
 	maximumWidth: 320
 
-	flags: Qt.FramelessWindowHint // Отключаем обрамление окна
+	//flags: Qt.FramelessWindowHint // Отключаем обрамление окна
 
 	property string redParticipant: "Красный";
 	property string blueParticipant: "Синий";
