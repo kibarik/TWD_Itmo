@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>StartProgram/ChooseMode.qml</file>
+        <file>Img/add.png</file>
+        <file>Img/instruction.png</file>
+        <file>Img/protocol.png</file>
+        <file>Img/start.png</file>
+        <file>main.cpp</file>
+        <file>Img/logo.png</file>
+    </qresource>
+</RCC>
