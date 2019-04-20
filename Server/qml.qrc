@@ -1,12 +1,19 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>StartProgram/ChooseMode.qml</file>
         <file>Img/add.png</file>
         <file>Img/instruction.png</file>
         <file>Img/protocol.png</file>
         <file>Img/start.png</file>
         <file>main.cpp</file>
         <file>Img/logo.png</file>
+        <file>QML/ChooseMode.qml</file>
+        <file>QML/preloader.qml</file>
+        <file>Img/logo2.png</file>
+        <file>Img/close.png</file>
+        <file>QML/MakeCompetition/MakeCompetition.qml</file>
+        <file>QML/MakeCompetition/MC_Step1info.qml</file>
+        <file>QML/MakeCompetition/MC_Step2Category.qml</file>
+        <file>QML/MakeCompetition/MC_Step3Participants.qml</file>
     </qresource>
 </RCC>
