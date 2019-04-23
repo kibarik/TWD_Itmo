@@ -85,6 +85,10 @@ Item {
 			    color: startCompetition.hovered ? mainWindow.hovColor : mainWindow.bgColor
 
 		  }
+
+		  onClicked: {
+			  make
+		  }
 	  }
 
 	  Button {

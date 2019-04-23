@@ -2,7 +2,6 @@ import QtQuick 2.0
 import QtQuick.Window 2.0
 import QtQuick.Controls 2.0
 
-//Top_panel -->
 Rectangle{
 	id: rectangle
 	color: mainWindow.bgColor
@@ -35,6 +34,7 @@ Rectangle{
 
 	}
 
+//Top_panel
  Rectangle {
 	 id: topPanel
 	 height: 50
@@ -80,7 +80,7 @@ Rectangle{
 	 }
  }
 
-//------------<Left Menu>
+//Left Menu
  function selectChecked(num){
 	 console.log("Switch ", num);
 
@@ -91,7 +91,10 @@ Rectangle{
 
 			    makeCompetition1Step.visible = true;
 			    makeCompetition2Step.visible = false;
-			    makeCompetition3Step.visible = false
+			    makeCompetition3Step.visible = false;
+
+			    smallLeftPanel.visible = false;
+			    leftMenu.visible = true
 		break;
 
 		case 2:
@@ -103,6 +106,9 @@ Rectangle{
 			makeCompetition2Step.visible = true;
 			makeCompetition3Step.visible = false
 
+			smallLeftPanel.visible = true;
+			leftMenu.visible = false
+
 		break;
 
 		case 3:
@@ -113,6 +119,9 @@ Rectangle{
 			makeCompetition1Step.visible = false;
 			makeCompetition2Step.visible = false;
 			makeCompetition3Step.visible = true
+
+			smallLeftPanel.visible = true;
+			leftMenu.visible = false;
 		break;
 	 }
  }
@@ -121,7 +130,7 @@ Rectangle{
 
 	 id: leftMenu
 	 width: 200
-	 height: 400
+	 height: parent.height - topPanel.height
 	 anchors.left: parent.left
 	 anchors.leftMargin: 0
 	 anchors.top: topPanel.bottom
@@ -204,7 +213,7 @@ Rectangle{
 
 		 Text {
 			 color: "#d9d9d9"
-			 text: qsTr("3. Загрузка заявок")
+			 text: qsTr("3. Просмотр категорий")
 			 anchors.leftMargin: 10
 			 font.bold: true
 			 font.weight: Font.Bold
@@ -222,6 +231,18 @@ Rectangle{
 	 }
  }
 
+ //-------<SmallPanel>
+
+// MC_smallLeftPanel {
+//	id: smallLeftPanel
+//	visible: false
+//	width: 50
+//	height: leftMenu.height
+//	anchors.left: parent.left
+//	anchors.leftMargin: 0
+//    anchors.top: topPanel.bottom
+
+// }
 
 //-------------<Steps>
  MC_Step1info {
@@ -234,9 +255,10 @@ Rectangle{
  MC_Step2Category {
 	 id: makeCompetition2Step
 	 visible: false
+	 height: parent.height - topPanel.height
 	 anchors.left: leftMenu.right
 	 anchors.top: topPanel.bottom
-	 anchors.right: parent.right
+	 anchors.bottom: parent.bottom
  }
 
  MC_Step3Participants {
@@ -250,24 +272,6 @@ Rectangle{
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

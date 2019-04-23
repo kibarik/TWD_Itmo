@@ -15,5 +15,6 @@
         <file>QML/MakeCompetition/MC_Step1info.qml</file>
         <file>QML/MakeCompetition/MC_Step2Category.qml</file>
         <file>QML/MakeCompetition/MC_Step3Participants.qml</file>
+        <file>QML/MakeCompetition/MC_smallLeftPanel.qml</file>
     </qresource>
 </RCC>
