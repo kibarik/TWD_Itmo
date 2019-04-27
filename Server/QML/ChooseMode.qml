@@ -87,7 +87,6 @@ Item {
 		  }
 
 		  onClicked: {
-			  make
 		  }
 	  }
 

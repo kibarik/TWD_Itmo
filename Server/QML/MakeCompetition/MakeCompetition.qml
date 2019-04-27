@@ -87,41 +87,63 @@ Rectangle{
 	 switch (num) {
 	    case 1: competitionInfo.checked = true;
 			    categoryModel.checked = false;
+			    showCategory.checked = false;
+			    judges.checked = false;
 			    downloadParticipants.checked = false;
 
 			    makeCompetition1Step.visible = true;
 			    makeCompetition2Step.visible = false;
 			    makeCompetition3Step.visible = false;
 
-			    smallLeftPanel.visible = false;
-			    leftMenu.visible = true
+//			    smallLeftPanel.visible = false;
+//			    leftMenu.visible = true
 		break;
 
 		case 2:
 			competitionInfo.checked = false;
 			categoryModel.checked = true;
+			showCategory.checked = false;
+			judges.checked = false;
 			downloadParticipants.checked = false;
 
 			makeCompetition1Step.visible = false;
 			makeCompetition2Step.visible = true;
 			makeCompetition3Step.visible = false
 
-			smallLeftPanel.visible = true;
-			leftMenu.visible = false
+//			smallLeftPanel.visible = true;
+//			leftMenu.visible = false
 
 		break;
 
 		case 3:
 			competitionInfo.checked = false;
 			categoryModel.checked = false;
-			downloadParticipants.checked = true;
+			showCategory.checked = true;
+			judges.checked = false;
+			downloadParticipants.checked = false;
 
 			makeCompetition1Step.visible = false;
 			makeCompetition2Step.visible = false;
 			makeCompetition3Step.visible = true
 
-			smallLeftPanel.visible = true;
-			leftMenu.visible = false;
+//			smallLeftPanel.visible = true;
+//			leftMenu.visible = false;
+		break;
+
+		case 4:
+			competitionInfo.checked = false;
+			categoryModel.checked = false;
+			showCategory.checked = false;
+			judges.checked = true;
+			downloadParticipants.checked = false;
+		break;
+
+		case 5:
+			competitionInfo.checked = false;
+			categoryModel.checked = false;
+			showCategory.checked = false;
+			judges.checked = false;
+			downloadParticipants.checked = true;
 		break;
 	 }
  }
@@ -200,14 +222,14 @@ Rectangle{
 	 }
 
 	 Button {
-		 id: downloadParticipants
+		 id: showCategory
 		 width: parent.width
 		 height: 50
 		 checkable: true
 
 		 background: Rectangle {
-			 color: downloadParticipants.checked ? mainWindow.hovColor : mainWindow.bgColor
-			 border.width: downloadParticipants.hovered ? 1 : 0
+			 color: showCategory.checked ? mainWindow.hovColor : mainWindow.bgColor
+			 border.width: showCategory.hovered ? 1 : 0
 			 border.color: "#fff"
 		 }
 
@@ -227,6 +249,68 @@ Rectangle{
 
 		 onClicked: {
 			selectChecked(3);
+		 }
+	 }
+
+	 Button {
+		 id: judges
+		 width: parent.width
+		 height: 50
+		 checkable: true
+
+		 background: Rectangle {
+			 color: judges.checked ? mainWindow.hovColor : mainWindow.bgColor
+			 border.width: judges.hovered ? 1 : 0
+			 border.color: "#fff"
+		 }
+
+		 Text {
+			 color: "#d9d9d9"
+			 text: qsTr("4. Судьи")
+			 anchors.leftMargin: 10
+			 font.bold: true
+			 font.weight: Font.Bold
+			 horizontalAlignment: Text.AlignLeft
+			 font.pointSize: 12
+			 font.family: "Times New Roman"
+			 renderType: Text.NativeRendering
+			 verticalAlignment: Text.AlignVCenter
+			 anchors.fill: parent
+		 }
+
+		 onClicked: {
+			selectChecked(4);
+		 }
+	 }
+
+	 Button {
+		 id: downloadParticipants
+		 width: parent.width
+		 height: 50
+		 checkable: true
+
+		 background: Rectangle {
+			 color: downloadParticipants.checked ? mainWindow.hovColor : mainWindow.bgColor
+			 border.width: downloadParticipants.hovered ? 1 : 0
+			 border.color: "#fff"
+		 }
+
+		 Text {
+			 color: "#d9d9d9"
+			 text: qsTr("5. Загрузка заявок")
+			 anchors.leftMargin: 10
+			 font.bold: true
+			 font.weight: Font.Bold
+			 horizontalAlignment: Text.AlignLeft
+			 font.pointSize: 12
+			 font.family: "Times New Roman"
+			 renderType: Text.NativeRendering
+			 verticalAlignment: Text.AlignVCenter
+			 anchors.fill: parent
+		 }
+
+		 onClicked: {
+			selectChecked(5);
 		 }
 	 }
  }
@@ -272,6 +356,24 @@ Rectangle{
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

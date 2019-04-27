@@ -3,13 +3,13 @@ import QtQuick.Controls 2.0
 
 
 Item {
-	width: parent.width
-	height: parent.height
 
 	property string step2_NameColor: "#22313F"
 	property string step2_ColumnColor: "#34495E"
+	width: 1024-200
+	height: 550
 
-	function showSparringOption (num) {
+	function showSparringOption (num)  {
 		if (num === 1) sparringOption.visible = true
 		else sparringOption.visible = false
 	}
@@ -725,5 +725,51 @@ Item {
 				}
 			}
 		}
+	}
+
+
+	Column {
+		height: parent.height
+		anchors.right: parent.right
+		anchors.left: col4.right
+		anchors.top: parent.top
+		id: col5
+
+		    Rectangle{
+				id: options_name
+				height: 25; width: parent.width
+				color: step2_NameColor
+
+				Text {
+					text: qsTr("5. Доп. функции")
+					font.bold: true
+					anchors.fill: parent
+					font.pointSize: 15
+					font.family: "Times New Roman"
+					color: "white"
+					horizontalAlignment: Text.AlignHCenter
+					verticalAlignment: Text.AlignVCenter
+				}
+			}
+
+			Rectangle {
+				width: parent.width; height: (parent.height - options_name.height)
+				color: step2_ColumnColor
+				border.width: 1
+				border.color: step2_NameColor
+
+				Text {
+					width: parent.width
+					height: parent.height
+					color: "#ffffff"
+					text: "Я пока еще думаю над экраном для Raspberry. Если будет 7-10 дюймовый экран, то можно прям на клиенте отображать сетку участников и все функции жеребьевки скинуть на судей. Если останется 3.5 TFT, то надо научить систему жеребить с дополнительными функциями : дивизионы по 4 человека, 2 третьих места, крговая система, командная система, спец. техника и т.п."
+					font.pointSize: 14
+					verticalAlignment: Text.AlignVCenter
+					horizontalAlignment: Text.AlignLeft
+					wrapMode: Text.WordWrap
+				}
+			}
+
+
 	}
 }
