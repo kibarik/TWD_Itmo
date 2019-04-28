@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<RCC>
-    <qresource prefix="/">
-        <file alias="main.cpp">../Client/main.cpp</file>
-        <file alias="category.cpp">../Client/category.cpp</file>
-        <file alias="category.h">../Client/category.h</file>
-    </qresource>
-</RCC>

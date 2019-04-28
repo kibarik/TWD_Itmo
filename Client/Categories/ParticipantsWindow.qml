@@ -217,6 +217,7 @@ Window {
 									    ];
 							participantsWindow.selectNextPair();
 							listModel.clear()
+							isNextPairClicked = false;
 						}
 
 						else { //выбор основной пары
