@@ -1,11 +1,20 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 
+import FileIO 1.0
+import XmlIO 1.0
 
 Item {
-
 	property string step2_NameColor: "#22313F"
 	property string step2_ColumnColor: "#34495E"
+
+	signal category_year(var year)
+	signal category_gender(var gender)
+	signal category_type(var type)
+	signal category_weight(var weight)
+	signal category_rounds(var rounds)
+	signal category_time(var time)
+
 	width: 1024-200
 	height: 550
 
@@ -13,6 +22,23 @@ Item {
 		if (num === 1) sparringOption.visible = true
 		else sparringOption.visible = false
 	}
+
+	FileIO { //объект ввода и вывода
+		id: tempFile
+		source: "temp.csv"
+		onError: console.log(msg)
+	}
+
+//	XmlIO {
+//		id: xmlFile
+//		source: "category.xml"
+//		onError: console.log(msg)
+//	}
+
+//	Category { //структура из category.h сохраняет параметры до СОХРАНЕНИЯ, В последующем передает их в XML в ПЗУ
+//		id: tmpCategory;
+//		gender: man.checked ? "MAN" : "WOMAN";
+//	}
 
 	Column {
 		id: col12
@@ -56,6 +82,11 @@ Item {
 				font.pointSize: 8
 				horizontalAlignment: Text.AlignHCenter
 				placeholderText: "Год от (пример: 2002)"
+
+				onAccepted: {
+					console.log("YearFrom input: ", yearFrom.text)
+					tempFile.write(yearFrom.text); //передаем год в main.qml->createCompetitionWindow
+				}
 			}
 
 			TextField {

@@ -26,9 +26,9 @@ public:
         TEAM_TUL,
         TEAM_SPARRING,
         TRADITIONAL_TUL,
-		TRADITIONAL_SPARRING,
-		IMPACT_FORCE,
-		SPEC_TECH
+        TRADITIONAL_SPARRING,
+        IMPACT_FORCE,
+        SPEC_TECH
     } mode;
 
     QVector <Participant> participants;
@@ -71,8 +71,8 @@ class CategoryAPI : public QObject {
         //void wifiOff();
         //void displayOff();
     public slots: //From С++ to QML <<-
-	      QList<QString> setQmlCategoriesNames(); //на сигнал getCategory от CategoryWindow.qml;
-		  QList<QString> setQmlParticipantsNames(const QString& category); //на сигнал getParticipant
+              QList<QString> setQmlCategoriesNames(); //на сигнал getCategory от CategoryWindow.qml;
+              QList<QString> setQmlParticipantsNames(const QString& category); //на сигнал getParticipant
 //        void categoryEnd();
 //        void setWin(); //присудить место участнику
 //        std::pair<Participant, Participant> nextPair();

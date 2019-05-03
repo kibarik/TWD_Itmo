@@ -16,5 +16,13 @@
         <file>QML/MakeCompetition/MC_Step2Category.qml</file>
         <file>QML/MakeCompetition/MC_Step3Participants.qml</file>
         <file>QML/MakeCompetition/MC_smallLeftPanel.qml</file>
+        <file>lib/category.cpp</file>
+        <file>lib/category.h</file>
+        <file>lib/category.xml</file>
+        <file>lib/fileio.cpp</file>
+        <file>lib/fileio.h</file>
+        <file>lib/temp.txt</file>
+        <file>lib/xmlio.cpp</file>
+        <file>lib/xmlio.h</file>
     </qresource>
 </RCC>
