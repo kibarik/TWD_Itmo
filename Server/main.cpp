@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 //-------------регистрируем собственные QML типы данных-----------------------//
 	qmlRegisterType<FileIO, 1>("FileIO", 1, 0, "FileIO");
 	qmlRegisterType<FileIO, 1>("XmlIO", 1, 0, "XmlIO");
-	qmlRegisterType<Category, 1>("XmlIO", 1, 0, "XmlIO");
+	qmlRegisterType<Category, 1>("Category", 1, 0, "Category");
 
 
 

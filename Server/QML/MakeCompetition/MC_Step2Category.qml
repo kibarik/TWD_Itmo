@@ -1,33 +1,107 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 
-import FileIO 1.0
-import XmlIO 1.0
+//import FileIO 1.0
+//import XmlIO 1.0
+import Category 1.0
 
 Item {
 	property string step2_NameColor: "#22313F"
 	property string step2_ColumnColor: "#34495E"
 
-	signal category_year(var year)
-	signal category_gender(var gender)
-	signal category_type(var type)
-	signal category_weight(var weight)
-	signal category_rounds(var rounds)
-	signal category_time(var time)
-
-	width: 1024-200
+	width: 824
 	height: 550
-
+//---------------функции---------------------//
 	function showSparringOption (num)  {
 		if (num === 1) sparringOption.visible = true
 		else sparringOption.visible = false
 	}
 
-	FileIO { //объект ввода и вывода
-		id: tempFile
-		source: "temp.csv"
-		onError: console.log(msg)
+	function setMode(num) { //устанавливаем мод, обязательно избежать двойного выбор. Иначе могут быть баги
+		switch (num) {
+		    case 0:
+				tempCategory.mode = "Туль личный";
+				tul_team.checked = false;
+				sparring_self.checked = false;
+				sparring_team.checked = false;
+				sparring_traditional.checked = false;
+				kick.checked = false;
+				specTech.checked = false;
+
+
+
+			break;
+
+			case 1:
+				tempCategory.mode = "Туль командный";
+				tul_self.checked = false;
+				sparring_self.checked = false;
+				sparring_team.checked = false;
+				sparring_traditional.checked = false;
+				kick.checked = false;
+				specTech.checked = false;
+
+			break;
+
+			case 2:
+				tempCategory.mode = "Спарринг личный";
+				tul_self.checked = false;
+				tul_team.checked = false;
+				sparring_team.checked = false;
+				sparring_traditional.checked = false;
+				kick.checked = false;
+				specTech.checked = false;
+			break;
+
+			case 3:
+				tempCategory.mode = "Спарринг коммандный";
+				tul_self.checked = false;
+				tul_team.checked = false;
+				sparring_self.checked = false;
+				sparring_traditional.checked = false;
+				kick.checked = false;
+				specTech.checked = false;
+
+			break;
+
+			case 4:	tempCategory.mode = "Спарринг традиц." ;
+				tul_self.checked = false;
+				tul_team.checked = false;
+				sparring_self.checked = false;
+				sparring_team.checked = false;
+				kick.checked = false;
+				specTech.checked = false;
+			break;
+
+			case 5:
+				tempCategory.mode = "Силовое разбивание";
+				tul_self.checked = false;
+				tul_team.checked = false;
+				sparring_self.checked = false;
+				sparring_team.checked = false;
+				sparring_traditional.checked = false;
+				specTech.checked = false;
+			break;
+
+			case 6:	tempCategory.mode = "Спец.техника";
+				tul_self.checked = false;
+				tul_team.checked = false;
+				sparring_self.checked = false;
+				sparring_team.checked = false;
+				sparring_traditional.checked = false;
+				kick.checked = false;
+			break;
+
+		}
 	}
+
+//----------------------------------------------
+
+//	FileIO { //объект ввода и вывода
+//		id: tempFile
+//		source: "temp.csv"
+//		onError: console.log(msg)
+//	}
 
 //	XmlIO {
 //		id: xmlFile
@@ -35,10 +109,12 @@ Item {
 //		onError: console.log(msg)
 //	}
 
-//	Category { //структура из category.h сохраняет параметры до СОХРАНЕНИЯ, В последующем передает их в XML в ПЗУ
-//		id: tmpCategory;
-//		gender: man.checked ? "MAN" : "WOMAN";
-//	}
+	Category { //структура из category.h сохраняет параметры до СОХРАНЕНИЯ, В последующем передает их в XML в ПЗУ
+		id: tempCategory;
+		gender: man.checked ? "м." : "ж."
+
+		onCategoryChanged: console.log("Parameter changed: ", what)
+	}
 
 	Column {
 		id: col12
@@ -83,10 +159,13 @@ Item {
 				horizontalAlignment: Text.AlignHCenter
 				placeholderText: "Год от (пример: 2002)"
 
-				onAccepted: {
-					console.log("YearFrom input: ", yearFrom.text)
-					tempFile.write(yearFrom.text); //передаем год в main.qml->createCompetitionWindow
+				onEditingFinished: {
+					tempCategory.yearFrom = yearFrom.text
 				}
+			}
+
+			MouseArea{
+				id: test
 			}
 
 			TextField {
@@ -98,6 +177,10 @@ Item {
 				font.pointSize: 8
 				horizontalAlignment: Text.AlignHCenter
 				placeholderText: "Год до (пример: 2005)"
+
+				onEditingFinished: {
+					tempCategory.yearTo = yearTo.text
+				}
 			}
 		}
 
@@ -143,9 +226,7 @@ Item {
 					horizontalAlignment: Text.AlignHCenter
 					verticalAlignment: Text.AlignVCenter
 					elide: Text.ElideRight
-
 				}
-
 			}
 
 			CheckBox {
@@ -210,6 +291,7 @@ Item {
 				width: parent.width - 10
 				height: 40
 				text: qsTr("Туль личный")
+				checked: true;
 
 				//checked: man.checked ? false : true
 
@@ -227,8 +309,9 @@ Item {
 
 				}
 
-				onCheckedChanged: {
+				onClicked: {
 					showSparringOption(0);
+					setMode(0);
 				}
 			}
 
@@ -253,8 +336,10 @@ Item {
 					font.pointSize: 12
 				}
 
-				onCheckedChanged: {
+				onClicked: {
 					showSparringOption(0);
+					//tul_team.checked? setMode(1) : setMode(-1);
+					setMode(1)
 				}
 			}
 
@@ -286,8 +371,9 @@ Item {
 					font.pointSize: 12
 				}
 
-				onCheckedChanged: {
+				onClicked: {
 					sparring_self.checked ? showSparringOption(1) : showSparringOption(0)
+					setMode(2)
 				}
 			}
 
@@ -313,8 +399,9 @@ Item {
 
 				}
 
-				onCheckedChanged: {
-					sparring_team.checked ? showSparringOption(1) : showSparringOption(0)
+				onClicked: {
+					showSparringOption(0)
+					setMode(3)
 				}
 			}
 
@@ -337,6 +424,11 @@ Item {
 					verticalAlignment: Text.AlignVCenter
 					font.family: "Times New Roman"
 					font.pointSize: 12
+				}
+
+				onClicked: {
+					setMode(4)
+					showSparringOption(0)
 				}
 			}
 
@@ -369,8 +461,9 @@ Item {
 
 				}
 
-				onCheckedChanged: {
+				onClicked: {
 					showSparringOption(0);
+					setMode(5)
 				}
 			}
 
@@ -396,8 +489,9 @@ Item {
 				}
 
 
-				onCheckedChanged: {
+				onClicked: {
 					showSparringOption(0);
+					setMode(6)
 				}
 			}
 		}
@@ -443,6 +537,10 @@ Item {
 				placeholderText: "Пояс от:"
 				x: 5
 				y: 10
+
+				onEditingFinished: {
+					//tempCategory. .yearFrom = belt_from.text
+				}
 			}
 
 			CheckBox {
