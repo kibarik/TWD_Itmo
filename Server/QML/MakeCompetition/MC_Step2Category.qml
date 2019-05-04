@@ -129,10 +129,10 @@ Item {
 			color: step2_NameColor
 
 			Text {
-				text: qsTr("1. Возраст")
+				text: qsTr("1. Возраст от ГОД до ГОД")
 				font.bold: true
 				anchors.fill: parent
-				font.pointSize: 15
+				font.pointSize: 12
 				font.family: "Times New Roman"
 				color: "white"
 				horizontalAlignment: Text.AlignHCenter
@@ -539,7 +539,7 @@ Item {
 				y: 10
 
 				onEditingFinished: {
-					//tempCategory. .yearFrom = belt_from.text
+					tempCategory.beltFrom = belt_from.text
 				}
 			}
 
@@ -547,6 +547,10 @@ Item {
 				id: is_gup_from
 				x: 104
 				y: 5
+				checked: is_dan_from.checked ? false : true
+
+				//параметр зависит от is_gup_from -> можем устанавливать параметры только по одному чекбоксу
+				onCheckedChanged:	is_gup_from.checked ? tempCategory.isDanFrom=false : tempCategory.isDanFrom=true;
 			}
 
 			Text {
@@ -561,7 +565,11 @@ Item {
 				id: is_dan_from
 				x: 150
 				y: 5
+				checked: is_gup_from.checked ? false : true;
 
+//				onCheckedChanged: {
+//					is_gup_from.checked ? tempCategory.isDanFrom=false : tempCategory.isDanFrom=true;
+//				}
 			}
 
 			Text {
@@ -582,12 +590,16 @@ Item {
 				placeholderText: "Пояс до:"
 				x: 5
 				y: 62
+
+				onEditingFinished: tempCategory.beltTo = belt_to.text
 			}
 
 			CheckBox {
 				id: is_gup_to
 				x: 104
 				y: 57
+				checked: is_dan_to.checked ? false : true;
+				onCheckedChanged: is_gup_to.checked ? tempCategory.isDanTo = false : tempCategory.isDanTo = true;
 			}
 
 			Text {
@@ -602,6 +614,7 @@ Item {
 				id: is_dan_to
 				x: 150
 				y: 57
+				checked: is_gup_to.checked ? false : true
 
 			}
 
@@ -639,13 +652,16 @@ Item {
 
 				TextField {
 					width: parent.width/3
+					font.family: "Times New Roman"
 					id: weight_from
 					x: 25
 					y: 30
 					placeholderText: "Вес от"
-					font.pointSize: 8
+					font.pointSize: 12
 					padding: 6
 					horizontalAlignment: Text.AlignHCenter
+
+					onEditingFinished: tempCategory.weightFrom = weight_from.text
 				}
 
 				Text {
@@ -660,13 +676,16 @@ Item {
 
 				TextField {
 					width: parent.width/3
+					font.family: "Times New Roman"
 					id: weight_to
 					x: weight_from.x + weight_from.width + 20
 					y: weight_from.y
 					placeholderText: "Вес до"
-					font.pointSize: 8
+					font.pointSize: 12
 					padding: 6
 					horizontalAlignment: Text.AlignHCenter
+
+					onEditingFinished: tempCategory.weightTo = weight_to.text
 				}
 
 //раунды
@@ -677,7 +696,7 @@ Item {
 					y: weight_from.height + weight_from.y + 10
 
 					Text {
-						text: qsTr("4.2. Раунды")
+						text: qsTr("4.2. Кол-во раундов")
 						font.bold: true
 						anchors.fill: parent
 						font.pointSize: 15
@@ -693,10 +712,12 @@ Item {
 					id: rounds_standart
 					x: 25
 					y: rounds.y + rounds.height + 5
-					placeholderText: "1"
-					font.pointSize: 14
+					placeholderText: "Число"
+					font.pointSize: 13
 					padding: 6
 					horizontalAlignment: Text.AlignHCenter
+
+					onEditingFinished: tempCategory.roundStandart = rounds_standart.text
 				}
 
 				Text {
@@ -721,10 +742,12 @@ Item {
 					id: rounds_final
 					x: rounds_standart.x + rounds_standart.width + 20
 					y: rounds_standart.y
-					placeholderText: "2"
-					font.pointSize: 14
+					placeholderText: "Число"
+					font.pointSize: 13
 					padding: 6
 					horizontalAlignment: Text.AlignHCenter
+
+					onEditingFinished: tempCategory.roundFinal = rounds_final.text
 				}
 
 
@@ -758,20 +781,22 @@ Item {
 
 //время стандартное
 				TextField {
-					id: rounds_min_from
+					id: rounds_min_standart
 					x: 25
 					y: time.y + time.height + 5
 					width: 40
-					placeholderText: "1"
+					placeholderText: "0"
 					//id: rounds_to
 					font.pointSize: 14
 					padding: 6
 					horizontalAlignment: Text.AlignHCenter
+
+					onEditingFinished: tempCategory.timeMinStandart = rounds_min_standart.text
 				}
 
 				Text {
-					x: rounds_min_from.x + rounds_min_from.width + 2
-					y: rounds_min_from.y
+					x: rounds_min_standart.x + rounds_min_standart.width + 2
+					y: rounds_min_standart.y
 					width: 13
 					height: 40
 					text: qsTr(":")
@@ -780,20 +805,21 @@ Item {
 				}
 
 				TextField {
-					id: rounds_sec_from
-					x: rounds_min_from.x + rounds_min_from.width + 12
-					y: rounds_min_from.y
+					id: rounds_sec_standart
+					x: rounds_min_standart.x + rounds_min_standart.width + 12
+					y: rounds_min_standart.y
 					width: 80
 					height: 40
-					placeholderText: "30"
+					placeholderText: "00"
 					font.pointSize: 14
 					horizontalAlignment: Text.AlignHCenter
 					padding: 6
+					onEditingFinished: tempCategory.timeSecStandart = rounds_sec_standart.text
 				}
 
 				Text {
-					x: rounds_sec_from.x + rounds_sec_from.width
-					y: rounds_min_from.y
+					x: rounds_sec_standart.x + rounds_sec_standart.width
+					y: rounds_min_standart.y
 					width: 25
 					height: 40
 					color: "#ffffff"
@@ -809,17 +835,18 @@ Item {
 				TextField {
 					id: rounds_min_final
 					x: 25
-					y: rounds_min_from.y + rounds_min_from.height + 4
+					y: rounds_min_standart.y + rounds_min_standart.height + 4
 					width: 40
-					placeholderText: "2"
+					placeholderText: "0"
 					//id: rounds_to
 					font.pointSize: 14
 					padding: 6
 					horizontalAlignment: Text.AlignHCenter
+					onEditingFinished: tempCategory.timeMinFinal= rounds_min_final.text
 				}
 
 				Text {
-					x: rounds_min_from.x + rounds_min_from.width + 2
+					x: rounds_min_standart.x + rounds_min_standart.width + 2
 					y: rounds_min_final.y
 					width: 13
 					height: 40
@@ -830,7 +857,7 @@ Item {
 
 				TextField {
 					id: rounds_sec_final
-					x: rounds_min_from.x + rounds_min_from.width + 12
+					x: rounds_min_standart.x + rounds_min_standart.width + 12
 					y: rounds_min_final.y
 					width: 80
 					height: 40
@@ -838,10 +865,12 @@ Item {
 					font.pointSize: 14
 					horizontalAlignment: Text.AlignHCenter
 					padding: 6
+					onEditingFinished: tempCategory.timeSecFinal= rounds_sec_final.text
+
 				}
 
 				Text {
-					x: rounds_sec_from.x + rounds_sec_from.width
+					x: rounds_sec_standart.x + rounds_sec_standart.width
 					y: rounds_min_final.y
 					width: 25
 					height: 40
