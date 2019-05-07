@@ -1,4 +1,4 @@
-QT += quick xmlpatterns
+QT += quick xml
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -15,7 +15,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         lib/category.cpp \
-        lib/fileio.cpp \
         lib/xmlio.cpp
 
 RESOURCES += qml.qrc
@@ -35,5 +34,4 @@ DISTFILES += \
 
 HEADERS += \
         lib/category.h \
-        lib/fileio.h \
         lib/xmlio.h

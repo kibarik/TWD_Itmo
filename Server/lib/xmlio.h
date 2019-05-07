@@ -1,35 +1,36 @@
 #ifndef XMLIO_H
 #define XMLIO_H
+#pragma once
 
-#include <QObject>
+#include <QtXml>
 
-class XmlIO : public QObject
-{
-	Q_OBJECT
-
+class XmlIO{
 public:
-	//добавление свойств к классу
-//	Q_PROPERTY(QString source
-//	           READ source
-//	           WRITE setSource
-//	           NOTIFY sourceChanged)
-	explicit XmlIO(QObject *parent);
+	enum ErrorCode {
+		EMPTY_VALUE,
+		COULD_NOT_SAVE
+	};
 
-	//доступ к методам C++ из QML
-	//Q_INVOKABLE QString get(const QString& strQuery);
-	//Q_INVOKABLE bool write(const QString& data);
+	class XmlException : public std::exception { //класс ошибок
+	public:
+		explicit XmlException( ErrorCode code) : e_code(code) {}
+		~XmlException() noexcept {}
 
-	QString source() { return mSource; }
+		const char* what() const noexcept {
+		   switch( e_code ) {
+		       case EMPTY_VALUE: return "Empty value name when try to make XML structure!";
+		       case COULD_NOT_SAVE: return "Program couldn't save XML!";
+		   }
+		}
+	private:
+		    ErrorCode e_code;
+	};
 
-public slots:
-	void setSource(const QString& source) { mSource = source; }
-
-signals:
-	void sourceChanged(const QString& source);
-	void error(const QString& msg);
-
+	QDomElement makeElement(QDomDocument& domDoc, const QString& strName, const QString& node);
+	bool save(const QString& CategoryFullName, const QDomDocument& doc,  const QString& addDirName);
+	bool makeDir(const QString& dirName);
 private:
-	QString mSource; //название файла
+
 };
 
-#endif // XMLIO_H
+#endif

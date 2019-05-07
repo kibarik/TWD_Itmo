@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
 import QtQuick.Controls 2.0
+import Category 1.0
 
 Rectangle{
 	id: rectangle
@@ -53,8 +54,6 @@ Rectangle{
 		 font.family: "Tahoma"
 		 verticalAlignment: Text.AlignVCenter
 		 anchors.fill: parent
-
-
 	 }
 
 	 Button {
@@ -76,6 +75,10 @@ Rectangle{
 			 verticalAlignment: Text.AlignVCenter
 			 elide: Text.ElideRight
 
+		 }
+
+		 onClicked: {
+			makeCompetition2Step.saveClicked();
 		 }
 	 }
  }
@@ -343,6 +346,24 @@ Rectangle{
 	 anchors.left: leftMenu.right
 	 anchors.top: topPanel.bottom
 	 anchors.bottom: parent.bottom
+
+	 signal saveClicked
+
+	 onSaveClicked: makeCompetition2Step.visible ? tempCategory.saveCategory() : 0;
+
+	 Category{ //структура из category.h сохраняет параметры до СОХРАНЕНИЯ, В последующем передает их в XML в ПЗУ
+		 id: tempCategory;
+		 signal saveClicked;
+
+		 //ставим дефолтный значения для категории, иначе могут быть ошибки
+		 gender: makeCompetition2Step.isMan.checked ? "м." : "ж."
+		 mode: "Туль личный"
+
+		 onCategoryChanged: {
+			 console.log("Parameter changed: ", what)
+		 }
+		 onCategorySaved: console.log("Category saved");
+	 }
  }
 
  MC_Step3Participants {
@@ -356,26 +377,6 @@ Rectangle{
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*##^## Designer {

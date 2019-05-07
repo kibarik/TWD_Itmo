@@ -3,8 +3,8 @@
 #pragma once
 
 #include <QString>
-#include <utility>
 #include <QObject>
+#include <QtXml>
 
 /*
  * Описание категории и класса
@@ -36,6 +36,7 @@ class Category : public QObject{
 	Q_PROPERTY(QString timeMinFinal	 READ	timeMinFinal	WRITE setTimeMinFinal		NOTIFY categoryChanged)
 	Q_PROPERTY(QString timeSecStandart READ	timeSecStandart	WRITE setTimeSecStandart	NOTIFY categoryChanged)
 	Q_PROPERTY(QString timeSecFinal	 READ	timeSecFinal	WRITE setTimeSecFinal		NOTIFY categoryChanged)
+//	Q_PROPERTY(bool isSaved			 READ	isSaved			WRITE setSaved				NOTIFY categorySaved)
 
 public:
 	explicit Category(QObject *parent = nullptr); //явное наследование от родителя, обязательно для QML древа
@@ -59,10 +60,7 @@ public:
 	QString timeSecStandart()	{return	_timeSecStandart;}
 	QString timeSecFinal()		{return _timeSecFinal;}
 
-	//функции класса category.cpp
-	QString boolToString(const bool& temp);
-
-private slots:	//сеттеры вся суть -> 1. испустить сигнал categoryChanged() с сообщением для логирования. 2. Передать параметр из QML в C++
+	//сеттеры вся суть -> 1. испустить сигнал categoryChanged() с сообщением для логирования. 2. Передать параметр из QML в C++
 	void setName			(const QString& name);
 	void setGender			(const QString& gender);
 	void setMode			(const QString& mode);
@@ -81,22 +79,37 @@ private slots:	//сеттеры вся суть -> 1. испустить сиг�
 	void setTimeMinFinal	(const QString& timeMinFinal);
 	void setTimeSecFinal	(const QString& timeSecFinal);
 
+	//функции класса category.cpp
+	QString boolToString(const bool& temp);
+	QDomElement categoryXML(QDomDocument& doc); //функция отвечающая за создание структуры категории. Используется для временных категорий, а также в общем большом файле XML соревнований
+	bool save();
+
+public slots:
+	void saveCategory() {save();}
+
+
 signals:
 	void categoryChanged (const QString& what);
+	void categorySaved();
 
 protected:
-	    QString _name;
-		QString _gender;
-		QString _mode;
-		QString _yearFrom, _yearTo;
+	    QString _empty = "N";
+		//первоначально проинициализирует словом EMPTY, чтобы видеть пустые ячейки при названии категории. Удобно для доработки
 
-		QString _beltFrom, _beltTo;
-		bool _isDanFrom, _isDanTo;
+		QString _gender = _empty;
+		QString _mode = _empty;
+		QString _yearFrom = _empty, _yearTo = _empty;
 
-		QString _weightFrom, _weightTo;
-		QString _roundStandart, _roundFinal;
-		QString _timeMinStandart, _timeSecStandart; //не использую QTime, чтобы избежать лишних преобразований. В БД только числа нужны
-		QString _timeMinFinal, _timeSecFinal;
+		QString _beltFrom = _empty, _beltTo = _empty;
+		bool _isDanFrom = false, _isDanTo=false;
+
+		QString _weightFrom = _empty, _weightTo = _empty;
+		QString _roundStandart = _empty, _roundFinal = _empty;
+		QString _timeMinStandart = _empty, _timeSecStandart=_empty; //не использую QTime, чтобы избежать лишних преобразований. В БД только числа нужны
+		QString _timeMinFinal=_empty, _timeSecFinal=_empty;
+
+		QString _name;
+
 };
 
 

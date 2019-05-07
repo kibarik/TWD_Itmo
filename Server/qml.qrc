@@ -19,8 +19,6 @@
         <file>lib/category.cpp</file>
         <file>lib/category.h</file>
         <file>lib/category.xml</file>
-        <file>lib/fileio.cpp</file>
-        <file>lib/fileio.h</file>
         <file>lib/temp.txt</file>
         <file>lib/xmlio.cpp</file>
         <file>lib/xmlio.h</file>

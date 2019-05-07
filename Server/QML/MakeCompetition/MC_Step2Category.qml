@@ -3,11 +3,15 @@ import QtQuick.Controls 2.0
 
 //import FileIO 1.0
 //import XmlIO 1.0
-import Category 1.0
+
 
 Item {
+	id: step2_window
 	property string step2_NameColor: "#22313F"
 	property string step2_ColumnColor: "#34495E"
+	property alias isMan : man
+	isMan.checked: true; //маленькая предустановка, чтобы упростить работу создателя соревнований
+
 
 	width: 824
 	height: 550
@@ -27,9 +31,6 @@ Item {
 				sparring_traditional.checked = false;
 				kick.checked = false;
 				specTech.checked = false;
-
-
-
 			break;
 
 			case 1:
@@ -97,24 +98,12 @@ Item {
 
 //----------------------------------------------
 
-//	FileIO { //объект ввода и вывода
-//		id: tempFile
-//		source: "temp.csv"
-//		onError: console.log(msg)
-//	}
 
-//	XmlIO {
-//		id: xmlFile
-//		source: "category.xml"
-//		onError: console.log(msg)
-//	}
-
-	Category { //структура из category.h сохраняет параметры до СОХРАНЕНИЯ, В последующем передает их в XML в ПЗУ
-		id: tempCategory;
-		gender: man.checked ? "м." : "ж."
-
-		onCategoryChanged: console.log("Parameter changed: ", what)
+	/* блок категории вынесен в файл MakeCompetition.qml для исправления ошибок
+	Category {
+		id: tempCategory
 	}
+	*/
 
 	Column {
 		id: col12
@@ -209,7 +198,7 @@ Item {
 			border.width: 1
 			border.color: step2_NameColor
 
-			CheckBox {
+			CheckBox { //предварительно checked: true установлен в начале файла. Упрощает создание соревнований (муж. категорий всегда больше)
 				id: man
 				x: 5
 				y: 10
