@@ -52,3 +52,17 @@ bool XmlIO::makeDir(const QString &dirName){
 }
 
 
+bool XmlIO::viewXmlFiles(const QString& path){//просмотр файлов в папке
+	QDir dir;
+
+	dir.cd(path);
+	qDebug() << dir.entryList();
+
+//	if ( !path.isEmpty() ){
+//		dir.cd(path);
+//		qDebug() << dir.entryList();
+//	}
+
+
+
+}

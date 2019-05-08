@@ -9,9 +9,7 @@ Item {
 	id: step2_window
 	property string step2_NameColor: "#22313F"
 	property string step2_ColumnColor: "#34495E"
-	property alias isMan : man
-	isMan.checked: true; //маленькая предустановка, чтобы упростить работу создателя соревнований
-
+	property alias isWoman: woman
 
 	width: 824
 	height: 550

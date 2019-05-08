@@ -337,12 +337,15 @@ Rectangle{
 	 anchors.left: leftMenu.right
 	 anchors.top: topPanel.bottom
 	 anchors.right: parent.right
+
+	 height: parent.height - topPanel.height
  }
 
  MC_Step2Category {
 	 id: makeCompetition2Step
 	 visible: false
 	 height: parent.height - topPanel.height
+
 	 anchors.left: leftMenu.right
 	 anchors.top: topPanel.bottom
 	 anchors.bottom: parent.bottom
@@ -356,7 +359,7 @@ Rectangle{
 		 signal saveClicked;
 
 		 //ставим дефолтный значения для категории, иначе могут быть ошибки
-		 gender: makeCompetition2Step.isMan.checked ? "м." : "ж."
+		 gender: makeCompetition2Step.isWoman.checked ? "ж." : "м."
 		 mode: "Туль личный"
 
 		 onCategoryChanged: {
@@ -377,6 +380,8 @@ Rectangle{
 
 
 }
+
+
 
 
 /*##^## Designer {

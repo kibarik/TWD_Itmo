@@ -29,6 +29,8 @@ public:
 	QDomElement makeElement(QDomDocument& domDoc, const QString& strName, const QString& node);
 	bool save(const QString& CategoryFullName, const QDomDocument& doc,  const QString& addDirName);
 	bool makeDir(const QString& dirName);
+	bool viewXmlFiles(const QString& path);
+
 private:
 
 };
