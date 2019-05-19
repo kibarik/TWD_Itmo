@@ -119,7 +119,7 @@ void Category::setTimeSecFinal		(const QString& timeSecFinal)	{
 
 bool Category::save(){
 	XmlIO xml;
-	QDomDocument doc("Category");
+	    QDomDocument doc("");
 
 	QDomElement category = categoryXML(doc); //создание структуры категории в XML
 	xml.save(_name, doc, "XML");

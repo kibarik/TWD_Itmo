@@ -14,11 +14,13 @@
         <file>QML/MakeCompetition/MakeCompetition.qml</file>
         <file>QML/MakeCompetition/MC_Step1info.qml</file>
         <file>QML/MakeCompetition/MC_Step2Category.qml</file>
-        <file>QML/MakeCompetition/MC_Step3Participants.qml</file>
         <file>QML/MakeCompetition/MC_smallLeftPanel.qml</file>
         <file>lib/category.cpp</file>
         <file>lib/category.h</file>
         <file>lib/xmlio.cpp</file>
         <file>lib/xmlio.h</file>
+        <file>QML/MakeCompetition/MC_Step3ShowCategory.qml</file>
+        <file>lib/competition.cpp</file>
+        <file>lib/competition.h</file>
     </qresource>
 </RCC>

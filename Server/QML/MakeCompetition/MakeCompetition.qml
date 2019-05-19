@@ -339,6 +339,11 @@ Rectangle{
 	 anchors.right: parent.right
 
 	 height: parent.height - topPanel.height
+
+//	 Competition{
+//		id: competitionData;
+
+//	 }
  }
 
  MC_Step2Category {
@@ -369,12 +374,14 @@ Rectangle{
 	 }
  }
 
- MC_Step3Participants {
+ MC_Step3ShowCategory  {
 	 id: makeCompetition3Step
 	 visible: false
 	 anchors.left: leftMenu.right
 	 anchors.top: topPanel.bottom
 	 anchors.right: parent.right
+
+	 height: parent.height - topPanel.height
  }
 
 

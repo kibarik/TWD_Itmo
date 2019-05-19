@@ -7,8 +7,6 @@ import QtQuick.Controls 2.0
 
 Item {
 	id: step2_window
-	property string step2_NameColor: "#22313F"
-	property string step2_ColumnColor: "#34495E"
 	property alias isWoman: woman
 
 	width: 824

@@ -17,6 +17,10 @@ Window {
 	property string hovColor: "#3d5770";
 	property string background: "#181d23";
 	property string lightColor: "#34495E"
+	property string step2_NameColor: "#22313F"
+	property string step2_ColumnColor: "#34495E"
+	property string step3_headerColor: step2_NameColor
+	property string step3_backgroundColor: step2_ColumnColor;
 
 	visible: true
 	title: qsTr("Server taekwon-do")

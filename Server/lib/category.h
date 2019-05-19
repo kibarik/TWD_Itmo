@@ -88,7 +88,6 @@ public:
 public slots:
 	void saveCategory() {save();}
 
-
 signals:
 	void categoryChanged (const QString& what);
 	void categorySaved();

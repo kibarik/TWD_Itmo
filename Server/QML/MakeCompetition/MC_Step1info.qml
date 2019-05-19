@@ -7,7 +7,7 @@ Item {
 	property string step1_BackgroundColor: "#34495e"
 	property var step1_LabelWidth: 250;
 	property var step1_InputWidth: 400;
-
+	property string nowCompetitionName: competitionName.text
 
 	Rectangle {
 		id: rectangle
@@ -56,7 +56,6 @@ Item {
 				bottomPadding: 1
 				topPadding: 10
 				verticalAlignment: Text.AlignVCenter
-
 			}
 
 
