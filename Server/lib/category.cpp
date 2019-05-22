@@ -117,17 +117,15 @@ void Category::setTimeSecFinal		(const QString& timeSecFinal)	{
 }
 //void Category::setSaved				(const bool& categoryName)		{emit categorySaved("Category saved");								save()};	}
 
-bool Category::save(){
+void Category::save(const QString& path){
 	XmlIO xml;
 	    QDomDocument doc("");
 
 	QDomElement category = categoryXML(doc); //создание структуры категории в XML
-	xml.save(_name, doc, "XML");
-	xml.viewXmlFiles("XML");
+	xml.save(_name, doc, path+"/CATEGORIES");
+	xml.viewXmlFiles(path+"/CATEGORIES");
 
 	emit categorySaved();
-
-	return true;
 };
 
 QDomElement Category::categoryXML(QDomDocument& doc){ //функция для создания и заполнения XML документа
@@ -141,7 +139,7 @@ QDomElement Category::categoryXML(QDomDocument& doc){ //функция для с
 	XmlIO xml;
 
 	//регистрируем структуру. Приведен пример выложен в PROJECT/DOC/Documents/category.xml
-	//Эти элементы состоят из вложенных, поэтому они предварительно создаются для последующего создания вложений
+	//Эти элементы являются множеством, в которые вложены несколько значений
 	QDomElement category = doc.createElement("Category");
 	QDomElement year = doc.createElement("year"); //содержит вложенные элементы
 	QDomElement weight = doc.createElement("weight");

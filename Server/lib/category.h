@@ -82,11 +82,11 @@ public:
 	//функции класса category.cpp
 	QString boolToString(const bool& temp);
 	QDomElement categoryXML(QDomDocument& doc); //функция отвечающая за создание структуры категории. Используется для временных категорий, а также в общем большом файле XML соревнований
-	bool save();
+	//bool save();
 	QString checkEmpty( QString& var);
 
 public slots:
-	void saveCategory() {save();}
+	void save(const QString& path = "./");
 
 signals:
 	void categoryChanged (const QString& what);

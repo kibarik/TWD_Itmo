@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Window 2.0
 import QtQuick.Controls 2.0
 import Category 1.0
+import Competition 1.0
 
 Rectangle{
 	id: rectangle
@@ -57,13 +58,13 @@ Rectangle{
 	 }
 
 	 Button {
-		 id: ok
+		 id: save
 		 height: 50
 		 width: 150
 		 anchors.right: parent.right
 
 		 background: Rectangle {
-			 color: ok.hovered ? "#3FC380" : "#03A678";
+			 color: save.hovered ? "#3FC380" : "#03A678";
 		 }
 
 		 contentItem: Text {
@@ -79,6 +80,7 @@ Rectangle{
 
 		 onClicked: {
 			makeCompetition2Step.saveClicked();
+			makeCompetition1Step.saveClicked();
 		 }
 	 }
  }
@@ -327,7 +329,7 @@ Rectangle{
 //	height: leftMenu.height
 //	anchors.left: parent.left
 //	anchors.leftMargin: 0
-//    anchors.top: topPanel.bottom
+//  anchors.top: topPanel.bottom
 
 // }
 
@@ -337,13 +339,17 @@ Rectangle{
 	 anchors.left: leftMenu.right
 	 anchors.top: topPanel.bottom
 	 anchors.right: parent.right
-
 	 height: parent.height - topPanel.height
 
-//	 Competition{
-//		id: competitionData;
+	 signal saveClicked
+	 onSaveClicked: makeCompetition1Step.visible ? competitionData.save() : 0;
 
-//	 }
+	 Competition{
+		id: competitionData;
+		onCompetitionChanged: console.log("Competition paremeter changed: ", what);
+		onCompetitionSaved: console.log("Competition saved")
+
+	 }
  }
 
  MC_Step2Category {
@@ -356,20 +362,15 @@ Rectangle{
 	 anchors.bottom: parent.bottom
 
 	 signal saveClicked
-
-	 onSaveClicked: makeCompetition2Step.visible ? tempCategory.saveCategory() : 0;
+	 onSaveClicked: makeCompetition2Step.visible ? tempCategory.save(competitionData.name) : 0;
 
 	 Category{ //структура из category.h сохраняет параметры до СОХРАНЕНИЯ, В последующем передает их в XML в ПЗУ
 		 id: tempCategory;
-		 signal saveClicked;
 
 		 //ставим дефолтный значения для категории, иначе могут быть ошибки
 		 gender: makeCompetition2Step.isWoman.checked ? "ж." : "м."
 		 mode: "Туль личный"
-
-		 onCategoryChanged: {
-			 console.log("Parameter changed: ", what)
-		 }
+		 onCategoryChanged: console.log("Category parameter changed: ", what);
 		 onCategorySaved: console.log("Category saved");
 	 }
  }

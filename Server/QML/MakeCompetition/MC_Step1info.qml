@@ -56,6 +56,8 @@ Item {
 				bottomPadding: 1
 				topPadding: 10
 				verticalAlignment: Text.AlignVCenter
+
+				onEditingFinished: competitionData.name = competitionName.text
 			}
 
 
@@ -74,11 +76,14 @@ Item {
 			}
 
 			ComboBox {
+				id: competitionLevel
 				width: step1_InputWidth
 				height: 50
 				font.pointSize: 12
 				font.family: "Times New Roman"
 				model: ["1. Муниципальный", "2. Региональный","3. Межрегиональный", "4. Всероссийский", "5. Кубок", "6. Чемпионат и первенство"]
+				onActivated: competitionData.level = competitionLevel.currentText;
+
 			}
 
 			Label{
@@ -107,6 +112,7 @@ Item {
 				horizontalAlignment: Text.AlignLeft
 				placeholderText: "Введите имя ответственного судьи"
 				color: "#fff"
+				onEditingFinished: competitionData.theJudge = competitionMainJudge.text
 
 			}
 
@@ -136,6 +142,7 @@ Item {
 				horizontalAlignment: Text.AlignLeft
 				placeholderText: "Введите имя ответственного судьи"
 				color: "#fff"
+				onEditingFinished: competitionData.bookkeeper = competitionMBookKeeper.text
 
 			}
 
@@ -154,7 +161,7 @@ Item {
 			}
 
 			TextArea {
-				id: competitionTown
+				id: competitionCity
 				width: step1_InputWidth
 				height: 50
 				font.bold: true
@@ -165,6 +172,7 @@ Item {
 				horizontalAlignment: Text.AlignLeft
 				placeholderText: "Введите город проведения соревнований"
 				color: "#fff"
+				onEditingFinished: competitionData.city = competitionCity.text
 			}
 
 		}
@@ -172,6 +180,16 @@ Item {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
 
 /*##^## Designer {
 	D{i:0;autoSize:true;height:480;width:640}

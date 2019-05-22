@@ -4,21 +4,27 @@
 
 #include <QObject>
 #include <QString>
+#include <QtXml>
+
+/*
+* The competition class, use for make competition on 1 step MC_step1Info.qml,
+* Main function of class = save data in local machine before send it ti MySQL
+
+*/
 
 class Competition : public QObject
 {
 	Q_OBJECT
-
 	Q_PROPERTY(QString name		READ name		WRITE setName	NOTIFY competitionChanged)
 	Q_PROPERTY(QString level	READ level		WRITE setLevel	 NOTIFY competitionChanged)
 	Q_PROPERTY(QString theJudge READ theJudge   WRITE setJudge NOTIFY competitionChanged)
-	//Q_PROPERTY(QString bookkeeper READ _bookkeper WRITE setBookkeper NOTIFY competitionChanged)
+	Q_PROPERTY(QString bookkeeper READ bookkeeper WRITE setBookkeeper NOTIFY competitionChanged)
+	Q_PROPERTY(QString city		READ city		WRITE setCity	NOTIFY competitionChanged)
 
 public:
 	explicit Competition(QObject *parent = nullptr);
 
 	//getters for Q_PROPERTY
-
 	QString name()		 {return _name;}
 	QString level()		 {return _level;}
 	QString theJudge()	 {return _theJudge;}
@@ -27,23 +33,23 @@ public:
 
 
 	//setters for Q_PROPERTY
-	void setter (QString& out, QString& _inside, QString varName );
 	void setName		(const QString& name);
 	void setLevel		(const QString& level);
 	void setJudge		(const QString& judge);
-//	void setBookkeeper	(const QString& bookkeeper);
+	void setBookkeeper	(const QString& bookkeeper);
+	void setCity		(const QString& city);
 
 	//class functions
-	void makeCompetition();
-	void makeConfig();
 	void makeCompetitionDir();
+	QDomElement competitionXML(QDomDocument& doc); //функция отвечающая за создание структуры соревнований.
 	QString checkEmpty(QString &var);
 
 signals:
 	void competitionChanged(const QString what);
+	void competitionSaved();
 
 public slots:
-
+	bool save(const QString& path = "./");
 
 private:
 	QString _empty = "M";
