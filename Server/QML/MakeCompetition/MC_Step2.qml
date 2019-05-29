@@ -111,8 +111,7 @@ Item {
 		Rectangle{
 			id: age_name
 			height: 25; width: parent.width
-			color: step2_NameColor
-
+			color: darkColor
 			Text {
 				text: qsTr("1. Возраст от ГОД до ГОД")
 				font.bold: true
@@ -130,9 +129,9 @@ Item {
 			id: age
 			width: parent.width;
 			height: (parent.height - age_name.height)/3
-			color: step2_ColumnColor
+			color: lightColor
 			border.width: 1
-			border.color: step2_NameColor
+			border.color: darkColor
 
 			TextField {
 				id: yearFrom
@@ -172,7 +171,7 @@ Item {
 		Rectangle{
 			id: gender
 			height: age_name.height; width: parent.width
-			color: step2_NameColor
+			color: darkColor
 
 			Text {
 				text: qsTr("2. Пол")
@@ -190,9 +189,9 @@ Item {
 		Rectangle {
 			width: parent.width;
 			height: parent.height-age.height-age_name.height-gender.height
-			color: step2_ColumnColor
+			color: lightColor
 			border.width: 1
-			border.color: step2_NameColor
+			border.color: darkColor
 
 			CheckBox { //предварительно checked: true установлен в начале файла. Упрощает создание соревнований (муж. категорий всегда больше)
 				id: man
@@ -247,7 +246,7 @@ Item {
 		Rectangle{
 			id: chooseMod_name
 			height: 25; width: parent.width
-			color: step2_NameColor
+			color: darkColor
 
 			Text {
 				text: qsTr("3. Тип категории")
@@ -264,9 +263,9 @@ Item {
 		Rectangle{
 			//id: age
 			width: parent.width; height: (parent.height - age_name.height)
-			color: step2_ColumnColor
+			color: lightColor
 			border.width: 1
-			border.color: step2_NameColor
+			border.color: darkColor
 
 
 			CheckBox {
@@ -329,7 +328,7 @@ Item {
 			}
 
 			Rectangle {
-				color: step2_NameColor
+				color: darkColor
 				width: parent.width
 				height: 2
 				y: tul_team.y+43
@@ -418,7 +417,7 @@ Item {
 			}
 
 			Rectangle {
-				color: step2_NameColor
+				color: darkColor
 				width: parent.width
 				height: 2
 				y: sparring_traditional.y+43
@@ -492,7 +491,7 @@ Item {
 		Rectangle{
 			id: gup_name
 			height: 25; width: parent.width
-			color: step2_NameColor
+			color: darkColor
 
 			Text {
 				text: qsTr("4. Пояс")
@@ -509,9 +508,9 @@ Item {
 		Rectangle{
 			//id: age
 			width: parent.width; height: (parent.height - age_name.height)
-			color: step2_ColumnColor
+			color: lightColor
 			border.width: 1
-			border.color: step2_NameColor
+			border.color: darkColor
 
 			TextField {
 				id: belt_from
@@ -621,7 +620,7 @@ Item {
 
 				Rectangle{
 					height: age_name.height; width: parent.width
-					color: step2_NameColor
+					color: darkColor
 
 					Text {
 						text: qsTr("4.1. Вес (спарринг)")
@@ -677,7 +676,7 @@ Item {
 				Rectangle{
 					id: rounds
 					height: age_name.height; width: parent.width
-					color: step2_NameColor
+					color: darkColor
 					y: weight_from.height + weight_from.y + 10
 
 					Text {
@@ -749,7 +748,7 @@ Item {
 					x: 0
 					y: rounds_standart.y + rounds.height + 35
 					height: age_name.height; width: parent.width
-					color: step2_NameColor
+					color: darkColor
 
 					Text {
 						text: qsTr("4.3. Время")
@@ -881,7 +880,7 @@ Item {
 		    Rectangle{
 				id: options_name
 				height: 25; width: parent.width
-				color: step2_NameColor
+				color: darkColor
 
 				Text {
 					text: qsTr("5. Доп. функции")
@@ -897,9 +896,9 @@ Item {
 
 			Rectangle {
 				width: parent.width; height: (parent.height - options_name.height)
-				color: step2_ColumnColor
+				color: lightColor
 				border.width: 1
-				border.color: step2_NameColor
+				border.color: darkColor
 
 				Text {
 					width: parent.width

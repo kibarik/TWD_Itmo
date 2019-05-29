@@ -3,7 +3,6 @@
 #include <QSqlDatabase>
 #include <QString>
 #include <QDebug>
-#include <QPair>
 
 //MySQL connection data--------------------------
 #define HOST "localhost"

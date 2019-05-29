@@ -67,7 +67,7 @@ bool Competition::save(const QString& path){
 	QDomDocument doc("");
 	QDomElement competition = competitionXML(doc); //создание структуры
 
-	xml.save(_name, doc, path+"/"+_name);
+	xml.save(_name, doc, path+"/"+_name.toUpper());
 	xml.viewXmlFiles("./");//просмотрим элементы в текущей папке
 
 	emit competitionSaved();

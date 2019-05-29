@@ -16,7 +16,8 @@ SOURCES += \
         lib/competition.cpp \
         main.cpp \
         lib/category.cpp \
-        lib/xmlio.cpp
+        lib/xmlio.cpp \
+        sqldriver.cpp
 
 RESOURCES += qml.qrc
 
@@ -36,4 +37,5 @@ DISTFILES += \
 HEADERS += \
         lib/category.h \
         lib/competition.h \
-        lib/xmlio.h
+        lib/xmlio.h \
+        sqldriver.h

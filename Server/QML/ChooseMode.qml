@@ -7,6 +7,7 @@ Item {
 	height: 400
 
 	signal makeCompetition
+	signal holdingCompetition
 
 
 	Image {
@@ -42,7 +43,7 @@ Item {
 		  }
 
 		  contentItem: Text{
-			  text: "Создать\nсоревнования"
+			  text: "Создать | Изменить\nсоревнования"
 			  font.pointSize: 14
 			  bottomPadding: 20
 			  verticalAlignment: Text.AlignBottom
@@ -87,6 +88,7 @@ Item {
 		  }
 
 		  onClicked: {
+			  choose.holdingCompetition();
 		  }
 	  }
 

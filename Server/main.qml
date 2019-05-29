@@ -4,6 +4,7 @@ import QtQuick.Controls 2.0
 
 import "QML/"
 import "QML/MakeCompetition"
+import "QML/HoldingCompetition"
 
 
 Window {
@@ -11,16 +12,13 @@ Window {
 
 	//flags: Qt.ForeignWindow;
 	//flags: Qt.FramelessWindowHint;
-	//flags: Qt.FramelessWindowHint;
+	//flags: Qt.FramelessWindowHint;\
 
+	//палитра цветов
 	property string bgColor: "#2c3e50";
 	property string hovColor: "#3d5770";
-	property string background: "#181d23";
 	property string lightColor: "#34495E"
-	property string step2_NameColor: "#22313F"
-	property string step2_ColumnColor: "#34495E"
-	property string step3_headerColor: step2_NameColor
-	property string step3_backgroundColor: step2_ColumnColor;
+	property string darkColor: "#22313F"
 
 	visible: true
 	title: qsTr("Server taekwon-do")
@@ -31,7 +29,7 @@ Window {
 	minimumHeight: 600
 	width: Screen.width
 	height: Screen.height
-	color: background
+	color: "#181d23"
 
 	ChooseMode {
 		id: choose
@@ -44,6 +42,11 @@ Window {
 			createCompetitionWindow.visible = true;
 			choose.opacity = 0.05
 		}
+
+		onHoldingCompetition: {
+			holdingCompetitionWindow.visible = true;
+			choose.visible = false;
+		}
 	}
 
 	MakeCompetition {
@@ -55,4 +58,14 @@ Window {
 		anchors.verticalCenter: parent.verticalCenter
 
 	}
+
+	HoldingCompetition {
+		id: holdingCompetitionWindow
+		visible: false
+		width: parent.width
+		height: parent.height
+		anchors.horizontalCenter: parent.horizontalCenter
+		anchors.verticalCenter: parent.verticalCenter
+	}
+
 }

@@ -12,15 +12,19 @@
         <file>Img/logo2.png</file>
         <file>Img/close.png</file>
         <file>QML/MakeCompetition/MakeCompetition.qml</file>
-        <file>QML/MakeCompetition/MC_Step1info.qml</file>
-        <file>QML/MakeCompetition/MC_Step2Category.qml</file>
         <file>QML/MakeCompetition/MC_smallLeftPanel.qml</file>
         <file>lib/category.cpp</file>
         <file>lib/category.h</file>
         <file>lib/xmlio.cpp</file>
         <file>lib/xmlio.h</file>
-        <file>QML/MakeCompetition/MC_Step3ShowCategory.qml</file>
         <file>lib/competition.cpp</file>
         <file>lib/competition.h</file>
+        <file>QML/MakeCompetition/MC_Step4.qml</file>
+        <file>QML/MakeCompetition/MC_Step5.qml</file>
+        <file>QML/MakeCompetition/MC_Step1.qml</file>
+        <file>QML/MakeCompetition/MC_Step2.qml</file>
+        <file>QML/MakeCompetition/MC_Step3.qml</file>
+        <file>QML/HoldingCompetition/HoldingCompetition.qml</file>
+        <file>Img/back.png</file>
     </qresource>
 </RCC>

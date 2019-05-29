@@ -3,18 +3,16 @@ import QtQuick.Controls 2.0
 
 Item {
 	id: element
-	property string step1_borderColor: "#22313F"
-	property string step1_BackgroundColor: "#34495e"
 	property var step1_LabelWidth: 250;
 	property var step1_InputWidth: 400;
-	property string nowCompetitionName: competitionName.text
+	//property string nowCompetitionName: competitionName.text
 
 	Rectangle {
 		id: rectangle
 		border.width: 2
-		border.color: step1_borderColor
+		border.color: darkColor
 
-		color: step1_BackgroundColor
+		color: lightColor
 		width: parent.width
 		height: parent.height
 

@@ -30,10 +30,7 @@ Rectangle{
 		onClicked: {
 			createCompetitionWindow.visible=false
 			choose.opacity = 1.0
-			mainWindow.color = mainWindow.background
 		}
-
-
 	}
 
 //Top_panel
@@ -99,6 +96,8 @@ Rectangle{
 			    makeCompetition1Step.visible = true;
 			    makeCompetition2Step.visible = false;
 			    makeCompetition3Step.visible = false;
+			    makeCompetition4Step.visible = false;
+			    makeCompetition5Step.visible = false;
 
 //			    smallLeftPanel.visible = false;
 //			    leftMenu.visible = true
@@ -113,7 +112,9 @@ Rectangle{
 
 			makeCompetition1Step.visible = false;
 			makeCompetition2Step.visible = true;
-			makeCompetition3Step.visible = false
+			makeCompetition3Step.visible = false;
+			makeCompetition4Step.visible = false;
+			makeCompetition5Step.visible = false;
 
 //			smallLeftPanel.visible = true;
 //			leftMenu.visible = false
@@ -129,7 +130,9 @@ Rectangle{
 
 			makeCompetition1Step.visible = false;
 			makeCompetition2Step.visible = false;
-			makeCompetition3Step.visible = true
+			makeCompetition3Step.visible = true;
+			makeCompetition4Step.visible = false;
+			makeCompetition5Step.visible = false;
 
 //			smallLeftPanel.visible = true;
 //			leftMenu.visible = false;
@@ -141,6 +144,13 @@ Rectangle{
 			showCategory.checked = false;
 			judges.checked = true;
 			downloadParticipants.checked = false;
+
+			makeCompetition1Step.visible = false;
+			makeCompetition2Step.visible = false;
+			makeCompetition3Step.visible = false;
+			makeCompetition4Step.visible = true;
+			makeCompetition5Step.visible = false;
+
 		break;
 
 		case 5:
@@ -149,6 +159,13 @@ Rectangle{
 			showCategory.checked = false;
 			judges.checked = false;
 			downloadParticipants.checked = true;
+
+			makeCompetition1Step.visible = false;
+			makeCompetition2Step.visible = false;
+			makeCompetition3Step.visible = false;
+			makeCompetition4Step.visible = false;
+			makeCompetition5Step.visible = true;
+
 		break;
 	 }
  }
@@ -271,7 +288,7 @@ Rectangle{
 
 		 Text {
 			 color: "#d9d9d9"
-			 text: qsTr("4. Судьи")
+			 text: qsTr("4. Загрузка таблиц")
 			 anchors.leftMargin: 10
 			 font.bold: true
 			 font.weight: Font.Bold
@@ -302,7 +319,7 @@ Rectangle{
 
 		 Text {
 			 color: "#d9d9d9"
-			 text: qsTr("5. Загрузка заявок")
+			 text: qsTr("5. Просмотр")
 			 anchors.leftMargin: 10
 			 font.bold: true
 			 font.weight: Font.Bold
@@ -334,7 +351,7 @@ Rectangle{
 // }
 
 //-------------<Steps>
- MC_Step1info {
+ MC_Step1 {
 	 id: makeCompetition1Step
 	 anchors.left: leftMenu.right
 	 anchors.top: topPanel.bottom
@@ -352,7 +369,7 @@ Rectangle{
 	 }
  }
 
- MC_Step2Category {
+ MC_Step2 {
 	 id: makeCompetition2Step
 	 visible: false
 	 height: parent.height - topPanel.height
@@ -368,15 +385,35 @@ Rectangle{
 		 id: tempCategory;
 
 		 //ставим дефолтный значения для категории, иначе могут быть ошибки
-		 gender: makeCompetition2Step.isWoman.checked ? "ж." : "м."
+		 gender: makeCompetition2Step.isWoman.checked ? "ж" : "м"
 		 mode: "Туль личный"
 		 onCategoryChanged: console.log("Category parameter changed: ", what);
 		 onCategorySaved: console.log("Category saved");
 	 }
  }
 
- MC_Step3ShowCategory  {
+ MC_Step3  {
 	 id: makeCompetition3Step
+	 visible: false
+	 anchors.left: leftMenu.right
+	 anchors.top: topPanel.bottom
+	 anchors.right: parent.right
+
+	 height: parent.height - topPanel.height
+ }
+
+ MC_Step4 {
+	id: makeCompetition4Step
+	visible: false
+	anchors.left: leftMenu.right
+	anchors.top: topPanel.bottom
+	anchors.right: parent.right
+
+	height: parent.height - topPanel.height
+ }
+
+ MC_Step5 {
+	 id: makeCompetition5Step
 	 visible: false
 	 anchors.left: leftMenu.right
 	 anchors.top: topPanel.bottom

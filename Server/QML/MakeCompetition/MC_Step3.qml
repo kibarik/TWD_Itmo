@@ -1,6 +1,11 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 
+
+//function GetCategories(){
+
+//}
+
 Item {
 	id: element
 	width: parent.width
@@ -13,7 +18,7 @@ Item {
  Rectangle {
 	 id: topPanel
 	 height: 25
-	 color: step3_headerColor
+	 color: darkColor
 	 anchors.right: parent.right
 	 anchors.left: parent.left
 	 anchors.leftMargin: 0
@@ -33,16 +38,16 @@ Item {
  }
 
  Rectangle {
-	 color: step3_backgroundColor
+	 color: lightColor
 	 anchors.top: topPanel.bottom
 	 anchors.right: parent.right
 	 anchors.bottom: parent.bottom
 	 anchors.left: parent.left
 
-	 border.color: step3_headerColor
+	 border.color: darkColor
 	 border.width: 1
 
-	 ListView {
+	 GridView {
 		 id: listView
 		 anchors.fill: parent
 
@@ -95,7 +100,7 @@ Item {
 			 //num, categoryName
 
 			 ListElement {
-				 categoryName: qsTr("")
+				 categoryName: qsTr("Спарринг личный ж 2002-2005 5 False 3 True 20-45 1-2 1-30 2-00")
 				 num: 0
 			 }
 		 }
@@ -105,46 +110,6 @@ Item {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*##^## Designer {
 	D{i:1;anchors_width:200}D{i:3;anchors_height:615;anchors_width:360}

@@ -5,7 +5,6 @@
 #include <QObject>
 #include <QString>
 #include <QtXml>
-
 /*
 * The competition class, use for make competition on 1 step MC_step1Info.qml,
 * Main function of class = save data in local machine before send it ti MySQL
@@ -44,12 +43,16 @@ public:
 	QDomElement competitionXML(QDomDocument& doc); //функция отвечающая за создание структуры соревнований.
 	QString checkEmpty(QString &var);
 
+	bool saveSql();
+	bool saveLocal();
+
 signals:
 	void competitionChanged(const QString what);
 	void competitionSaved();
 
 public slots:
 	bool save(const QString& path = "./");
+
 
 private:
 	QString _empty = "M";
@@ -58,6 +61,7 @@ private:
 	QString _theJudge = _empty;
 	QString _bookkeeper = _empty;
 	QString _city = _empty;
+//	QList <Category> _categories;
 
 };
 
