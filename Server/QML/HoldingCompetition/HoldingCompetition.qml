@@ -18,17 +18,12 @@ Item {
 		anchors.leftMargin: 0
 	}
 
-
-
-	Rectangle {
-		id: rightMenu
-		width: 250
-		color: mainWindow.asphalt
+	RightPanel {
+		id: rightPanel
 		anchors.right: parent.right
 		anchors.bottom: parent.bottom
 		anchors.top: topPanel.bottom
-		border.color: darkColor
-		border.width: 1
+
 	}
 }
 

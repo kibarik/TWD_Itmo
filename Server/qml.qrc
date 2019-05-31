@@ -34,5 +34,6 @@
         <file>Img/group.png</file>
         <file>Img/dojangs.png</file>
         <file>Img/logo.ico</file>
+        <file>QML/HoldingCompetition/RightPanel.qml</file>
     </qresource>
 </RCC>
