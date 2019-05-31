@@ -26,5 +26,10 @@
         <file>QML/MakeCompetition/MC_Step3.qml</file>
         <file>QML/HoldingCompetition/HoldingCompetition.qml</file>
         <file>Img/back.png</file>
+        <file>QML/HoldingCompetition/TopPanel.qml</file>
+        <file>Img/remove.png</file>
+        <file>Img/search.png</file>
+        <file>Img/edit.png</file>
+        <file>Img/human.png</file>
     </qresource>
 </RCC>

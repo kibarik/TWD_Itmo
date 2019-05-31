@@ -17,8 +17,9 @@ Window {
 	//палитра цветов
 	property string bgColor: "#2c3e50";
 	property string hovColor: "#3d5770";
-	property string lightColor: "#34495E"
-	property string darkColor: "#22313F"
+	property string lightColor: "#34495E";
+	property string darkColor: "#22313F";
+	property string asphalt: "#2f3640";
 
 	visible: true
 	title: qsTr("Server taekwon-do")
