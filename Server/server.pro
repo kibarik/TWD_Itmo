@@ -39,3 +39,16 @@ HEADERS += \
         lib/competition.h \
         lib/xmlio.h \
         sqldriver.h
+
+#icon for WINDOWS, LINUX, MACOS
+win32: RC_ICONS = $$PWD/Img/logo.ico
+
+
+#info for win
+win32:{
+    VERSION = 1.0.0
+    QMAKE_TARGET_COMPANY = "AleksIshmanov and AleksMakurin"
+    QMAKE_TARGET_PRODUCT = "Taekwon-Do server program"
+    QMAKE_TARGET_DESCRIPTION = "Серверная часть программы для судейской системы Taekwon-Do ITF"
+    QMAKE_TARGET_COPYRIGHT = "2Aleks"
+}

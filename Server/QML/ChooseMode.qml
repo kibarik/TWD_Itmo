@@ -11,7 +11,7 @@ Item {
 
 
 	Image {
-		source: "../Img/logo2.png"
+		source: "../Img/logo.png"
 		width: 200
 		height: 200
 		anchors.top: row.bottom

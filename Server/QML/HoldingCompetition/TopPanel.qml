@@ -6,7 +6,7 @@ Rectangle {
 	color: mainWindow.lightColor
 	//color: "#000"
 	width: parent.width
-	height: 48
+	height: 40
 
 	Button{
 		id: close
@@ -131,7 +131,7 @@ Rectangle {
 			}
 
 			onClicked: {
-				console.log("HoldingCompetition: button 'search' clicked");
+				console.log("HoldingCompetition: button 'sort' clicked");
 			}
 		}
 

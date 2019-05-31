@@ -9,7 +9,6 @@
         <file>Img/logo.png</file>
         <file>QML/ChooseMode.qml</file>
         <file>QML/preloader.qml</file>
-        <file>Img/logo2.png</file>
         <file>Img/close.png</file>
         <file>QML/MakeCompetition/MakeCompetition.qml</file>
         <file>QML/MakeCompetition/MC_smallLeftPanel.qml</file>
@@ -31,5 +30,9 @@
         <file>Img/search.png</file>
         <file>Img/edit.png</file>
         <file>Img/human.png</file>
+        <file>QML/HoldingCompetition/LeftMenu.qml</file>
+        <file>Img/group.png</file>
+        <file>Img/dojangs.png</file>
+        <file>Img/logo.ico</file>
     </qresource>
 </RCC>
