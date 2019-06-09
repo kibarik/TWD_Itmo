@@ -4,6 +4,7 @@
 //#include "lib/fileio.h"
 #include "lib/xmlio.h"
 #include "lib/competition.h"
+#include  "lib/dbCompetition.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,6 +16,16 @@ int main(int argc, char *argv[])
 	//qmlRegisterType<FileIO, 1>("XmlIO", 1, 0, "XmlIO");
 	qmlRegisterType<Category, 1>("Category", 1, 0, "Category");
 	qmlRegisterType<Competition, 1>("Competition", 1, 0, "Competition");
+
+	try {
+		dbCompetition testDb("localhost", "Кубок Санкт-Петербурга 2018","Кубок_Санкт_Петербурга_2018", "3",
+		                     "Ким Дмитрий Робертович", "Главный Бухгалтер Юлечка",
+		                     "Санкт-Петербург");
+	} catch (char const* error) {
+		qDebug() << error;
+	} catch (QString er){
+		qDebug() << er;
+	}
 
 
 

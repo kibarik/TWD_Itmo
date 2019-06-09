@@ -2,7 +2,8 @@ import QtQuick 2.0
 import QtQuick.Controls 2.5
 
 Item {
-	id: element
+	property var rightPanelMinWidth: 400
+	property var rightPanelMaxWidth: 800
 
 	TopPanel {
 		id: topPanel;
@@ -23,8 +24,16 @@ Item {
 		anchors.right: parent.right
 		anchors.bottom: parent.bottom
 		anchors.top: topPanel.bottom
-
 	}
+
+//	TableView {
+//		id: windowTableView
+//		visible: false
+//		width: 1024
+//		height: 550
+//
+//	}
+
 }
 
 

@@ -35,5 +35,8 @@
         <file>Img/dojangs.png</file>
         <file>Img/logo.ico</file>
         <file>QML/HoldingCompetition/RightPanel.qml</file>
+        <file>QML/HoldingCompetition/TableView.qml</file>
+        <file>lib/dbCompetition.cpp</file>
+        <file>lib/dbCompetition.h</file>
     </qresource>
 </RCC>

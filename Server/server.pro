@@ -1,4 +1,4 @@
-QT += quick xml
+QT += quick sql core xml
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -17,7 +17,7 @@ SOURCES += \
         main.cpp \
         lib/category.cpp \
         lib/xmlio.cpp \
-        sqldriver.cpp
+        lib/dbCompetition.cpp
 
 RESOURCES += qml.qrc
 
@@ -35,10 +35,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES += \
 
 HEADERS += \
+        lib/dbCompetition.h \
         lib/category.h \
         lib/competition.h \
-        lib/xmlio.h \
-        sqldriver.h
+        lib/xmlio.h
 
 #icon for WINDOWS, LINUX, MACOS
 win32: RC_ICONS = $$PWD/Img/logo.ico

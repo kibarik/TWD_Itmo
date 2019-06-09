@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 2.0
 
 Rectangle {
 	id: rectangle
@@ -6,17 +7,10 @@ Rectangle {
 	height: parent.height
 	color: mainWindow.asphalt
 
-	Item {
+	TableView {
 		id: tableCategoryView
 		width: parent.width
-		height: 250
-
-		Text {
-			text: qsTr("Табличное представление категории")
-			anchors.horizontalCenter: parent.horizontalCenter
-			anchors.verticalCenter: parent.verticalCenter
-			color: "White"
-		}
+		height: 300
 
 		Rectangle {
 			width: parent.width
@@ -47,34 +41,7 @@ Rectangle {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*##^## Designer {
+	D{i:1;anchors_height:250;anchors_width:400}
+}
+ ##^##*/
