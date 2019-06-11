@@ -41,7 +41,9 @@ dbCompetition::dbCompetition(const QString& host, const QString& originName,cons
 
 }
 //------------------------------------------------------------------
-
+dbCompetition::dbCategory(){
+	
+}
 
 
 //-------------------------------------------------------------------
