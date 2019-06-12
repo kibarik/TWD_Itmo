@@ -360,13 +360,14 @@ Rectangle{
 
 	 signal saveClicked
 	 onSaveClicked: makeCompetition1Step.visible ? competitionData.save() : 0;
-
+//-----------------------------------------------------------------
 	 Competition{
 		id: competitionData;
 		onCompetitionChanged: console.log("Competition paremeter changed: ", what);
 		onCompetitionSaved: console.log("Competition saved")
-
 	 }
+//-----------------------------------------------------------------
+
  }
 
  MC_Step2 {
@@ -381,6 +382,7 @@ Rectangle{
 	 signal saveClicked
 	 onSaveClicked: makeCompetition2Step.visible ? tempCategory.save(competitionData.name) : 0;
 
+//--------------------------------------------------------------
 	 Category{ //структура из category.h сохраняет параметры до СОХРАНЕНИЯ, В последующем передает их в XML в ПЗУ
 		 id: tempCategory;
 
@@ -390,6 +392,7 @@ Rectangle{
 		 onCategoryChanged: console.log("Category parameter changed: ", what);
 		 onCategorySaved: console.log("Category saved");
 	 }
+//---------------------------------------------------------------
  }
 
  MC_Step3  {

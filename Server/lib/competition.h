@@ -30,7 +30,6 @@ public:
 	QString bookkeeper() {return _bookkeeper;}
 	QString city()		 {return _city;}
 
-
 	//setters for Q_PROPERTY
 	void setName		(const QString& name);
 	void setLevel		(const QString& level);
@@ -38,13 +37,9 @@ public:
 	void setBookkeeper	(const QString& bookkeeper);
 	void setCity		(const QString& city);
 
-	//class functions
-	void makeCompetitionDir();
-	QDomElement competitionXML(QDomDocument& doc); //функция отвечающая за создание структуры соревнований.
-	QString checkEmpty(QString &var);
-
-	bool saveSql();
-	bool saveLocal();
+	//work with DataBase
+	bool exportToDb(); //Отрабатывает при сохранении, создает БД в MySQL и вводит данные
+	void importFromDb(); //Получение данных из БД
 
 signals:
 	void competitionChanged(const QString what);
@@ -57,11 +52,17 @@ public slots:
 private:
 	QString _empty = "M";
 	QString _name = _empty;
+	QString _clearName = _empty;
 	QString _level  = _empty;
 	QString _theJudge = _empty;
 	QString _bookkeeper = _empty;
 	QString _city = _empty;
 //	QList <Category> _categories;
+
+	//xml functions
+	void makeCompetitionDir();
+	QDomElement competitionXML(QDomDocument& doc); //функция отвечающая за создание структуры соревнований.
+	QString checkEmpty(QString &var);
 
 };
 

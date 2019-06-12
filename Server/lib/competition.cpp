@@ -1,5 +1,6 @@
 #include "competition.h"
-#include "xmlio.h"
+//#include "xmlio.h"
+#include "dbCompetition.h"
 
 Competition::Competition(QObject *parent) : QObject(parent)
 {
@@ -47,6 +48,41 @@ void Competition::setCity(const QString &city){
 	checkEmpty(_city);
 }
 
+
+bool Competition::save(const QString& path){
+	try {
+		dbCompetition competition(_name, _level,
+		                      _theJudge, _bookkeeper,
+		                      _city);
+		return true;
+	} catch (QString& er) {
+		qDebug()<< "An error when save competition in execute: "<< er;
+	}
+
+}
+
+
+//	competition.exec("CREATE TABLE `"++ " "+2000+" "+2008 10 1 гуп гуп 1 0 0 0 0 0 0 0 0 0` "
+//	                 "`name` tinytext NOT NULL COMMENT 'имя',"
+//	                 "`sex` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'пол',"
+//	                 "`birth` date DEFAULT NULL COMMENT 'дата рождения',"
+//	                 "`sportQualification` tinytext COMMENT 'спортивная квалификация',"
+//	                 "`gup` tinyint(4) DEFAULT NULL COMMENT 'гуп',"
+//	                 "`dan` tinyint(4) DEFAULT NULL COMMENT 'дан',"
+//	                 "`weight` int(11) DEFAULT NULL COMMENT 'вес',"
+//	                 "`personal tul` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'туль личный',"
+//	                 "`team tul` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'туль командный',"
+//	                 "`tradition tul` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'туль традиционный',"
+//	                 "`personal sparring` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'спарринг личный',"
+//	                 "`team sparring` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'спарринг командный',"
+//	                 "`tradition sparring` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'традиционный спарринг',"
+//	                 "`impact force` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'сила удара',"
+//	                 "`specTech` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'спецтехника',"
+//	                 "`club` tinytext COMMENT 'Имя клуба') ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+
+/*Вариант с сохранением через XML файл.
+ * Отказался от XML в пользу .sql файла
+ *
 QDomElement Competition::competitionXML(QDomDocument& doc){
 	XmlIO xml;
 
@@ -74,3 +110,4 @@ bool Competition::save(const QString& path){
 
 	return true;
 }
+*/

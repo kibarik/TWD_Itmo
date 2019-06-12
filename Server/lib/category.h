@@ -5,14 +5,11 @@
 #include <QString>
 #include <QObject>
 #include <QtXml>
+#include "dbCompetition.h"
 
 /*
  * Описание категории и класса
  * Класс категории используется в QML в меню создания соревнований QML/MC_Step2Cateogory.qml
- * Его задача сохранять параметры ввода до нажатия на кнопку "Сохранить".
- * После нажатия на "Сохранить" все значения структуры _VALUE передаются в поток и записываются в XML
- * В последующем XML файл используется для отображения категорий в окне MC_Step2Cateogory.qml -> 3.Просмотр категорий
- * Кроме того данные из XML сохраняются в специальный формат .txt и передаются в функцию заполнения MySQL БД
 */
 
 class Category : public QObject{
@@ -79,10 +76,13 @@ public:
 	void setTimeMinFinal	(const QString& timeMinFinal);
 	void setTimeSecFinal	(const QString& timeSecFinal);
 
-	//функции класса category.cpp
 	QString boolToString(const bool& temp);
-	QDomElement categoryXML(QDomDocument& doc); //функция отвечающая за создание структуры категории. Используется для временных категорий, а также в общем большом файле XML соревнований
 	QString checkEmpty( QString& var);
+
+	//database functions
+	void exportToDB();
+	void importFromDB();
+
 
 public slots:
 	void save(const QString& path = "./");

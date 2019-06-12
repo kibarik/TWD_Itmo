@@ -35,6 +35,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES += \
 
 HEADERS += \
+        lib/data.h \
         lib/dbCompetition.h \
         lib/category.h \
         lib/competition.h \

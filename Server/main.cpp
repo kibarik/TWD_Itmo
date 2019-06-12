@@ -18,13 +18,11 @@ int main(int argc, char *argv[])
 	qmlRegisterType<Competition, 1>("Competition", 1, 0, "Competition");
 
 	try {
-		dbCompetition testDb("localhost", "Кубок Санкт-Петербурга 2018","Кубок_Санкт_Петербурга_2018", "3",
+		dbCompetition testDb("Кубок Санкт-Петербурга 2019 г","3",
 		                     "Ким Дмитрий Робертович1", "Главный Бухгалтер Юлечка3",
 		                     "Санкт-Петербург");
-	} catch (char const* error) {
-		qDebug() << error;
 	} catch (QString er){
-		qDebug() << er;
+		//qDebug() << er;
 	}
 
 

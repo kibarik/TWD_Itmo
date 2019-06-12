@@ -118,66 +118,6 @@ void Category::setTimeSecFinal		(const QString& timeSecFinal)	{
 //void Category::setSaved				(const bool& categoryName)		{emit categorySaved("Category saved");								save()};	}
 
 void Category::save(const QString& path){
-	XmlIO xml;
-	    QDomDocument doc("");
-
-	QDomElement category = categoryXML(doc); //создание структуры категории в XML
-	xml.save(_name, doc, path+"/CATEGORIES");
-	xml.viewXmlFiles(path+"/CATEGORIES");
-
-	emit categorySaved();
-};
-
-QDomElement Category::categoryXML(QDomDocument& doc){ //функция для создания и заполнения XML документа
-
-	_name = _mode + " "+_gender + " " +
-	        _yearFrom + "-" + _yearTo + " " +
-	        _beltFrom +" "+ boolToString(_isDanFrom) + " " + _beltTo + " " + boolToString(_isDanTo) + " " +
-	        _weightFrom + "-" +_weightTo + " " +
-	        _roundStandart +"-"+ _roundFinal + " " +
-	        _timeMinStandart +"-"+ _timeSecStandart +" "+ _timeMinFinal +"-"+ _timeSecFinal;
-	XmlIO xml;
-
-	//регистрируем структуру. Приведен пример выложен в PROJECT/DOC/Documents/category.xml
-	//Эти элементы являются множеством, в которые вложены несколько значений
-	QDomElement category = doc.createElement("Category");
-	QDomElement year = doc.createElement("year"); //содержит вложенные элементы
-	QDomElement weight = doc.createElement("weight");
-	QDomElement round = doc.createElement("round");
-	QDomElement timeStandart = doc.createElement("timeStandart");
-	QDomElement timeFinal = doc.createElement("timeFinal");
-
-//	 qDebug() << _mode << " " << _gender << " " << _yearFrom << "-" << _yearTo << " "<< _beltFrom << " " <<_isDanFrom << " Дан " << _beltTo << " " <<_isDanTo << " Дан " << _weightFrom << "-" << _weightTo << " " <<
-//	           _roundStandart + _roundFinal + " " +
-//	           _timeMinStandart << " "<< _timeSecStandart <<" "<< _timeMinFinal << " "<<_timeSecFinal;
-
-	doc.appendChild(category);
-	    category.appendChild(xml.makeElement(doc, "name", _name));
-		category.appendChild(xml.makeElement(doc, "mode", _mode));
-		category.appendChild(xml.makeElement(doc, "gender", _gender));
-
-		category.appendChild(year);
-		    year.appendChild(xml.makeElement(doc, "yearFrom", _yearFrom));
-			year.appendChild(xml.makeElement(doc, "yearTo", _yearTo));
-
-		category.appendChild(weight);
-		    weight.appendChild(xml.makeElement(doc, "weightFrom", _weightFrom));
-			weight.appendChild(xml.makeElement(doc, "weightTo", _weightTo));
-
-		category.appendChild(round);
-		    round.appendChild(xml.makeElement(doc, "roundStandart", _roundStandart));
-			round.appendChild(xml.makeElement(doc, "roundFinal", _roundFinal));
-
-		category.appendChild(timeStandart);
-		    timeStandart.appendChild(xml.makeElement(doc, "standartMin", _timeMinStandart));
-			timeStandart.appendChild(xml.makeElement(doc, "standadrtSec", _timeSecStandart));
-
-		category.appendChild(timeFinal);
-		    timeFinal.appendChild(xml.makeElement(doc, "finalMin", _timeMinFinal));
-			timeFinal.appendChild(xml.makeElement(doc, "finalSec", _timeSecFinal));
-
-		qDebug() << _name;
-	return category; //первое в XML структуре
-};
+}
 
 

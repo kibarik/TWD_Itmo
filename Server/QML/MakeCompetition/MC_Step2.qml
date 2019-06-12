@@ -870,48 +870,46 @@ Item {
 	}
 
 
-	Column {
-		height: parent.height
-		anchors.right: parent.right
-		anchors.left: col4.right
-		anchors.top: parent.top
-		id: col5
+//	Column {
+//		height: parent.height
+//		anchors.right: parent.right
+//		anchors.left: col4.right
+//		anchors.top: parent.top
+//		id: col5
 
-		    Rectangle{
-				id: options_name
-				height: 25; width: parent.width
-				color: darkColor
+//		    Rectangle{
+//				id: options_name
+//				height: 25; width: parent.width
+//				color: darkColor
 
-				Text {
-					text: qsTr("5. Доп. функции")
-					font.bold: true
-					anchors.fill: parent
-					font.pointSize: 15
-					font.family: "Times New Roman"
-					color: "white"
-					horizontalAlignment: Text.AlignHCenter
-					verticalAlignment: Text.AlignVCenter
-				}
-			}
+//				Text {
+//					text: qsTr("5. Доп. функции")
+//					font.bold: true
+//					anchors.fill: parent
+//					font.pointSize: 15
+//					font.family: "Times New Roman"
+//					color: "white"
+//					horizontalAlignment: Text.AlignHCenter
+//					verticalAlignment: Text.AlignVCenter
+//				}
+//			}
 
-			Rectangle {
-				width: parent.width; height: (parent.height - options_name.height)
-				color: lightColor
-				border.width: 1
-				border.color: darkColor
+//			Rectangle {
+//				width: parent.width; height: (parent.height - options_name.height)
+//				color: lightColor
+//				border.width: 1
+//				border.color: darkColor
 
-				Text {
-					width: parent.width
-					height: parent.height
-					color: "#ffffff"
-					text: "Я пока еще думаю над экраном для Raspberry. Если будет 7-10 дюймовый экран, то можно прям на клиенте отображать сетку участников и все функции жеребьевки скинуть на судей. Если останется 3.5 TFT, то надо научить систему жеребить с дополнительными функциями : дивизионы по 4 человека, 2 третьих места, крговая система, командная система, спец. техника и т.п."
-					font.pointSize: 14
-					verticalAlignment: Text.AlignVCenter
-					horizontalAlignment: Text.AlignLeft
-					wrapMode: Text.WordWrap
-				}
-			}
-
-
-	}
+//				Text {
+//					width: parent.width
+//					height: parent.height
+//					color: "#ffffff"
+//					text: "Я пока еще думаю над экраном для Raspberry. Если будет 7-10 дюймовый экран, то можно прям на клиенте отображать сетку участников и все функции жеребьевки скинуть на судей. Если останется 3.5 TFT, то надо научить систему жеребить с дополнительными функциями : дивизионы по 4 человека, 2 третьих места, крговая система, командная система, спец. техника и т.п."
+//					font.pointSize: 14
+//					verticalAlignment: Text.AlignVCenter
+//					horizontalAlignment: Text.AlignLeft
+//					wrapMode: Text.WordWrap
+//				}
+//			}
+//	}
 }
