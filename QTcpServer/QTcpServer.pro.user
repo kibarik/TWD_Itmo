@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.9.2, 2019-08-30T18:33:02. -->
+<!-- Written by QtCreator 4.9.2, 2019-08-30T18:34:19. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -311,8 +311,8 @@
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">QTcpServer</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/Ae_Mc/Documents/Qt/QTcpServer/QTcpServer.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">QTcpServer2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:D:/Projects/Git/CppQT_SQL_python_MaybeSport/QTcpServer/QTcpServer.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
