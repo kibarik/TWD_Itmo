@@ -19,7 +19,6 @@ void middleware::parseData(QByteArray &Data) {
     this->rawData = QString(Data);
     QStringList rawValues = this->rawData.split("|");
     this->id = rawValues[0].toInt();
-    qDebug() << this->rawData;
     for (int i = 1; i < rawValues.size(); i++)
         this->buttons.push_back(rawValues[i].toInt());
 }

@@ -11,5 +11,6 @@ int main(int argc, char *argv[])
     TestObject reference;
     MyTcpServer server;
     reference.ConnectToServer(server);
+    server.slotTimerStart();
     return a.exec();
 }

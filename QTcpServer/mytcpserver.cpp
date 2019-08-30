@@ -4,6 +4,7 @@
 MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent)
 {
     this->mode = 0;
+    this->roundTime = 120;
     mTcpServer = new QTcpServer(this);
 
     connect(mTcpServer, &QTcpServer::newConnection, this, &MyTcpServer::slotNewConnection);
@@ -31,6 +32,36 @@ short MyTcpServer::getMode() {
  *******Секция слотов*******
  *
  */
+
+// Слот для запуска таймера
+void MyTcpServer::slotTimerStart(int delay) {
+    this->timer.start(delay, this);
+};
+
+// Слот для остановки таймера
+void MyTcpServer::slotTimerStop() {
+    this->timer.stop();
+};
+
+// Слот для сброса очков
+void MyTcpServer::slotReset() {
+    for (unsigned long long i = 0; i < this->Judges.size(); i++) {
+        Judges[i]->setRed(0);
+        emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
+    }
+};
+
+// Слот для обработки таймера
+void MyTcpServer::timerEvent(QTimerEvent *event) {
+    if (event->timerId() == timer.timerId()) {
+        if (++timeElapsed > roundTime) {
+            slotTimerStop();
+            emit signalTimeOver();
+        }
+    } else {
+        QObject::timerEvent(event);
+    }
+}
 
 // Слот для Чуя (замечания)
 void MyTcpServer::slotAdmonition(bool player) {
@@ -66,6 +97,7 @@ void MyTcpServer::slotWarning(bool player) {
         // Если накоплено 3 предупреждения, то присуждаем поражение красному участнику
         if (++redWarning == 3) {
             redWarning = 0;
+            slotTimerStop();
             emit signalDisqualification(0);
         }
     } else { // Если синий
@@ -78,6 +110,7 @@ void MyTcpServer::slotWarning(bool player) {
         // Если накоплено 3 предупреждения, то присуждаем поражение синему участнику
         if (++blueWarning == 3) {
             blueWarning = 0;
+            slotTimerStop();
             emit signalDisqualification(1);
         }
     }
@@ -112,7 +145,7 @@ void MyTcpServer::slotServerRead()
             QByteArray id = QString::number(JudgeID).toLocal8Bit();
             mTcpSocket->write(id);
         } else {
-            if(data.getRawData() != "nan") {
+            if(data.getRawData() != "nan" && timer.isActive()) {
                 unsigned long long judgeNum = static_cast<unsigned long long>(data.getID());
                 array.remove(0, 1);
                 // В зависимости от режима работы, выбираем алгоритм

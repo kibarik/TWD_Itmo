@@ -5,7 +5,8 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <iostream>
-#include <QTime>
+#include <QBasicTimer>
+#include <QTimerEvent>
 #include "judgementmodes.h"
 #include "middleware.h"
 
@@ -24,14 +25,20 @@ public slots:
     void slotClientDisconnected();
     void slotAdmonition(bool player); // 0 - красный, 1 - синий
     void slotWarning(bool player); // 0 - красный, 1 - синий
+    void slotReset();
+    void slotTimerStart(int delay = 1000);
+    void slotTimerStop();
 
 signals:
     void signalScoreUpdate(int judgeNum, int red, int blue); // Сигнал, вызываемый при изменении счёта судьями
     void signalDisqualification(bool player); // Сигнал, вызываемый при дисквалификации одного из игроков. 0 - красный, 1 - синий
+    void signalTimeOver(); // Время таймера вышло
 
 private:
     QTcpServer * mTcpServer;
     QTcpSocket * mTcpSocket;
+    QBasicTimer timer;
+    void timerEvent(QTimerEvent *event);
     std::vector <JudgementModes *> Judges; // Нужно для обработки различных режимов при нажатии на кнопки
     /*
      * Режимы работы
@@ -40,6 +47,8 @@ private:
      * По умолчанию спарринг
     */
     short mode;
+    short timeElapsed; // Время, прошедшее с начала запуска таймера в секундах
+    short roundTime; // Время, которое длится один раунд
 };
 
 #endif // MYTCPSERVER_H
