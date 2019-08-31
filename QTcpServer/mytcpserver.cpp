@@ -35,6 +35,7 @@ MyTcpServer::Mode MyTcpServer::getMode() {
 
 // Слот для запуска таймера
 void MyTcpServer::slotTimerStart(int delay) {
+    this->timeElapsed = 0;
     this->timer.start(delay, this);
 };
 
@@ -200,6 +201,7 @@ void MyTcpServer::slotServerRead()
             mTcpSocket->write(id);
         } else {
             if(data.getRawData() != "nan" && timer.isActive()) {
+                qDebug() << "Test";
                 unsigned long long judgeNum = static_cast<unsigned long long>(data.getID());
                 array.remove(0, 1);
                 // В зависимости от режима работы, выбираем алгоритм
