@@ -16,6 +16,12 @@ int JudgementModes::getBlue() {return blue;}
 void JudgementModes::setRed(int red) {this->red = red;}
 void JudgementModes::setBlue(int blue) {this->blue = blue;}
 
+// Устанавливает сразу и red и blue
+void JudgementModes::setScore(int red, int blue) {
+    this->red = red;
+    this->blue = blue;
+}
+
 // Режим спарринг
 void JudgementModes::sparring(middleware &Data) {
     /*
@@ -80,4 +86,70 @@ void JudgementModes::sparring(middleware &Data) {
                 break;
         }
     }
+}
+
+// Режим старый туль
+void JudgementModes::classicTul(middleware &Data) {
+    /*
+     * ------Коды кнопок и их действия------
+     *            0 - отмена
+     *           1 - красный -5
+     *           2 - красный -10
+     *           3 - красный 0
+     *            4 - синий -5
+     *            5 - синий -10
+     *            6 - синий 0
+    */
+    if (Data.getButtons()[0] == 0) {
+        switch(Data.getButtons()[1]) {
+            case 1:
+                red += 5;
+                break;
+            case 2:
+                red += 10;
+                break;
+            case 3:
+                red = 0;
+                break;
+            case 4:
+                blue += 5;
+                break;
+            case 5:
+                blue += 10;
+                break;
+            case 6:
+                blue = 0;
+                break;
+        }
+    } else {
+        switch(Data.getButtons()[0]) {
+            case 1:
+                red -= 5;
+                break;
+            case 2:
+                red -= 10;
+                break;
+            case 3:
+                red = 0;
+                break;
+            case 4:
+                blue -= 5;
+                break;
+            case 5:
+                blue -= 10;
+                break;
+            case 6:
+                blue = 0;
+                break;
+        }
+    }
+
+    if (red > 100)
+        red = 100;
+    if (blue > 100)
+        blue = 100;
+    if (red < 0)
+        red = 0;
+    if (blue < 0)
+        blue = 0;
 }

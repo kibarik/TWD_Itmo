@@ -22,7 +22,9 @@
 В дальнейшем localCategories будет автоматически
 обновляться как-только на сервере происходят изменения
 */
-        static QVector<Category> LOCALcategories = getCategories();
+        //static QVector<Category> LOCALcategories = getCategories();
+        static QVector<Category> LOCALcategories = getCategTemplate();
+
 
 //-------------------------------------------------------------
 
@@ -50,7 +52,7 @@ QVector <Category> getCategories() { //функция обращения к БД
     conn.setUserName(USER);
     conn.setPassword(PASS);
 
-	assert (conn.open()); //ошибка подключения к БД в виде окошка
+    //assert (conn.open()); //ошибка подключения к БД в виде окошка
 
     //QTextCodec * myTextCodec = QTextCodec::codecForName("UTF-8");   // Устанавливаем кодировку сервера НЕ ТОЧНО ЧТО РАБОТАЕТ
 

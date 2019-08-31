@@ -14,9 +14,10 @@ class MyTcpServer : public QObject
 {
     Q_OBJECT
 public:
+    enum Mode {SPARRING, CLASSICTUL} mode;
     explicit MyTcpServer(QObject *parent = nullptr);
-    void setMode(short mode);
-    short getMode();
+    void setMode(Mode mode);
+    Mode getMode();
 
 // !!!Сигнал вызывает слот, т. е. слот - функция, которая исполняется, а сигнал её вызывает!!!
 public slots:
@@ -40,13 +41,6 @@ private:
     QBasicTimer timer;
     void timerEvent(QTimerEvent *event);
     std::vector <JudgementModes *> Judges; // Нужно для обработки различных режимов при нажатии на кнопки
-    /*
-     * Режимы работы
-     * 0 - спарринг
-     * 1 - туль
-     * По умолчанию спарринг
-    */
-    short mode;
     short timeElapsed; // Время, прошедшее с начала запуска таймера в секундах
     short roundTime; // Время, которое длится один раунд
 };

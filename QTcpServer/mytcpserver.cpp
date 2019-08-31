@@ -3,7 +3,7 @@
 // Конструктор
 MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent)
 {
-    this->mode = 0;
+    this->mode = Mode::SPARRING;
     this->roundTime = 120;
     mTcpServer = new QTcpServer(this);
 
@@ -18,12 +18,12 @@ MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent)
 // Режим спарринг
 
 // Выбор режима
-void MyTcpServer::setMode(short mode) {
+void MyTcpServer::setMode(Mode mode) {
     this->mode = mode;
 }
 
 // Получение текущего режима
-short MyTcpServer::getMode() {
+MyTcpServer::Mode MyTcpServer::getMode() {
     return this->mode;
 }
 
@@ -139,6 +139,15 @@ void MyTcpServer::slotServerRead()
 
         if (data.getID() == -1) { // Если клиент - новый пульт
             JudgementModes *NewJudge = new JudgementModes;
+            // Задаём стартовые очки для игроков
+            switch(mode) {
+                case Mode::SPARRING:
+                    NewJudge->setScore(0, 0);
+                    break;
+                case Mode::CLASSICTUL:
+                    NewJudge->setScore(100, 100);
+                    break;
+            }
             Judges.push_back(NewJudge);
 
             int JudgeID = static_cast<int>(Judges.size() - 1 );
@@ -150,11 +159,11 @@ void MyTcpServer::slotServerRead()
                 array.remove(0, 1);
                 // В зависимости от режима работы, выбираем алгоритм
                 switch(mode) {
-                    case 0: // Спарринг
+                    case Mode::SPARRING: // Спарринг
                         Judges[judgeNum]->sparring(data);
                         break;
-                    case 1: // Туль
-                        std::cout << "Tul" << std::endl;
+                    case Mode::CLASSICTUL: // Страый туль
+                        Judges[judgeNum]->classicTul(data);
                         break;
                 }
                 emit signalScoreUpdate(static_cast<int>(judgeNum), Judges[judgeNum]->getRed(), Judges[judgeNum]->getBlue());

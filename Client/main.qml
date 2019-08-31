@@ -98,7 +98,7 @@ Window {
     CategoryWindow {
         visible: false
         id: categoryWindow
-		flags: Qt.FramelessWindowHint // Отключаем обрамление окна
+        //flags: Qt.FramelessWindowHint // Отключаем обрамление окна
 
         onSignalExit: { //из Category.qml сигнал на возврат в гл. окно
 			mainQmlWindow.opacity = 1.0

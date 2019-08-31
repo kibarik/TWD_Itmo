@@ -11,11 +11,14 @@ class JudgementModes : public QObject
     Q_OBJECT
 public:
     explicit JudgementModes(QObject *parent = nullptr);
-    void sparring(middleware &Data);
     int getRed();
     int getBlue();
     void setRed(int red);
     void setBlue(int blue);
+    void setScore(int red, int blue);
+    // Режимы работы с очками
+    void sparring(middleware &Data);
+    void classicTul(middleware &Data);
 
 private:
     int red, blue;

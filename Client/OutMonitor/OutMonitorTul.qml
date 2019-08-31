@@ -16,8 +16,8 @@ import QtQuick.Window 2.12
 
 Window {
 	id: window
-	width: Screen.width
-	height: Screen.height
+    width: Screen.width
+    height: Screen.height-120
 	x: 0
 	y: 0
 	minimumHeight: 400
