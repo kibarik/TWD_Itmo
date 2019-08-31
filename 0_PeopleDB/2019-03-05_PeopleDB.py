@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 from os import listdir
 from xlrd import open_workbook, xldate_as_datetime
 import mysql.connector
 
 HOST = "localhost"
 USER = "root"
-PASSWORD = "45214521"
+PASSWORD = ""
 DATABASE = "participants"
 
 STARTROW = 11
@@ -104,6 +105,24 @@ def main():
 		print(err)
 		raise err
 	cursor = db.cursor()
+	cursor.execute("CREATE TABLE IF NOT EXISTS `humans` ("
+		  "`name` tinytext NOT NULL COMMENT 'имя',"
+		  "`sex` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'пол',"
+		  "`birth` date DEFAULT NULL COMMENT 'дата рождения',"
+		  "`sportQualification` tinytext COMMENT 'спортивная квалификация',"
+		  "`gup` tinyint(4) DEFAULT NULL COMMENT 'гуп',"
+		  "`dan` tinyint(4) DEFAULT NULL COMMENT 'дан',"
+		  "`weight` int(11) DEFAULT NULL COMMENT 'вес',"
+		  "`personal tul` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'туль личный',"
+		  "`team tul` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'туль командный',"
+		  "`tradition tul` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'туль традиционный',"
+		  "`personal sparring` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'спарринг личный',"
+		  "`team sparring` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'спарринг командный',"
+		  "`tradition sparring` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'традиционный спарринг',"
+		  "`impact force` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'сила удара',"
+		  "`specTech` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'спецтехника',"
+		  "`club` tinytext DEFAULT NULL COMMENT 'Имя клуба'"
+		") ENGINE=InnoDB DEFAULT CHARSET=utf8;")
 	cursor.execute("TRUNCATE `humans`")
 	cursor.fetchone()
 	cursor.close()
@@ -127,7 +146,7 @@ def main():
 
 	fileNames = []
 	participant = None
-	for fileName in listdir(path = "./tables/"):
+	for fileName in listdir(path="./tables/"):
 		fileNames.append("tables/" + fileName)
 	for fileName in fileNames:
 		if fileName.endswith(".csv"):

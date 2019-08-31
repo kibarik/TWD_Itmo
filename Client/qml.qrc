@@ -18,5 +18,6 @@
         <file>Share/PairDisplay.qml</file>
         <file>Share/PointsTable.qml</file>
         <file>Share/Style.qml</file>
+        <file>Share/TimeControl.qml</file>
     </qresource>
 </RCC>

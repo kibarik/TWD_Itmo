@@ -5,7 +5,7 @@
 #include <QString>
 #include <QObject>
 #include <QtXml>
-#include "dbCompetition.h"
+#include "dbConnection.h"
 
 /*
  * Описание категории и класса
@@ -57,7 +57,10 @@ public:
 	QString timeSecStandart()	{return	_timeSecStandart;}
 	QString timeSecFinal()		{return _timeSecFinal;}
 
-	//сеттеры вся суть -> 1. испустить сигнал categoryChanged() с сообщением для логирования. 2. Передать параметр из QML в C++
+	/*сеттеры вся суть ->
+	 * 1. испустить сигнал categoryChanged() с сообщением для логирования.
+	 * 2. Передать параметр из QML в C++ структуру.
+	*/
 	void setName			(const QString& name);
 	void setGender			(const QString& gender);
 	void setMode			(const QString& mode);
@@ -108,7 +111,6 @@ protected:
 		QString _timeMinFinal=_empty, _timeSecFinal=_empty;
 
 		QString _name;
-
 };
 
 

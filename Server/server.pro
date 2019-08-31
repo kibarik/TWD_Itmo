@@ -14,10 +14,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         lib/competition.cpp \
+        lib/dbConnection.cpp \
         main.cpp \
         lib/category.cpp \
-        lib/xmlio.cpp \
-        lib/dbCompetition.cpp
+        lib/xmlio.cpp
 
 RESOURCES += qml.qrc
 
@@ -36,9 +36,9 @@ DISTFILES += \
 
 HEADERS += \
         lib/data.h \
-        lib/dbCompetition.h \
         lib/category.h \
         lib/competition.h \
+        lib/dbConnection.h \
         lib/xmlio.h
 
 #icon for WINDOWS, LINUX, MACOS

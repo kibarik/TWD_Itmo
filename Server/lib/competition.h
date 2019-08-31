@@ -4,7 +4,9 @@
 
 #include <QObject>
 #include <QString>
-#include <QtXml>
+//#include <QtXml>
+#include "dbConnection.h"
+
 /*
 * The competition class, use for make competition on 1 step MC_step1Info.qml,
 * Main function of class = save data in local machine before send it ti MySQL
@@ -18,10 +20,11 @@ class Competition : public QObject
 	Q_PROPERTY(QString level	READ level		WRITE setLevel	 NOTIFY competitionChanged)
 	Q_PROPERTY(QString theJudge READ theJudge   WRITE setJudge NOTIFY competitionChanged)
 	Q_PROPERTY(QString bookkeeper READ bookkeeper WRITE setBookkeeper NOTIFY competitionChanged)
-	Q_PROPERTY(QString city		READ city		WRITE setCity	NOTIFY competitionChanged)
+    Q_PROPERTY(QString city		READ city		WRITE setCity	NOTIFY competitionChanged)
 
 public:
 	explicit Competition(QObject *parent = nullptr);
+    //virtual ~Competition();
 
 	//getters for Q_PROPERTY
 	QString name()		 {return _name;}
@@ -43,11 +46,10 @@ public:
 
 signals:
 	void competitionChanged(const QString what);
-	void competitionSaved();
+    void competitionSaved();
 
 public slots:
 	bool save(const QString& path = "./");
-
 
 private:
 	QString _empty = "M";
@@ -59,10 +61,12 @@ private:
 	QString _city = _empty;
 //	QList <Category> _categories;
 
-	//xml functions
 	void makeCompetitionDir();
-	QDomElement competitionXML(QDomDocument& doc); //функция отвечающая за создание структуры соревнований.
 	QString checkEmpty(QString &var);
+	DbConnection SqlCompetition; //сохранет соединение открытым, передается в категории
+
+//	QDomElement competitionXML(QDomDocument& doc); //функция отвечающая за создание структуры соревнований.
+
 
 };
 

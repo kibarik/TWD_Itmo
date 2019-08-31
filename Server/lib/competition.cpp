@@ -1,11 +1,14 @@
 #include "competition.h"
 //#include "xmlio.h"
-#include "dbCompetition.h"
 
 Competition::Competition(QObject *parent) : QObject(parent)
 {
 
 }
+
+//Competition::~Competition(){
+//	delete SqlCompetition;
+//}
 
 QString Competition::checkEmpty(QString &var){
 	var.isEmpty() ? var = _empty: var;
@@ -49,11 +52,11 @@ void Competition::setCity(const QString &city){
 }
 
 
+
 bool Competition::save(const QString& path){
 	try {
-		dbCompetition competition(_name, _level,
-		                      _theJudge, _bookkeeper,
-		                      _city);
+		SqlCompetition.sendCompetition(_name, _level, _theJudge,
+		                                _bookkeeper, _city);
 		return true;
 	} catch (QString& er) {
 		qDebug()<< "An error when save competition in execute: "<< er;

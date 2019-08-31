@@ -21,18 +21,18 @@ import QtQuick 2.0
 Row {
 id: bigPoints
 width: 320
-height: 70
+height: parent.height
 anchors.top: time.bottom
 anchors.topMargin: 0
 
 Column {
     id: column2
     width: 160
-    height: 70
+    height: parent.height
     Rectangle {
         id: red1
         width: 160
-        height: 70
+        height: parent.height
         color: "#c0392b"
         transformOrigin: Item.Right
         Text {
@@ -51,11 +51,11 @@ Column {
 Column {
     id: column3
     width: 160
-    height: 70
+    height: parent.height
     Rectangle {
         id: blue1
         width: 160
-        height: 70
+        height: parent.height
         color: "#2980b9"
         border.width: 0
         transformOrigin: Item.Left

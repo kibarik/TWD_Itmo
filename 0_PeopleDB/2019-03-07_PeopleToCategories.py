@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 from os import listdir
 from datetime import date
 import mysql.connector as mysql
 
 HOST = "localhost"
 USER = "root"
-PASSWORD = "45214521"
+PASSWORD = ""
 MAINDB = "participants"
 CATEGDB = "categories"
 

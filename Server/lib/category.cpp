@@ -1,7 +1,8 @@
- #include "category.h"
+#include "category.h"
 #include <QtXml>
 #include "xmlio.h"
 #include <QDebug>
+#include "dbConnection.h"
 
 Category::Category(QObject *parent) : QObject(parent){
 
@@ -115,9 +116,15 @@ void Category::setTimeSecFinal		(const QString& timeSecFinal)	{
 	checkEmpty(_timeSecFinal);
 
 }
-//void Category::setSaved				(const bool& categoryName)		{emit categorySaved("Category saved");								save()};	}
 
 void Category::save(const QString& path){
+	qDebug() << "The save have started";
+	/*
+	* 1. Из категории передаются только новые параметры
+	* 2. Обращение к БД происходит через dbCompetition.h
+	* 3. Нужно использовать уже ранее инициализированное подключение объекта Competition
+	*/
+
 }
 
 

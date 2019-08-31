@@ -8,7 +8,7 @@
 #define HOST "localhost"
 #define USER "root"
 #define DBNAME "categories"
-#define PASS "45214521"
+#define PASS ""
 #define PORT NULL
 #define LOCALENCODING "set names utf8"
 #define FIELDS "SELECT name, birth, club FROM `"
@@ -22,7 +22,7 @@
 В дальнейшем localCategories будет автоматически
 обновляться как-только на сервере происходят изменения
 */
-        static QVector<Category> LOCALcategories = getCategories();
+        static QVector<Category> LOCALcategories = getCategTemplate();
 
 //-------------------------------------------------------------
 
@@ -50,7 +50,7 @@ QVector <Category> getCategories() { //функция обращения к БД
     conn.setUserName(USER);
     conn.setPassword(PASS);
 
-	assert (conn.open()); //ошибка подключения к БД в виде окошка
+    //assert (conn.open()); //ошибка подключения к БД в виде окошка
 
     //QTextCodec * myTextCodec = QTextCodec::codecForName("UTF-8");   // Устанавливаем кодировку сервера НЕ ТОЧНО ЧТО РАБОТАЕТ
 
@@ -165,14 +165,14 @@ QVector <Category> getCategTemplate() {
     QVector <Category> categs;
     QString categsNames[] = {
         "м 2000 2001 10-7 гуп 1 0 0 0 0 0 0 0 0",
-        "м 2000 2002 10-6 гуп 1 0 0 0 0 0 0 0 0",
-        "м 2000 2002 10-8 гуп 1 0 0 0 0 0 0 0 0",
-        "м 2000 2003 10-4 гуп 1 0 0 0 0 0 0 0 0",
-        "м 2000 2004 10-2 гуп 1 0 0 0 0 0 0 0 0",
-        "м 2000 2005 10-5 гуп 1 0 0 0 0 0 0 0 0",
-        "м 2000 2006 10-1 гуп 1 0 0 0 0 0 0 0 0",
-        "м 2000 2006 10-3 гуп 1 0 0 0 0 0 0 0 0",
-        "м 2000 2008 1-5 дан 1 0 0 0 0 0 0 0 0"
+        "м 2000 2002 10-6 гуп 0 1 0 0 0 0 0 0 0",
+        "м 2000 2002 10-8 гуп 0 0 1 0 0 0 0 0 0",
+        "м 2000 2003 10-4 гуп 0 0 0 1 0 0 0 0 0",
+        "м 2000 2004 10-2 гуп 0 0 0 0 1 0 0 0 0",
+        "м 2000 2005 10-5 гуп 0 0 0 0 0 1 0 0 0",
+        "м 2000 2006 10-1 гуп 0 0 0 0 0 0 1 0 0",
+        "м 2000 2006 10-3 гуп 0 0 0 0 0 0 0 1 0",
+        "м 2000 2008 1-5 дан 0 0 0 0 0 0 0 0 1"
     };
     QString humans[9][3][3] = {
         {
