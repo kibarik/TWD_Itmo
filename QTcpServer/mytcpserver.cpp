@@ -65,18 +65,19 @@ void MyTcpServer::timerEvent(QTimerEvent *event) {
 
 // Слот для Чуя (замечания)
 void MyTcpServer::slotAdmonition(bool player) {
-    static short redAdmonition = 0, blueAdmonition = 0;
-    if (player == 0) {
-        if (++redAdmonition == 3) {
+    if (player == 0) { // Красный
+        if (++redAdmonition == 3) { // Если получено 3 замечания
             redAdmonition = 0;
+            // Уменьшение на 1 балл у всех судей
             for (unsigned long long i = 0; i < this->Judges.size(); i++) {
                 Judges[i]->setRed(Judges[i]->getRed() - 1);
                 emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
             }
         }
-    } else
-        if (++blueAdmonition == 3) {
+    } else // Синий
+        if (++blueAdmonition == 3) { // Если получено 3 замечания
             blueAdmonition = 0;
+            // Уменьшение на 1 балл у всех судей
             for (unsigned long long i = 0; i < this->Judges.size(); i++) {
                 Judges[i]->setBlue(Judges[i]->getBlue() - 1);
                 emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
@@ -84,9 +85,30 @@ void MyTcpServer::slotAdmonition(bool player) {
         }
 }
 
+// Слот для отмены Чуя (замечания)
+void MyTcpServer::slotCancelAdmonition(bool player) {
+    if (player == 0) { // Красный
+        if (--redAdmonition == -1) {
+            redAdmonition = 2;
+            // Увеличение счёта на 1 у всех судий
+            for (unsigned long long i = 0; i < this->Judges.size(); i++) {
+                Judges[i]->setRed(Judges[i]->getRed() + 1);
+                emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
+            }
+        }
+    } else // Синий
+        if (--blueAdmonition == -1) {
+            blueAdmonition = 2;
+            // Увеличение счёта на 1 у всех судий
+            for (unsigned long long i = 0; i < this->Judges.size(); i++) {
+                Judges[i]->setBlue(Judges[i]->getBlue() + 1);
+                emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
+            }
+        }
+}
+
 // Слот для Гамжуна (предупреждения)
 void MyTcpServer::slotWarning(bool player) {
-    static short redWarning = 0, blueWarning = 0;
     if (player == 0) { // Если красный
         // Уменьшение на 1 балл у всех судей
         for (unsigned long long i = 0; i < this->Judges.size(); i++) {
@@ -113,6 +135,26 @@ void MyTcpServer::slotWarning(bool player) {
             slotTimerStop();
             emit signalDisqualification(1);
         }
+    }
+}
+
+// Слот для отмены Гамжуна (предупреждения)
+void MyTcpServer::slotCancelWarning(bool player) {
+    if (player == 0) { // Если красный
+        // Увеличение на 1 балл у всех судей
+        for (unsigned long long i = 0; i < this->Judges.size(); i++) {
+            Judges[i]->setRed(Judges[i]->getRed() + 1);
+            emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
+        }
+
+        --redWarning;
+    } else { // Если синий
+        // Увеличение на 1 балл у всех судей
+        for (unsigned long long i = 0; i < this->Judges.size(); i++) {
+            Judges[i]->setBlue(Judges[i]->getBlue() + 1);
+            emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
+        }
+        --blueWarning;
     }
 }
 
@@ -147,6 +189,9 @@ void MyTcpServer::slotServerRead()
                 case Mode::CLASSICTUL:
                     NewJudge->setScore(100, 100);
                     break;
+                case Mode::NEWTUL:
+                    NewJudge->setScore(100, 100);
+                    break;
             }
             Judges.push_back(NewJudge);
 
@@ -164,6 +209,12 @@ void MyTcpServer::slotServerRead()
                         break;
                     case Mode::CLASSICTUL: // Страый туль
                         Judges[judgeNum]->classicTul(data);
+                        break;
+                    case Mode::NEWTUL:
+                        Judges[judgeNum]->newTul(data, tulLevel, tulLevelChanged);
+                        if (tulLevelChanged) {
+                            tulLevelChanged = false;
+                        }
                         break;
                 }
                 emit signalScoreUpdate(static_cast<int>(judgeNum), Judges[judgeNum]->getRed(), Judges[judgeNum]->getBlue());

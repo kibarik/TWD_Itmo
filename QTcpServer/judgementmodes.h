@@ -19,6 +19,7 @@ public:
     // Режимы работы с очками
     void sparring(middleware &Data);
     void classicTul(middleware &Data);
+    void newTul(middleware &Data, short level, bool &levelChanged);
 
 private:
     int red, blue;
