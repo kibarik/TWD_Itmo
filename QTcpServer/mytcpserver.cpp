@@ -27,6 +27,16 @@ MyTcpServer::Mode MyTcpServer::getMode() {
     return this->mode;
 }
 
+// Получение количества Чуев (замечаний)
+short MyTcpServer::getAdmonition(bool player) {
+    return player? this->blueAdmonition: this->redAdmonition;
+}
+
+// Получение количества Гамжунов (предупреждений)
+short MyTcpServer::getWarning(bool player) {
+    return player? this->blueWarning: this->redWarning;
+}
+
 /*
  *
  *******Секция слотов*******
