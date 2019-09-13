@@ -29,5 +29,7 @@
         <file>moc_predefs.h</file>
         <file>qrc_qml.cpp</file>
         <file>lib_tcp/test.cpp</file>
+        <file>lib_tcp/middleware.cpp</file>
+        <file>lib_tcp/middleware.h</file>
     </qresource>
 </RCC>

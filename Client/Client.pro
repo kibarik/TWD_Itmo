@@ -17,7 +17,8 @@ SOURCES += \
         category.cpp \
         lib_tcp/judgementmodes.cpp \
         lib_tcp/mytcpserver.cpp \
-        lib_tcp/testobject.cpp
+        lib_tcp/testobject.cpp \
+        lib_tcp/middleware.cpp
 
 RESOURCES += qml.qrc
 
@@ -39,3 +40,4 @@ HEADERS += \
     lib_tcp/judgementmodes.h \
     lib_tcp/mytcpserver.h \
     lib_tcp/testobject.h \
+    lib_tcp/middleware.h

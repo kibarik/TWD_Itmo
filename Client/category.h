@@ -64,29 +64,14 @@ class CategoryAPI : public QObject {
     //CategoryAPI();
 
     signals: //From QML to C++ (Server to client) ->>
-
         //void noCategories(); //Error signal
         //std::vector <Category> getCategories();
         //void serverOff();
         //void wifiOff();
         //void displayOff();
     public slots: //From С++ to QML <<-
-              QList<QString> setQmlCategoriesNames(); //на сигнал getCategory от CategoryWindow.qml;
-              QList<QString> setQmlParticipantsNames(const QString& category); //на сигнал getParticipant
-//        void categoryEnd();
-//        void setWin(); //присудить место участнику
-//        std::pair<Participant, Participant> nextPair();
-//        Category selectCategory();
-
-//        //sparring
-//        void start();
-//        void stop();
-//        void pause();
-//        void chui(); //Чуй спарринг
-//        void gamj(); //Гамчун спарринг
-
-//        //tul
-//        void nextLvl(); //уровень судейства
+      QList<QString> setQmlCategoriesNames(); //на сигнал getCategory от CategoryWindow.qml;
+      QList<QString> setQmlParticipantsNames(const QString& category); //на сигнал getParticipant
 };
 
 

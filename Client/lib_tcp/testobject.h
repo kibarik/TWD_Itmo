@@ -3,18 +3,18 @@
 
 #include <QObject>
 #include <iostream>
-#include "judgementmodes.h"
+#include "mytcpserver.h"
 
 class TestObject : public QObject
 {
     Q_OBJECT
 public:
     explicit TestObject(QObject *parent = nullptr);
-    void ConnectToServer(const JudgementModes &modes);
+    void ConnectToServer(const MyTcpServer &server);
 
 signals:
 public slots:
-    void PrintScore(int red, int blue);
+    void PrintScore(int judgeNum, int red, int blue);
 };
 
 #endif // TESTOBJECT_H

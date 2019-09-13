@@ -6,6 +6,7 @@ import "OutMonitor/"
 import "Tul/"
 import "Categories/"
 import "Share/"
+import "lib_tcp/"
 
 /*
   подключение структуры
@@ -44,8 +45,13 @@ Window {
     property string nextParticipant2;
     property string nowCategoryName: "Выберите категорию";
 
-/*===============Main Mode Windows=============================*/
 
+
+/*-----------------------MyTCP server--------------------------------*/
+
+
+
+/*===============Main Mode Windows=============================*/
     Column {
         id: leftPanel
         width: 85
@@ -73,6 +79,12 @@ Window {
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                     }
+
+                    onClicked: {
+                        console.log('red Remark plus');
+                        serverAPI.slotAdmonition(0); //добавления чуя на систему счета, waning - камчун, admonition - чуй
+                    }
+
                 }
 
                 Button {
@@ -89,6 +101,11 @@ Window {
                         text: "Камчун"
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
+                    }
+
+                    onClicked: {
+                        console.log('red warning plus');
+                        serverAPI.slotWarning(0) //добавления камчуна на систему счета, waning - камчун, admonition - чуй
                     }
                 }
 
@@ -107,6 +124,11 @@ Window {
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                     }
+
+                    onClicked: {
+                        console.log('red Remark undo');
+                        serverAPI.slotCancelAdmonition(0); //отменить чуй красному
+                    }
                 }
 
                 Button {
@@ -123,6 +145,11 @@ Window {
                         text: "Отменить\nКамчун"
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
+                    }
+
+                    onClicked: {
+                        console.log('red warning minus');
+                        serverAPI.slotCancelWarning(0); //добавить камчун красному
                     }
                 }
         }
@@ -145,6 +172,20 @@ Window {
         width: 320
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: tulWindow.bottom
+
+        //все действия с serverAPI выполнены в Share/TimeControl.qml
+
+        onStarted: {
+            console.log('started');
+        }
+
+        onStoped: {
+            console.log('stoped');
+        }
+
+        onPaused: {
+            console.log('paused');
+        }
     }
 
 /*===============Out Big monitors=============================*/
@@ -280,6 +321,11 @@ Window {
                 background: Rectangle {
                     color: blueRemark.hovered ? "#60a3bc" : "#1e3799"
                 }
+
+                onClicked: {
+                    console.log("Blue admonition added");
+                    serverAPI.slotAdmonition(1);
+                }
             }
 
             Button {
@@ -296,6 +342,11 @@ Window {
                 anchors.top: blueRemark.bottom
                 background: Rectangle {
                     color: blueWarning.hovered ? "#60a3bc" : "#1e3799"
+                }
+
+                onClicked: {
+                    console.log("Blue warning added");
+                    serverAPI.slotWarning(1);
                 }
             }
 
@@ -314,6 +365,11 @@ Window {
                 background: Rectangle {
                     color: blueRemarkUndo.hovered ? "#33d9b2" : "#218c74"
                 }
+
+                onClicked: {
+                    console.log("Cancel admonition blue")
+                    serverAPI.slotCancelAdmonition(1);
+                }
             }
 
             Button {
@@ -330,6 +386,12 @@ Window {
                 anchors.top: blueRemarkUndo.bottom
                 background: Rectangle {
                     color: blueWarningUndo.hovered ? "#33d9b2" : "#218c74"
+                }
+
+
+                onClicked: {
+                    console.log("Cancel warning blue")
+                    serverAPI.slotCancelWarning(1);
                 }
             }
         }

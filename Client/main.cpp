@@ -24,6 +24,9 @@ int main(int argc, char *argv[])
 	CategoryAPI *categoryAPI = new CategoryAPI();
 	engine.rootContext()->setContextProperty("categoryAPI", categoryAPI);
 
+    MyTcpServer *serverAPI = new MyTcpServer();
+    engine.rootContext()->setContextProperty("serverAPI", serverAPI);
+
     //----------------------Debugger--------------------------------//
 
 /*    CategoryAPI* debug = new CategoryAPI;
@@ -37,11 +40,12 @@ int main(int argc, char *argv[])
 */
 
     //-------------TCP_server for remote controls
-    qDebug()<<"Start tcp server";
-    TestObject reference;
-    MyTcpServer server;
-    reference.ConnectToServer(server.modes);
-
+//    qDebug()<<"Start tcp server";
+//    TestObject reference;
+//    MyTcpServer server;
+//    server.setMode(MyTcpServer::Mode::CLASSICTUL);
+//    reference.ConnectToServer(server);
+//    server.slotTimerStart();
 
     if (engine.rootObjects().isEmpty())
         return -1;

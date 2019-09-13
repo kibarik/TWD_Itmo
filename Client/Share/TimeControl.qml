@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 2.0
 
     Grid {
         id: controlButtons
@@ -8,12 +9,23 @@ import QtQuick 2.0
         columns: 3
         anchors.bottom: parent.bottom
 
-        Rectangle {
+        signal started();
+        signal stoped();
+        signal paused();
+
+        Button {
             id: start
             width: parent.width/3
             height: parent.height
-            color: "#27ae60"
             clip: false
+
+            background: Rectangle {
+                implicitWidth: parent.width
+                implicitHeight: parent.height
+                opacity: enabled ? 1 : 0.3
+                color: "#27ae60"
+                border.width: 1
+            }
 
             Text {
                 id: element2
@@ -25,14 +37,26 @@ import QtQuick 2.0
                 anchors.fill: parent
                 font.pixelSize: 17
             }
+
+            onClicked: {
+                controlButtons.started() //получаем в main.qml
+                serverAPI.slotTimerStart();
+            }
         }
 
-        Rectangle {
+        Button {
             id: stop
             width: parent.width/3
             height: parent.height
-            color: "#e74c3c"
             clip: false
+
+            background: Rectangle {
+                implicitWidth: parent.width
+                implicitHeight: parent.height
+                opacity: enabled ? 1 : 0.3
+                color: "#e74c3c"
+                border.width: 1
+            }
 
             Text {
                 id: element3
@@ -44,14 +68,27 @@ import QtQuick 2.0
                 font.pixelSize: 17
                 verticalAlignment: Text.AlignVCenter
             }
+
+            onClicked: {
+                controlButtons.stoped() //получаем в main.qml
+                serverAPI.slotTimerStop()
+            }
         }
 
-        Rectangle {
+        Button {
             id: level
             width: parent.width/3
             height: parent.height
-            color: "#f39c12"
+
             clip: false
+
+            background: Rectangle {
+                implicitWidth: parent.width
+                implicitHeight: parent.height
+                opacity: enabled ? 1 : 0.3
+                color: "#f39c12"
+                border.width: 1
+            }
 
             Text {
                 id: element
@@ -79,6 +116,11 @@ import QtQuick 2.0
                 anchors.top: parent.top
                 anchors.topMargin: 0
                 font.pixelSize: 12
+            }
+
+            onClicked: {
+                controlButtons.paused()
+                serverAPI.slotTimerStop()
             }
         }
     }
