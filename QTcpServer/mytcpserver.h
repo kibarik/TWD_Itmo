@@ -18,8 +18,6 @@ public:
     explicit MyTcpServer(QObject *parent = nullptr);
     void setMode(Mode mode);
     Mode getMode();
-    short getAdmonition(bool player); // 0 - красный, 1 - синий
-    short getWarning(bool player); // 0 - красный, 1 - синий
 
 // !!!Сигнал вызывает слот, т. е. слот - функция, которая исполняется, а сигнал её вызывает!!!
 public slots:
@@ -41,6 +39,8 @@ signals:
     void signalScoreUpdate(int judgeNum, int red, int blue); // Сигнал, вызываемый при изменении счёта судьями
     void signalDisqualification(bool player); // Сигнал, вызываемый при дисквалификации одного из игроков. 0 - красный, 1 - синий
     void signalTimeOver(); // Время таймера вышло
+    void signalAdmonition(short redAdmonition, short blueAdmonition); // Вызывается при получении Чуя (замечания)
+    void signalWarning(short redWarning, short blueWarning); // Вызывается при получении Гамжуна (предупреждения)
 
 private:
     QTcpServer * mTcpServer;
