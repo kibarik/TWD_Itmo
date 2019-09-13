@@ -19,7 +19,7 @@ public:
     void setMode(Mode mode);
     Mode getMode();
     short getAdmonition(bool player); // 0 - красный, 1 - синий
-    short getWarning(book player); // 0 - красный, 1 - синий
+    short getWarning(bool player); // 0 - красный, 1 - синий
 
 // !!!Сигнал вызывает слот, т. е. слот - функция, которая исполняется, а сигнал её вызывает!!!
 public slots:
