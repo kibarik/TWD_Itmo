@@ -85,7 +85,7 @@ void MyTcpServer::slotAdmonition(bool player) {
                 emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
             }
         }
-    } else // Синий
+    } else { // Синий
         if (++blueAdmonition == 3) { // Если получено 3 замечания
             blueAdmonition = 0;
             // Уменьшение на 1 балл у всех судей
@@ -94,6 +94,8 @@ void MyTcpServer::slotAdmonition(bool player) {
                 emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
             }
         }
+    }
+    emit this->signalAdmonition(redAdmonition, blueAdmonition);
 }
 
 // Слот для отмены Чуя (замечания)
@@ -107,7 +109,7 @@ void MyTcpServer::slotCancelAdmonition(bool player) {
                 emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
             }
         }
-    } else // Синий
+    } else { // Синий
         if (--blueAdmonition == -1) {
             blueAdmonition = 2;
             // Увеличение счёта на 1 у всех судий
@@ -116,6 +118,8 @@ void MyTcpServer::slotCancelAdmonition(bool player) {
                 emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
             }
         }
+    }
+    emit this->signalAdmonition(redAdmonition, blueAdmonition);
 }
 
 // Слот для Гамжуна (предупреждения)
@@ -147,6 +151,7 @@ void MyTcpServer::slotWarning(bool player) {
             emit signalDisqualification(1);
         }
     }
+    emit this->signalWarning(redWarning, blueWarning);
 }
 
 // Слот для отмены Гамжуна (предупреждения)
@@ -167,6 +172,7 @@ void MyTcpServer::slotCancelWarning(bool player) {
         }
         --blueWarning;
     }
+    emit this->signalWarning(redWarning, blueWarning);
 }
 
 // Слоты, необходимые для работы сервера
