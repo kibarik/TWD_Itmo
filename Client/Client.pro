@@ -14,7 +14,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        category.cpp
+        category.cpp \
+        lib_tcp/judgementmodes.cpp \
+        lib_tcp/mytcpserver.cpp \
+        lib_tcp/testobject.cpp
 
 RESOURCES += qml.qrc
 
@@ -32,4 +35,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES +=
 
 HEADERS += \
-    category.h
+    category.h \
+    lib_tcp/judgementmodes.h \
+    lib_tcp/mytcpserver.h \
+    lib_tcp/testobject.h \

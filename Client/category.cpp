@@ -22,7 +22,7 @@
 В дальнейшем localCategories будет автоматически
 обновляться как-только на сервере происходят изменения
 */
-        static QVector<Category> LOCALcategories = getCategTemplate();
+    static QVector<Category> LOCALcategories = getCategTemplate();
 
 //-------------------------------------------------------------
 

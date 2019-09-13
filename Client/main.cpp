@@ -3,6 +3,8 @@
 #include <QQmlContext>
 
 #include "category.h"
+#include "lib_tcp/mytcpserver.h"
+#include "lib_tcp/testobject.h"
 
 int main(int argc, char *argv[])
 {
@@ -22,18 +24,25 @@ int main(int argc, char *argv[])
 	CategoryAPI *categoryAPI = new CategoryAPI();
 	engine.rootContext()->setContextProperty("categoryAPI", categoryAPI);
 
-//	//----------------------Debugger--------------------------------//
+    //----------------------Debugger--------------------------------//
 
-//    CategoryAPI* debug = new CategoryAPI;
+/*    CategoryAPI* debug = new CategoryAPI;
 
-//    QVector<Category> testcats = getCategories();
-//	printCategories(testcats); // Этап тестирования для отображения категорий
+    QVector<Category> testcats = getCategories();
+    printCategories(testcats); // Этап тестирования для отображения категорий
 
-//    for(const Category& category : testcats){
-//        debug->setParticipants(category);
-//    }
+    for(const Category& category : testcats){
+       debug->setParticipants(category);
+    }
+*/
 
-//---------------------------------------------------------
+    //-------------TCP_server for remote controls
+    qDebug()<<"Start tcp server";
+    TestObject reference;
+    MyTcpServer server;
+    reference.ConnectToServer(server.modes);
+
+
     if (engine.rootObjects().isEmpty())
         return -1;
 
