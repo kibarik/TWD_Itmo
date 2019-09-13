@@ -33,7 +33,7 @@ Item {
 			Text {
 				id: redChui
 				color: "#ffffff"
-				text: qsTr("0")
+                text: serverAPI.blueAdmonition()
 				anchors.fill: parent
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter

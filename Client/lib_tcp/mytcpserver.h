@@ -19,6 +19,8 @@ public:
     void setMode(Mode mode);
     Mode getMode();
 
+    void getAdmonition();
+
 // !!!Сигнал вызывает слот, т. е. слот - функция, которая исполняется, а сигнал её вызывает!!!
 public slots:
     void slotNewConnection();
