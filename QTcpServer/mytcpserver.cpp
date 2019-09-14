@@ -242,7 +242,7 @@ void MyTcpServer::slotServerRead()
                 case Mode::CLASSICTUL:
                     NewJudge->setScore(100, 100);
                     break;
-                case Mode::NEWTUL:
+                case Mode::NEWTUL_1:
                     NewJudge->setScore(100, 100);
                     break;
             }
@@ -264,7 +264,7 @@ void MyTcpServer::slotServerRead()
                     case Mode::CLASSICTUL: // Страый туль
                         Judges[judgeNum]->classicTul(data);
                         break;
-                    case Mode::NEWTUL:
+                    case Mode::NEWTUL_1:
                         Judges[judgeNum]->newTul(data, tulLevel, tulLevelChanged);
                         if (tulLevelChanged) {
                             tulLevelChanged = false;

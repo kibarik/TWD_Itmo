@@ -15,7 +15,7 @@ class MyTcpServer : public QObject
 {
     Q_OBJECT
 public:
-    enum Mode {SPARRING, CLASSICTUL, NEWTUL} mode;
+    enum Mode {SPARRING, CLASSICTUL, NEWTUL_1, NEWTUL_2, NEWTUL_3} mode;
     const int roundTimerDelay = 1000;
 
     explicit MyTcpServer(QObject *parent = nullptr);
