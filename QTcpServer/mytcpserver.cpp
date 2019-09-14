@@ -84,6 +84,7 @@ void MyTcpServer::slotTimerPause(short time) {
     }
 }
 
+
 // Слот для сброса очков
 void MyTcpServer::slotReset() {
     for (ulong i = 0; i < this->Judges.size(); i++) {
@@ -93,6 +94,24 @@ void MyTcpServer::slotReset() {
     }
 };
 
+// Слот для изменения уровня туля
+void MyTcpServer::slotChangeNewTulLevel(short tulLevel) {
+    for (ulong i = 0; i < this->Judges.size(); i++) {
+        this->Judges[i]->reset();
+    }
+    switch (tulLevel) {
+        case 1:
+            this->mode = MyTcpServer::Mode::NEWTUL_1;
+            break;
+        case 2:
+            this->mode = MyTcpServer::Mode::NEWTUL_2;
+            break;
+        case 3:
+            this->mode = MyTcpServer::Mode::NEWTUL_3;
+            break;
+    }
+}
+
 // Слот для обработки таймера
 void MyTcpServer::timerEvent(QTimerEvent *event) {
     if (event->timerId() == mainTimer.timerId()) {
@@ -100,6 +119,7 @@ void MyTcpServer::timerEvent(QTimerEvent *event) {
             slotTimerStop();
             emit this->signalTimeOver();
         }
+        emit this->signalTimerEvent(this->roundTimeElapsed);
     } else if (event->timerId() == pauseTimer.timerId()) {
         if (++this->pauseTimeElapsed > pauseTime) {
             slotTimerPause();
@@ -107,7 +127,6 @@ void MyTcpServer::timerEvent(QTimerEvent *event) {
     } else {
         QObject::timerEvent(event);
     }
-    emit this->signalTimerEvent(this->roundTimeElapsed);
 }
 
 // Слот для Чуя (замечания)
@@ -243,6 +262,8 @@ void MyTcpServer::slotServerRead()
                     NewJudge->setScore(100, 100);
                     break;
                 case Mode::NEWTUL_1:
+                case Mode::NEWTUL_2:
+                case Mode::NEWTUL_3:
                     NewJudge->setScore(100, 100);
                     break;
             }
@@ -253,7 +274,7 @@ void MyTcpServer::slotServerRead()
             mTcpSocket->write(id);
         } else {
             if(data.getRawData() != "nan" && mainTimer.isActive()) {
-                qDebug() << "Test";
+                qDebug() << "ID: " << data.getID() << " " << data.getButtons();
                 unsigned long long judgeNum = static_cast<unsigned long long>(data.getID());
                 array.remove(0, 1);
                 // В зависимости от режима работы, выбираем алгоритм
@@ -261,14 +282,18 @@ void MyTcpServer::slotServerRead()
                     case Mode::SPARRING: // Спарринг
                         Judges[judgeNum]->sparring(data);
                         break;
-                    case Mode::CLASSICTUL: // Страый туль
+                    case Mode::CLASSICTUL: // Старый туль
+                        Judges[judgeNum]->reset();
                         Judges[judgeNum]->classicTul(data);
                         break;
                     case Mode::NEWTUL_1:
-                        Judges[judgeNum]->newTul(data, tulLevel, tulLevelChanged);
-                        if (tulLevelChanged) {
-                            tulLevelChanged = false;
-                        }
+                        Judges[judgeNum]->newTul_1(data);
+                        break;
+                    case Mode::NEWTUL_2:
+                        Judges[judgeNum]->newTul_2(data);
+                        break;
+                    case Mode::NEWTUL_3:
+                        Judges[judgeNum]->newTul_3(data);
                         break;
                 }
                 emit signalScoreUpdate(static_cast<int>(judgeNum), Judges[judgeNum]->getRed(), Judges[judgeNum]->getBlue());

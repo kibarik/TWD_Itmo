@@ -36,7 +36,7 @@ public slots:
     void slotWarning(bool player); // 0 - красный, 1 - синий
     void slotCancelAdmonition(bool player); // 0 - красный, 1 - синий
     void slotCancelWarning(bool player); // 0 - красный, 1 - синий
-    void slotChangeTulLevel(short level) {this->tulLevel = level; tulLevelChanged = true;}
+    void slotChangeNewTulLevel(short level);
     void slotReset();
 
     void slotTimerStart();
@@ -51,7 +51,7 @@ signals:
     void signalWarning(short redWarning, short blueWarning); // Вызывается при получении Гамжуна (предупреждения)
     void signalTimerEvent(short timeElapsed); // Вызывается при каждом срабатывании таймера
 
-private:
+protected:
     QTcpServer * mTcpServer;
     QTcpSocket * mTcpSocket;
     QBasicTimer mainTimer;
@@ -63,8 +63,6 @@ private:
     short roundTime; // Время, которое длится один раунд
     short pauseTime; // Время, которое длится пауза
     short redAdmonition = 0, blueAdmonition = 0, redWarning = 0, blueWarning = 0;
-    short tulLevel;
-    bool tulLevelChanged = false;
 };
 
 #endif // MYTCPSERVER_H
