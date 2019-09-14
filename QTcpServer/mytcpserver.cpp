@@ -275,28 +275,31 @@ void MyTcpServer::slotServerRead()
         } else {
             if(data.getRawData() != "nan" && mainTimer.isActive()) {
                 qDebug() << "ID: " << data.getID() << " " << data.getButtons();
-                unsigned long long judgeNum = static_cast<unsigned long long>(data.getID());
-                array.remove(0, 1);
-                // В зависимости от режима работы, выбираем алгоритм
-                switch(mode) {
-                    case Mode::SPARRING: // Спарринг
-                        Judges[judgeNum]->sparring(data);
-                        break;
-                    case Mode::CLASSICTUL: // Старый туль
-                        Judges[judgeNum]->reset();
-                        Judges[judgeNum]->classicTul(data);
-                        break;
-                    case Mode::NEWTUL_1:
-                        Judges[judgeNum]->newTul_1(data);
-                        break;
-                    case Mode::NEWTUL_2:
-                        Judges[judgeNum]->newTul_2(data);
-                        break;
-                    case Mode::NEWTUL_3:
-                        Judges[judgeNum]->newTul_3(data);
-                        break;
+                ulong judgeNum = static_cast<ulong>(data.getID());
+                if (judgeNum >= Judges.size()) { // Если подключился пульт без регистрации
+                    emit this->signalJudgeNumError(judgeNum);
+                } else {
+                    // В зависимости от режима работы, выбираем алгоритм
+                    switch(mode) {
+                        case Mode::SPARRING: // Спарринг
+                            Judges[judgeNum]->sparring(data);
+                            break;
+                        case Mode::CLASSICTUL: // Старый туль
+                            Judges[judgeNum]->reset();
+                            Judges[judgeNum]->classicTul(data);
+                            break;
+                        case Mode::NEWTUL_1:
+                            Judges[judgeNum]->newTul_1(data);
+                            break;
+                        case Mode::NEWTUL_2:
+                            Judges[judgeNum]->newTul_2(data);
+                            break;
+                        case Mode::NEWTUL_3:
+                            Judges[judgeNum]->newTul_3(data);
+                            break;
+                    }
+                    emit signalScoreUpdate(static_cast<int>(judgeNum), Judges[judgeNum]->getRed(), Judges[judgeNum]->getBlue());
                 }
-                emit signalScoreUpdate(static_cast<int>(judgeNum), Judges[judgeNum]->getRed(), Judges[judgeNum]->getBlue());
             }
         }
     }

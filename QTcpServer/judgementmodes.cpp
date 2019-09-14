@@ -187,28 +187,33 @@ void JudgementModes::newTul_1(middleware &Data) {
     }
 
     if (Data.getButtons()[0] == 0) {
-        switch(Data.getButtons()[0]) {
+        switch(Data.getButtons()[1]) {
             case 1:
                 diff = judgeActions[0];
-                if ((diff + redDiff) < maxDiff) {
-                    this->red += diff;
-                    redDiff += diff;
-                } else if (redDiff < maxDiff) {
-                    this->red += maxDiff - redDiff;
-                    redDiff = maxDiff;
+                if (this->red - diff > 0) {
+                    if ((diff + redDiff) < maxDiff) {
+                        this->red += diff;
+                        redDiff += diff;
+                    } else if (redDiff < maxDiff) {
+                        this->red += maxDiff - redDiff;
+                        redDiff = maxDiff;
+                    }
                 }
                 break;
             case 2:
+                //qDebug() << "Before getting buf: " << this->redBuf;
                 this->red = this->redBuf;
                 break;
             case 4:
                 diff = judgeActions[0];
-                if ((diff + blueDiff) < maxDiff) {
-                    this->blue += diff;
-                    blueDiff += diff;
-                } else if (blueDiff < maxDiff) {
-                    this->blue += maxDiff - blueDiff;
-                    blueDiff = maxDiff;
+                if (this->blue - diff > 0) {
+                    if ((diff + blueDiff) < maxDiff) {
+                        this->blue += diff;
+                        blueDiff += diff;
+                    } else if (blueDiff < maxDiff) {
+                        this->blue += maxDiff - blueDiff;
+                        blueDiff = maxDiff;
+                    }
                 }
                 break;
             case 5:
@@ -219,27 +224,32 @@ void JudgementModes::newTul_1(middleware &Data) {
         switch(Data.getButtons()[0]) {
             case 1:
                 diff = judgeActions[0];
-                if ((redDiff - diff) > 0) {
-                    this->red -= diff;
-                    redDiff -= diff;
-                } else if (redDiff > 0) {
-                    this->red -= redDiff;
-                    redDiff = 0;
+                if (this->red - diff > 0) {
+                    if ((redDiff - diff) > 0) {
+                        this->red -= diff;
+                        redDiff -= diff;
+                    } else if (redDiff > 0) {
+                        this->red -= redDiff;
+                        redDiff = 0;
+                    }
                 }
                 //qDebug() << "Pressed 1\n" << "Diff = " << diff;
                 break;
             case 2:
+                //qDebug() << "Before setting buf: " << this->redBuf;
                 this->redBuf = this->red;
                 this->red = 0;
                 break;
             case 4:
                 diff = judgeActions[0];
-                if ((blueDiff - diff) > 0) {
-                    this->blue -= diff;
-                    blueDiff -= diff;
-                } else if (blueDiff > 0) {
-                    this->blue -= blueDiff;
-                    blueDiff = 0;
+                if (this->blue - diff > 0) {
+                    if ((blueDiff - diff) > 0) {
+                        this->blue -= diff;
+                        blueDiff -= diff;
+                    } else if (blueDiff > 0) {
+                        this->blue -= blueDiff;
+                        blueDiff = 0;
+                    }
                 }
                 break;
             case 5:
@@ -278,45 +288,53 @@ void JudgementModes::newTul_2(middleware &Data) {
     }
 
     if (Data.getButtons()[0] == 0) {
-        switch(Data.getButtons()[0]) {
+        switch(Data.getButtons()[1]) {
             case 1:
                 diff = judgeActions[0];
-                if ((diff + redDiff) < maxDiff) {
-                    this->red += diff;
-                    redDiff += diff;
-                } else if (redDiff < maxDiff) {
-                    this->red += maxDiff - redDiff;
-                    redDiff = maxDiff;
+                if (this->red - diff > 0) {
+                    if ((diff + redDiff) < maxDiff) {
+                        this->red += diff;
+                        redDiff += diff;
+                    } else if (redDiff < maxDiff) {
+                        this->red += maxDiff - redDiff;
+                        redDiff = maxDiff;
+                    }
                 }
                 break;
             case 2:
                 diff = judgeActions[1];
-                if ((diff + redDiff) < maxDiff) {
-                    this->red += diff;
-                    redDiff += diff;
-                } else if (redDiff < maxDiff) {
-                    this->red += maxDiff - redDiff;
-                    redDiff = maxDiff;
+                if (this->red - diff > 0) {
+                    if ((diff + redDiff) < maxDiff) {
+                        this->red += diff;
+                        redDiff += diff;
+                    } else if (redDiff < maxDiff) {
+                        this->red += maxDiff - redDiff;
+                        redDiff = maxDiff;
+                    }
                 }
                 break;
             case 4:
                 diff = judgeActions[0];
-                if ((diff + blueDiff) < maxDiff) {
-                    this->blue += diff;
-                    blueDiff += diff;
-                } else if (blueDiff < maxDiff) {
-                    this->blue += maxDiff - blueDiff;
-                    blueDiff = maxDiff;
+                if (this->blue - diff > 0) {
+                    if ((diff + blueDiff) < maxDiff) {
+                        this->blue += diff;
+                        blueDiff += diff;
+                    } else if (blueDiff < maxDiff) {
+                        this->blue += maxDiff - blueDiff;
+                        blueDiff = maxDiff;
+                    }
                 }
                 break;
             case 5:
-                diff = judgeActions[0];
-                if ((diff + blueDiff) < maxDiff) {
-                    this->blue += diff;
-                    blueDiff += diff;
-                } else if (blueDiff < maxDiff) {
-                    this->blue += maxDiff - blueDiff;
-                    blueDiff = maxDiff;
+                diff = judgeActions[1];
+                if (this->blue - diff > 0) {
+                    if ((diff + blueDiff) < maxDiff) {
+                        this->blue += diff;
+                        blueDiff += diff;
+                    } else if (blueDiff < maxDiff) {
+                        this->blue += maxDiff - blueDiff;
+                        blueDiff = maxDiff;
+                    }
                 }
                 break;
         }
@@ -324,31 +342,51 @@ void JudgementModes::newTul_2(middleware &Data) {
         switch(Data.getButtons()[0]) {
             case 1:
                 diff = judgeActions[0];
-                if ((redDiff - diff) > 0) {
-                    this->red -= diff;
-                    redDiff -= diff;
-                } else if (redDiff > 0) {
-                    this->red -= redDiff;
-                    redDiff = 0;
+                if (this->red - diff > 0) {
+                    if ((redDiff - diff) > 0) {
+                        this->red -= diff;
+                        redDiff -= diff;
+                    } else if (redDiff > 0) {
+                        this->red -= redDiff;
+                        redDiff = 0;
+                    }
                 }
                 break;
             case 2:
-                redBuf = this->red;
-                this->red = 0;
+                diff = judgeActions[1];
+                if (this->red - diff > 0) {
+                    if ((redDiff - diff) > 0) {
+                        this->red -= diff;
+                        redDiff -= diff;
+                    } else if (redDiff > 0) {
+                        this->red -= redDiff;
+                        redDiff = 0;
+                    }
+                }
                 break;
             case 4:
                 diff = judgeActions[0];
-                if ((blueDiff - diff) > 0) {
-                    this->blue -= diff;
-                    blueDiff -= diff;
-                } else if (blueDiff > 0) {
-                    this->blue -= blueDiff;
-                    blueDiff = 0;
+                if (this->blue - diff > 0) {
+                    if ((blueDiff - diff) > 0) {
+                        this->blue -= diff;
+                        blueDiff -= diff;
+                    } else if (blueDiff > 0) {
+                        this->blue -= blueDiff;
+                        blueDiff = 0;
+                    }
                 }
                 break;
             case 5:
-                blueBuf = this->blue;
-                this->blue = 0;
+                diff = judgeActions[1];
+                if (this->blue - diff > 0) {
+                    if ((blueDiff - diff) > 0) {
+                        this->blue -= diff;
+                        blueDiff -= diff;
+                    } else if (blueDiff > 0) {
+                        this->blue -= blueDiff;
+                        blueDiff = 0;
+                    }
+                }
                 break;
         }
 }
@@ -357,6 +395,12 @@ void JudgementModes::newTul_2(middleware &Data) {
 void JudgementModes::newTul_3(middleware &Data) {
     /*
      * ------Коды кнопок и их действия------
+     *            0 - отмена
+     *           1 - красный -5
+     *           2 - красный -10
+     *            4 - синий -5
+     *            5 - синий -10
+     * ----------Третий уровень-------------
      *            0 - отмена
      *           1 - красный -5
      *           2 - красный -10
@@ -376,45 +420,53 @@ void JudgementModes::newTul_3(middleware &Data) {
     }
 
     if (Data.getButtons()[0] == 0) {
-        switch(Data.getButtons()[0]) {
+        switch(Data.getButtons()[1]) {
             case 1:
                 diff = judgeActions[0];
-                if ((diff + redDiff) < maxDiff) {
-                    this->red += diff;
-                    redDiff += diff;
-                } else if (redDiff < maxDiff) {
-                    this->red += maxDiff - redDiff;
-                    redDiff = maxDiff;
+                if (this->red - diff >= 0) {
+                    if ((diff + redDiff) < maxDiff) {
+                        this->red += diff;
+                        redDiff += diff;
+                    } else if (redDiff < maxDiff) {
+                        this->red += maxDiff - redDiff;
+                        redDiff = maxDiff;
+                    }
                 }
                 break;
             case 2:
                 diff = judgeActions[1];
-                if ((diff + redDiff) < maxDiff) {
-                    this->red += diff;
-                    redDiff += diff;
-                } else if (redDiff < maxDiff) {
-                    this->red += maxDiff - redDiff;
-                    redDiff = maxDiff;
+                if (this->red - diff >= 0) {
+                    if ((diff + redDiff) < maxDiff) {
+                        this->red += diff;
+                        redDiff += diff;
+                    } else if (redDiff < maxDiff) {
+                        this->red += maxDiff - redDiff;
+                        redDiff = maxDiff;
+                    }
                 }
                 break;
             case 4:
                 diff = judgeActions[0];
-                if ((diff + blueDiff) < maxDiff) {
-                    this->blue += diff;
-                    blueDiff += diff;
-                } else if (blueDiff < maxDiff) {
-                    this->blue += maxDiff - blueDiff;
-                    blueDiff = maxDiff;
+                if (this->blue - diff >= 0) {
+                    if ((diff + blueDiff) < maxDiff) {
+                        this->blue += diff;
+                        blueDiff += diff;
+                    } else if (blueDiff < maxDiff) {
+                        this->blue += maxDiff - blueDiff;
+                        blueDiff = maxDiff;
+                    }
                 }
                 break;
             case 5:
-                diff = judgeActions[0];
-                if ((diff + blueDiff) < maxDiff) {
-                    this->blue += diff;
-                    blueDiff += diff;
-                } else if (blueDiff < maxDiff) {
-                    this->blue += maxDiff - blueDiff;
-                    blueDiff = maxDiff;
+                diff = judgeActions[1];
+                if (this->blue - diff >= 0) {
+                    if ((diff + blueDiff) < maxDiff) {
+                        this->blue += diff;
+                        blueDiff += diff;
+                    } else if (blueDiff < maxDiff) {
+                        this->blue += maxDiff - blueDiff;
+                        blueDiff = maxDiff;
+                    }
                 }
                 break;
         }
@@ -422,31 +474,51 @@ void JudgementModes::newTul_3(middleware &Data) {
         switch(Data.getButtons()[0]) {
             case 1:
                 diff = judgeActions[0];
-                if ((redDiff - diff) > 0) {
-                    this->red -= diff;
-                    redDiff -= diff;
-                } else if (redDiff > 0) {
-                    this->red -= redDiff;
-                    redDiff = 0;
+                if (this->red - diff >= 0) {
+                    if ((redDiff - diff) > 0) {
+                        this->red -= diff;
+                        redDiff -= diff;
+                    } else if (redDiff > 0) {
+                        this->red -= redDiff;
+                        redDiff = 0;
+                    }
                 }
                 break;
             case 2:
-                redBuf = this->red;
-                this->red = 0;
+                diff = judgeActions[1];
+                if (this->red - diff >= 0) {
+                    if ((redDiff - diff) > 0) {
+                        this->red -= diff;
+                        redDiff -= diff;
+                    } else if (redDiff > 0) {
+                        this->red -= redDiff;
+                        redDiff = 0;
+                    }
+                }
                 break;
             case 4:
                 diff = judgeActions[0];
-                if ((blueDiff - diff) > 0) {
-                    this->blue -= diff;
-                    blueDiff -= diff;
-                } else if (blueDiff > 0) {
-                    this->blue -= blueDiff;
-                    blueDiff = 0;
+                if (this->blue - diff >= 0) {
+                    if ((blueDiff - diff) > 0) {
+                        this->blue -= diff;
+                        blueDiff -= diff;
+                    } else if (blueDiff > 0) {
+                        this->blue -= blueDiff;
+                        blueDiff = 0;
+                    }
                 }
                 break;
             case 5:
-                blueBuf = this->blue;
-                this->blue = 0;
+                diff = judgeActions[1];
+                if (this->blue - diff >= 0) {
+                    if ((blueDiff - diff) > 0) {
+                        this->blue -= diff;
+                        blueDiff -= diff;
+                    } else if (blueDiff > 0) {
+                        this->blue -= blueDiff;
+                        blueDiff = 0;
+                    }
+                }
                 break;
         }
 }

@@ -50,13 +50,14 @@ signals:
     void signalAdmonition(short redAdmonition, short blueAdmonition); // Вызывается при получении Чуя (замечания)
     void signalWarning(short redWarning, short blueWarning); // Вызывается при получении Гамжуна (предупреждения)
     void signalTimerEvent(short timeElapsed); // Вызывается при каждом срабатывании таймера
+    void signalJudgeNumError(ulong judgeNum);
 
 protected:
+    void timerEvent(QTimerEvent *event);
     QTcpServer * mTcpServer;
     QTcpSocket * mTcpSocket;
     QBasicTimer mainTimer;
     QBasicTimer pauseTimer;
-    void timerEvent(QTimerEvent *event);
     std::vector <JudgementModes *> Judges; // Нужно для обработки различных режимов при нажатии на кнопки
     short roundTimeElapsed; // Время, прошедшее с начала запуска таймера в секундах
     short pauseTimeElapsed; // Для хранения времени медицинского таймера

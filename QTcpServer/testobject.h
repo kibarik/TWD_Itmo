@@ -15,6 +15,7 @@ public:
 signals:
 public slots:
     void PrintScore(int judgeNum, int red, int blue);
+    void judgeNumError(ulong judgeNum);
 };
 
 #endif // TESTOBJECT_H
