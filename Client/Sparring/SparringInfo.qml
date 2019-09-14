@@ -10,6 +10,8 @@ import QtQuick.Window 2.0
 	QObject::connect(qml, SIGNAL(transmitOldText(QString)),
 					 &ASD, SLOT(getOldText(QString)));
 
+     P.S. Возможно было реализованного другими методами. Но на основе нижеописанных статей
+
 	https://habr.com/ru/post/171341/
 	https://habr.com/ru/post/138837/
 */
@@ -33,7 +35,7 @@ Item {
 			Text {
 				id: redChui
 				color: "#ffffff"
-				text: qsTr("0")
+                text: qsTr(serverAPI.QRedAdmonition)
 				anchors.fill: parent
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
@@ -48,7 +50,7 @@ Item {
 				id: vlavla
 				width: 320
 				color: "#ffffff"
-				text: qsTr("Замечание")
+                text: qsTr("Замечание")
 				anchors.fill: parent
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
@@ -63,7 +65,7 @@ Item {
 			Text {
 				id: blueChui
 				color: "#ffffff"
-                text: "0";
+                text: qsTr(serverAPI.QBlueAdmonition);
 				anchors.fill: parent
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
@@ -77,7 +79,7 @@ Item {
 			Text {
 				id: redGamj
 				color: "#ffffff"
-				text: qsTr("0")
+                text: qsTr(serverAPI.QRedWarning)
 				anchors.fill: parent
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
@@ -105,7 +107,7 @@ Item {
 			    Text {
 					id: blueGamj
 					color: "#ffffff"
-					text: qsTr("0")
+                    text: qsTr(serverAPI.QBlueWarning)
 					anchors.fill: parent
 					verticalAlignment: Text.AlignVCenter
 					horizontalAlignment: Text.AlignHCenter

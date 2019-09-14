@@ -20,19 +20,19 @@ class Category : public QObject{
 	Q_PROPERTY(QString mode			 READ	mode			WRITE setMode				NOTIFY categoryChanged)
 	Q_PROPERTY(QString yearFrom		 READ	yearFrom		WRITE setYearFrom			NOTIFY categoryChanged)
 	Q_PROPERTY(QString yearTo		 READ	yearTo			WRITE setYearTo				NOTIFY categoryChanged)
-	Q_PROPERTY(QString weightFrom	 READ	weightFrom		WRITE setWeightFrom			NOTIFY categoryChanged)
+        Q_PROPERTY(QString weightFrom            READ	weightFrom		WRITE setWeightFrom			NOTIFY categoryChanged)
 	Q_PROPERTY(QString weightTo		 READ	weightTo		WRITE setWeightTo			NOTIFY categoryChanged)
-	Q_PROPERTY(QString roundStandart READ	roundStandart	WRITE setRoundStandart		NOTIFY categoryChanged)
-	Q_PROPERTY(QString roundFinal	 READ	roundFinal		WRITE setRoundFinal			NOTIFY categoryChanged)
+        Q_PROPERTY(QString roundStandart         READ	roundStandart           WRITE setRoundStandart                  NOTIFY categoryChanged)
+        Q_PROPERTY(QString roundFinal            READ	roundFinal		WRITE setRoundFinal			NOTIFY categoryChanged)
 	Q_PROPERTY(QString name			 READ	name			WRITE setName				NOTIFY categoryChanged)
 	Q_PROPERTY(QString beltFrom		 READ	beltFrom		WRITE setBeltFrom			NOTIFY categoryChanged)
 	Q_PROPERTY(QString beltTo		 READ	beltTo			WRITE setBeltTo				NOTIFY categoryChanged)
 	Q_PROPERTY(bool isDanFrom		 READ	isDanFrom		WRITE setIsDanFrom			NOTIFY categoryChanged)
 	Q_PROPERTY(bool isDanTo			 READ	isDanTo			WRITE setIsDanTo			NOTIFY categoryChanged)
-	Q_PROPERTY(QString timeMinStandart READ	timeMinStandart	WRITE setTimeMinStandart	NOTIFY categoryChanged)
-	Q_PROPERTY(QString timeMinFinal	 READ	timeMinFinal	WRITE setTimeMinFinal		NOTIFY categoryChanged)
-	Q_PROPERTY(QString timeSecStandart READ	timeSecStandart	WRITE setTimeSecStandart	NOTIFY categoryChanged)
-	Q_PROPERTY(QString timeSecFinal	 READ	timeSecFinal	WRITE setTimeSecFinal		NOTIFY categoryChanged)
+        Q_PROPERTY(QString timeMinStandart       READ	timeMinStandart         WRITE setTimeMinStandart                NOTIFY categoryChanged)
+        Q_PROPERTY(QString timeMinFinal          READ	timeMinFinal            WRITE setTimeMinFinal                   NOTIFY categoryChanged)
+        Q_PROPERTY(QString timeSecStandart       READ	timeSecStandart     	WRITE setTimeSecStandart                NOTIFY categoryChanged)
+        Q_PROPERTY(QString timeSecFinal          READ	timeSecFinal            WRITE setTimeSecFinal                   NOTIFY categoryChanged)
 //	Q_PROPERTY(bool isSaved			 READ	isSaved			WRITE setSaved				NOTIFY categorySaved)
 
 public:
@@ -68,7 +68,7 @@ public:
 	void setYearTo			(const QString& yearTo);
 	void setWeightFrom		(const QString& weightFrom);
 	void setWeightTo		(const QString& weightTo);
-	void setRoundStandart	(const QString& roundStandart);
+        void setRoundStandart           (const QString& roundStandart);
 	void setRoundFinal		(const QString& roundFinal);
 	void setBeltFrom		(const QString& beltFrom);
 	void setBeltTo			(const QString& beltTo);
