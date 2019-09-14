@@ -5,6 +5,7 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <iostream>
+#include <QTime>
 #include <QBasicTimer>
 #include <QTimerEvent>
 #include "judgementmodes.h"
@@ -15,6 +16,8 @@ class MyTcpServer : public QObject
     Q_OBJECT
 public:
     enum Mode {SPARRING, CLASSICTUL, NEWTUL} mode;
+    const int roundTimerDelay = 1000;
+
     explicit MyTcpServer(QObject *parent = nullptr);
     void setMode(Mode mode);
     Mode getMode();
@@ -36,8 +39,8 @@ public slots:
     void slotChangeTulLevel(short level) {this->tulLevel = level; tulLevelChanged = true;}
     void slotReset();
 
-    void slotTimerPause(short timeout = 0);
-    void slotTimerStart(int delay = 1000);
+    void slotTimerStart();
+    void slotTimerPause(short time = 0); // time - время паузы
     void slotTimerStop();
 
 signals:
@@ -51,12 +54,14 @@ signals:
 private:
     QTcpServer * mTcpServer;
     QTcpSocket * mTcpSocket;
-    QBasicTimer timer;
+    QBasicTimer mainTimer;
+    QBasicTimer pauseTimer;
     void timerEvent(QTimerEvent *event);
     std::vector <JudgementModes *> Judges; // Нужно для обработки различных режимов при нажатии на кнопки
-    short timeElapsed; // Время, прошедшее с начала запуска таймера в секундах
-    int timerDelay; // Хранит задержку (частоту срабатывания) таймера
+    short roundTimeElapsed; // Время, прошедшее с начала запуска таймера в секундах
+    short pauseTimeElapsed; // Для хранения времени медицинского таймера
     short roundTime; // Время, которое длится один раунд
+    short pauseTime; // Время, которое длится пауза
     short redAdmonition = 0, blueAdmonition = 0, redWarning = 0, blueWarning = 0;
     short tulLevel;
     bool tulLevelChanged = false;

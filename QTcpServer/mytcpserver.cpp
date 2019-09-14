@@ -57,29 +57,36 @@ int MyTcpServer::getOverallScore(bool player) {
  */
 
 // Слот для запуска таймера
-void MyTcpServer::slotTimerStart(int delay) {
-    this->timeElapsed = 0;
-    timerDelay = delay;
-    this->timer.start(delay, this);
+void MyTcpServer::slotTimerStart() {
+    this->roundTimeElapsed = 0;
+    this->mainTimer.start(this->roundTimerDelay, this);
 };
 
 // Слот для остановки таймера
 void MyTcpServer::slotTimerStop() {
-    this->timer.stop();
+    this->mainTimer.stop();
 };
 
 // Слот для паузы
-void MyTcpServer::slotTimerPause(short timeout) {
-    if (timeout) {
-
+void MyTcpServer::slotTimerPause(short time) {
+    if (this->pauseTimer.isActive()) {
+        this->pauseTimer.stop();
+        this->mainTimer.start(this->roundTimerDelay, this);
     } else {
-        (this->timer.isActive())? this->timer.stop(): this->timer.start(this->timerDelay, this);
+        if (time) {
+            this->mainTimer.stop();
+            this->pauseTime = time;
+            this->pauseTimeElapsed = 0;
+            this->pauseTimer.start(1000, this);
+        } else {
+            (this->mainTimer.isActive())? this->mainTimer.stop(): this->mainTimer.start(this->roundTimerDelay, this);
+        }
     }
 }
 
 // Слот для сброса очков
 void MyTcpServer::slotReset() {
-    for (unsigned long long i = 0; i < this->Judges.size(); i++) {
+    for (ulong i = 0; i < this->Judges.size(); i++) {
         Judges[i]->setRed(0);
         Judges[i]->setBlue(0);
         emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
@@ -88,15 +95,19 @@ void MyTcpServer::slotReset() {
 
 // Слот для обработки таймера
 void MyTcpServer::timerEvent(QTimerEvent *event) {
-    if (event->timerId() == timer.timerId()) {
-        if (++timeElapsed > roundTime) {
+    if (event->timerId() == mainTimer.timerId()) {
+        if (++roundTimeElapsed > roundTime) {
             slotTimerStop();
             emit this->signalTimeOver();
+        }
+    } else if (event->timerId() == pauseTimer.timerId()) {
+        if (++this->pauseTimeElapsed > pauseTime) {
+            slotTimerPause();
         }
     } else {
         QObject::timerEvent(event);
     }
-    emit this->signalTimerEvent(this->timeElapsed);
+    emit this->signalTimerEvent(this->roundTimeElapsed);
 }
 
 // Слот для Чуя (замечания)
@@ -241,7 +252,7 @@ void MyTcpServer::slotServerRead()
             QByteArray id = QString::number(JudgeID).toLocal8Bit();
             mTcpSocket->write(id);
         } else {
-            if(data.getRawData() != "nan" && timer.isActive()) {
+            if(data.getRawData() != "nan" && mainTimer.isActive()) {
                 qDebug() << "Test";
                 unsigned long long judgeNum = static_cast<unsigned long long>(data.getID());
                 array.remove(0, 1);
