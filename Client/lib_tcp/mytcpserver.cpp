@@ -1,5 +1,50 @@
 #include "mytcpserver.h"
 
+//---------------------сеттеры для Q_PROPERTY-------------
+/*сеттеры вся суть ->
+ * 1. испустить сигнал emit signal()... с сообщением для логирования.
+ * 2. Передать параметр из QML в C++ структуру.
+*/
+void MyTcpServer::setRoundTime(const short &QRoundTime){
+    roundTime = QRoundTime;
+    emit timeChanged();
+}
+
+void MyTcpServer::setRedAdmonition(const short &QRedAdmonition){
+    redAdmonition = QRedAdmonition;
+    emit admonitionChanged(QString("Red"));
+}
+
+void MyTcpServer::setBlueAdmonition(const short &QBlueAdmonition){
+    blueAdmonition = QBlueAdmonition;
+    emit admonitionChanged(QString("Blue"));
+}
+
+void MyTcpServer::setRedWarning(const short &QRedWarning){
+    redWarning = QRedWarning;
+    emit admonitionChanged(QString("Red"));
+}
+
+void MyTcpServer::setRedAdmonition(const short &QRedAdmonition) (const short &QRoundTime){
+    redAdmonition = QRedAdmonition;
+    emit timeChanged();
+}
+
+void MyTcpServer::setRedAdmonition(const short &QRedAdmonition) (const short &QRoundTime){
+    redAdmonition = QRedAdmonition;
+    emit timeChanged();
+}
+
+void MyTcpServer::setRedAdmonition(const short &QRedAdmonition) (const short &QRoundTime){
+    redAdmonition = QRedAdmonition;
+    emit timeChanged();
+}
+
+void MyTcpServer::setRedAdmonition(const short &QRedAdmonition) (const short &QRoundTime){
+    redAdmonition = QRedAdmonition;
+    emit timeChanged();
+}
+
 // Конструктор
 MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent)
 {
@@ -27,6 +72,16 @@ MyTcpServer::Mode MyTcpServer::getMode() {
     return this->mode;
 }
 
+// Получение количества Чуев (замечаний)
+short MyTcpServer::getAdmonition(bool player) {
+    return player? this->blueAdmonition: this->redAdmonition;
+}
+
+// Получение количества Гамжунов (предупреждений)
+short MyTcpServer::getWarning(bool player) {
+    return player? this->blueWarning: this->redWarning;
+}
+
 /*
  *
  *******Секция слотов*******
@@ -37,13 +92,11 @@ MyTcpServer::Mode MyTcpServer::getMode() {
 void MyTcpServer::slotTimerStart(int delay) {
     this->timeElapsed = 0;
     this->timer.start(delay, this);
-    std::cout << "ServerAPI::slotTimerStart done" << std::endl;
 };
 
 // Слот для остановки таймера
 void MyTcpServer::slotTimerStop() {
     this->timer.stop();
-    std::cout << "ServerAPI::slotTimerStop done" << std::endl;
 };
 
 // Слот для сброса очков
@@ -51,7 +104,6 @@ void MyTcpServer::slotReset() {
     for (unsigned long long i = 0; i < this->Judges.size(); i++) {
         Judges[i]->setRed(0);
         emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
-        std::cout<<"ServerAPI::reset done" << std::endl;
     }
 };
 
@@ -65,7 +117,6 @@ void MyTcpServer::timerEvent(QTimerEvent *event) {
     } else {
         QObject::timerEvent(event);
     }
-    std::cout<<"ServerAPI::timerEvent done" << std::endl;
 }
 
 // Слот для Чуя (замечания)
@@ -78,7 +129,6 @@ void MyTcpServer::slotAdmonition(bool player) {
                 Judges[i]->setRed(Judges[i]->getRed() - 1);
                 emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
             }
-            std::cout<<"ServerAPI::slotAdmonition red plused" << std::endl;
         }
     } else // Синий
         if (++blueAdmonition == 3) { // Если получено 3 замечания
@@ -87,9 +137,7 @@ void MyTcpServer::slotAdmonition(bool player) {
             for (unsigned long long i = 0; i < this->Judges.size(); i++) {
                 Judges[i]->setBlue(Judges[i]->getBlue() - 1);
                 emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
-
             }
-            std::cout<<"ServerAPI::slotAdmonition blue plused" << std::endl;
         }
 }
 
@@ -103,7 +151,6 @@ void MyTcpServer::slotCancelAdmonition(bool player) {
                 Judges[i]->setRed(Judges[i]->getRed() + 1);
                 emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
             }
-            std::cout<<"ServerAPI::slotAdmonition red canceled" << std::endl;
         }
     } else // Синий
         if (--blueAdmonition == -1) {
@@ -113,7 +160,6 @@ void MyTcpServer::slotCancelAdmonition(bool player) {
                 Judges[i]->setBlue(Judges[i]->getBlue() + 1);
                 emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
             }
-            std::cout<<"ServerAPI::slotAdmonition blue canceled" << std::endl;
         }
 }
 
@@ -125,14 +171,12 @@ void MyTcpServer::slotWarning(bool player) {
             Judges[i]->setRed(Judges[i]->getRed() - 1);
             emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
         }
-        std::cout<<"ServerAPI::slotWarning red plused" << std::endl;
 
         // Если накоплено 3 предупреждения, то присуждаем поражение красному участнику
         if (++redWarning == 3) {
             redWarning = 0;
             slotTimerStop();
             emit signalDisqualification(0);
-            std::cout<<"ServerAPI::slotWarning red diskvalification" << std::endl;
         }
     } else { // Если синий
         // Уменьшение на 1 балл у всех судей
@@ -141,13 +185,11 @@ void MyTcpServer::slotWarning(bool player) {
             emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
         }
 
-        std::cout<<"ServerAPI::slotWarning blue plused" << std::endl;
         // Если накоплено 3 предупреждения, то присуждаем поражение синему участнику
         if (++blueWarning == 3) {
             blueWarning = 0;
             slotTimerStop();
             emit signalDisqualification(1);
-            std::cout<<"ServerAPI::slotWarning blue diskvalification" << std::endl;
         }
     }
 }

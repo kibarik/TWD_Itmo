@@ -63,7 +63,7 @@ Item {
 			Text {
 				id: blueChui
 				color: "#ffffff"
-				text: qsTr("0")
+                text: "0";
 				anchors.fill: parent
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
