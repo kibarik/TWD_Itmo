@@ -21,8 +21,8 @@ public:
     explicit MyTcpServer(QObject *parent = nullptr);
     void setMode(Mode mode);
     Mode getMode();
-    short getAdmonition(bool player); // 0 - красный, 1 - синий
-    short getWarning(bool player); // 0 - красный, 1 - синий
+    short getAdmonition(bool player); // 0 - красный, 1 - синий (Чуй)
+    short getWarning(bool player); // 0 - красный, 1 - синий (Гамжун)
     int getOverallScore(bool player); // 0 - красный, 1 - синий
 
 
