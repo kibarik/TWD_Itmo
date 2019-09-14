@@ -20,6 +20,8 @@ public:
     Mode getMode();
     short getAdmonition(bool player); // 0 - красный, 1 - синий
     short getWarning(bool player); // 0 - красный, 1 - синий
+    int getOverallScore(bool player); // 0 - красный, 1 - синий
+
 
 // !!!Сигнал вызывает слот, т. е. слот - функция, которая исполняется, а сигнал её вызывает!!!
 public slots:
@@ -32,8 +34,9 @@ public slots:
     void slotCancelAdmonition(bool player); // 0 - красный, 1 - синий
     void slotCancelWarning(bool player); // 0 - красный, 1 - синий
     void slotChangeTulLevel(short level) {this->tulLevel = level; tulLevelChanged = true;}
-
     void slotReset();
+
+    void slotTimerPause(short timeout = 0);
     void slotTimerStart(int delay = 1000);
     void slotTimerStop();
 
@@ -43,6 +46,7 @@ signals:
     void signalTimeOver(); // Время таймера вышло
     void signalAdmonition(short redAdmonition, short blueAdmonition); // Вызывается при получении Чуя (замечания)
     void signalWarning(short redWarning, short blueWarning); // Вызывается при получении Гамжуна (предупреждения)
+    void signalTimerEvent(short timeElapsed); // Вызывается при каждом срабатывании таймера
 
 private:
     QTcpServer * mTcpServer;
@@ -51,6 +55,7 @@ private:
     void timerEvent(QTimerEvent *event);
     std::vector <JudgementModes *> Judges; // Нужно для обработки различных режимов при нажатии на кнопки
     short timeElapsed; // Время, прошедшее с начала запуска таймера в секундах
+    int timerDelay; // Хранит задержку (частоту срабатывания) таймера
     short roundTime; // Время, которое длится один раунд
     short redAdmonition = 0, blueAdmonition = 0, redWarning = 0, blueWarning = 0;
     short tulLevel;

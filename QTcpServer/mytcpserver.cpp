@@ -15,7 +15,11 @@ MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent)
     }
 }
 
-// Режим спарринг
+/*
+ *
+ *******Секция геттеров/сеттеров*******
+ *
+ */
 
 // Выбор режима
 void MyTcpServer::setMode(Mode mode) {
@@ -37,15 +41,25 @@ short MyTcpServer::getWarning(bool player) {
     return player? this->blueWarning: this->redWarning;
 }
 
+// Получение общего счёта (счёта по всем судьям)
+int MyTcpServer::getOverallScore(bool player) {
+    int score = 0;
+    for (ulong i = 0; i < this->Judges.size(); i++) {
+        score += player? this->Judges[i]->getBlue(): this->Judges[i]->getRed();
+    }
+    return score;
+}
+
 /*
  *
- *******Секция слотов*******
+ *************Секция слотов************
  *
  */
 
 // Слот для запуска таймера
 void MyTcpServer::slotTimerStart(int delay) {
     this->timeElapsed = 0;
+    timerDelay = delay;
     this->timer.start(delay, this);
 };
 
@@ -54,10 +68,20 @@ void MyTcpServer::slotTimerStop() {
     this->timer.stop();
 };
 
+// Слот для паузы
+void MyTcpServer::slotTimerPause(short timeout) {
+    if (timeout) {
+
+    } else {
+        (this->timer.isActive())? this->timer.stop(): this->timer.start(this->timerDelay, this);
+    }
+}
+
 // Слот для сброса очков
 void MyTcpServer::slotReset() {
     for (unsigned long long i = 0; i < this->Judges.size(); i++) {
         Judges[i]->setRed(0);
+        Judges[i]->setBlue(0);
         emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
     }
 };
@@ -67,11 +91,12 @@ void MyTcpServer::timerEvent(QTimerEvent *event) {
     if (event->timerId() == timer.timerId()) {
         if (++timeElapsed > roundTime) {
             slotTimerStop();
-            emit signalTimeOver();
+            emit this->signalTimeOver();
         }
     } else {
         QObject::timerEvent(event);
     }
+    emit this->signalTimerEvent(this->timeElapsed);
 }
 
 // Слот для Чуя (замечания)
