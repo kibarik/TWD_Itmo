@@ -16,6 +16,7 @@ class MyTcpServer : public QObject
     Q_OBJECT
 public:
     enum Mode {SPARRING, CLASSICTUL, NEWTUL_1, NEWTUL_2, NEWTUL_3} mode;
+    enum Sportsman {RED, BLUE};
     const int roundTimerDelay = 1000;
 
     explicit MyTcpServer(QObject *parent = nullptr);
@@ -24,6 +25,7 @@ public:
     short getAdmonition(bool player); // 0 - красный, 1 - синий (Чуй)
     short getWarning(bool player); // 0 - красный, 1 - синий (Гамжун)
     int getOverallScore(bool player); // 0 - красный, 1 - синий
+    int getScore(int judgeNum, Sportsman player); // Получение счёта игрока у определённого судьи
 
 
 // !!!Сигнал вызывает слот, т. е. слот - функция, которая исполняется, а сигнал её вызывает!!!
