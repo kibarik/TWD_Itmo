@@ -20,31 +20,6 @@ void MyTcpServer::setBlueAdmonition(const short &QBlueAdmonition){
     emit admonitionChanged(QString("Blue"));
 }
 
-void MyTcpServer::setRedWarning(const short &QRedWarning){
-    redWarning = QRedWarning;
-    emit admonitionChanged(QString("Red"));
-}
-
-void MyTcpServer::setRedAdmonition(const short &QRedAdmonition) (const short &QRoundTime){
-    redAdmonition = QRedAdmonition;
-    emit timeChanged();
-}
-
-void MyTcpServer::setRedAdmonition(const short &QRedAdmonition) (const short &QRoundTime){
-    redAdmonition = QRedAdmonition;
-    emit timeChanged();
-}
-
-void MyTcpServer::setRedAdmonition(const short &QRedAdmonition) (const short &QRoundTime){
-    redAdmonition = QRedAdmonition;
-    emit timeChanged();
-}
-
-void MyTcpServer::setRedAdmonition(const short &QRedAdmonition) (const short &QRoundTime){
-    redAdmonition = QRedAdmonition;
-    emit timeChanged();
-}
-
 // Конструктор
 MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent)
 {
