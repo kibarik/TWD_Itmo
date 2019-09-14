@@ -50,6 +50,13 @@ int MyTcpServer::getOverallScore(bool player) {
     return score;
 }
 
+// Получение счёта у определённого судьи
+int MyTcpServer::getScore(int judgeNum, MyTcpServer::Sportsman player) {
+    if (judgeNum >= this->Judges.size())
+        return 0;
+    return player == MyTcpServer::Sportsman::RED? this->Judges[static_cast<ulong>(judgeNum)]->getRed(): this->Judges[static_cast<ulong>(judgeNum)]->getBlue();
+}
+
 /*
  *
  *************Секция слотов************
