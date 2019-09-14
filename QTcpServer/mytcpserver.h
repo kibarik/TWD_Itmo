@@ -32,10 +32,10 @@ public slots:
     void slotServerRead();
     void slotClientDisconnected();
 
-    void slotAdmonition(bool player); // 0 - красный, 1 - синий
-    void slotWarning(bool player); // 0 - красный, 1 - синий
-    void slotCancelAdmonition(bool player); // 0 - красный, 1 - синий
-    void slotCancelWarning(bool player); // 0 - красный, 1 - синий
+    void slotAdmonition(bool player); // 0 - красный, 1 - синий (Чуй)
+    void slotWarning(bool player); // 0 - красный, 1 - синий (Гамжун)
+    void slotCancelAdmonition(bool player); // 0 - красный, 1 - синий (Чуй)
+    void slotCancelWarning(bool player); // 0 - красный, 1 - синий (Гамжун)
     void slotChangeNewTulLevel(short level);
     void slotReset();
 
