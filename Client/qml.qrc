@@ -25,11 +25,10 @@
         <file>lib_tcp/mytcpserver.h</file>
         <file>lib_tcp/testobject.cpp</file>
         <file>lib_tcp/testobject.h</file>
-        <file>moc_category.cpp</file>
-        <file>moc_predefs.h</file>
-        <file>qrc_qml.cpp</file>
         <file>lib_tcp/test.cpp</file>
         <file>lib_tcp/middleware.cpp</file>
         <file>lib_tcp/middleware.h</file>
+        <file>lib_tcp/extendedmytcpserver.cpp</file>
+        <file>lib_tcp/extendedmytcpserver.h</file>
     </qresource>
 </RCC>

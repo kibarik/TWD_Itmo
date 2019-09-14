@@ -16,13 +16,17 @@ public:
     void setRed(int red);
     void setBlue(int blue);
     void setScore(int red, int blue);
+    void reset(int redDiff = -1, int blueDiff = -1, int redBuf = 100, int blueBuf = 100);
     // Режимы работы с очками
     void sparring(middleware &Data);
     void classicTul(middleware &Data);
-    void newTul(middleware &Data, short level, bool &levelChanged);
+    void newTul_1(middleware &Data);
+    void newTul_2(middleware &Data);
+    void newTul_3(middleware &Data);
 
 private:
     int red, blue;
+    int redDiff = -1, blueDiff = -1, redBuf = 100, blueBuf = 100;
 };
 
 #endif // JUDGEMENTMODES_H

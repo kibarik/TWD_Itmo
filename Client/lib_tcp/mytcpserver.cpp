@@ -1,25 +1,5 @@
 #include "mytcpserver.h"
 
-//---------------------сеттеры для Q_PROPERTY-------------
-/*сеттеры вся суть ->
- * 1. испустить сигнал emit signal()... с сообщением для логирования.
- * 2. Передать параметр из QML в C++ структуру.
-*/
-void MyTcpServer::setRoundTime(const short &QRoundTime){
-    roundTime = QRoundTime;
-    emit timeChanged();
-}
-
-void MyTcpServer::setRedAdmonition(const short &QRedAdmonition){
-    redAdmonition = QRedAdmonition;
-    emit admonitionChanged(QString("Red"));
-}
-
-void MyTcpServer::setBlueAdmonition(const short &QBlueAdmonition){
-    blueAdmonition = QBlueAdmonition;
-    emit admonitionChanged(QString("Blue"));
-}
-
 // Конструктор
 MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent)
 {
@@ -35,7 +15,11 @@ MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent)
     }
 }
 
-// Режим спарринг
+/*
+ *
+ *******Секция геттеров/сеттеров*******
+ *
+ */
 
 // Выбор режима
 void MyTcpServer::setMode(Mode mode) {
@@ -57,37 +41,88 @@ short MyTcpServer::getWarning(bool player) {
     return player? this->blueWarning: this->redWarning;
 }
 
+// Получение общего счёта (счёта по всем судьям)
+int MyTcpServer::getOverallScore(bool player) {
+    int score = 0;
+    for (ulong i = 0; i < this->Judges.size(); i++) {
+        score += player? this->Judges[i]->getBlue(): this->Judges[i]->getRed();
+    }
+    return score;
+}
+
 /*
  *
- *******Секция слотов*******
+ *************Секция слотов************
  *
  */
 
 // Слот для запуска таймера
-void MyTcpServer::slotTimerStart(int delay) {
-    this->timeElapsed = 0;
-    this->timer.start(delay, this);
+void MyTcpServer::slotTimerStart() {
+    this->roundTimeElapsed = 0;
+    this->mainTimer.start(this->roundTimerDelay, this);
 };
 
 // Слот для остановки таймера
 void MyTcpServer::slotTimerStop() {
-    this->timer.stop();
+    this->mainTimer.stop();
 };
+
+// Слот для паузы
+void MyTcpServer::slotTimerPause(short time) {
+    if (this->pauseTimer.isActive()) {
+        this->pauseTimer.stop();
+        this->mainTimer.start(this->roundTimerDelay, this);
+    } else {
+        if (time) {
+            this->mainTimer.stop();
+            this->pauseTime = time;
+            this->pauseTimeElapsed = 0;
+            this->pauseTimer.start(1000, this);
+        } else {
+            (this->mainTimer.isActive())? this->mainTimer.stop(): this->mainTimer.start(this->roundTimerDelay, this);
+        }
+    }
+}
+
 
 // Слот для сброса очков
 void MyTcpServer::slotReset() {
-    for (unsigned long long i = 0; i < this->Judges.size(); i++) {
+    for (ulong i = 0; i < this->Judges.size(); i++) {
         Judges[i]->setRed(0);
+        Judges[i]->setBlue(0);
         emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
     }
 };
 
+// Слот для изменения уровня туля
+void MyTcpServer::slotChangeNewTulLevel(short tulLevel) {
+    for (ulong i = 0; i < this->Judges.size(); i++) {
+        this->Judges[i]->reset();
+    }
+    switch (tulLevel) {
+        case 1:
+            this->mode = MyTcpServer::Mode::NEWTUL_1;
+            break;
+        case 2:
+            this->mode = MyTcpServer::Mode::NEWTUL_2;
+            break;
+        case 3:
+            this->mode = MyTcpServer::Mode::NEWTUL_3;
+            break;
+    }
+}
+
 // Слот для обработки таймера
 void MyTcpServer::timerEvent(QTimerEvent *event) {
-    if (event->timerId() == timer.timerId()) {
-        if (++timeElapsed > roundTime) {
+    if (event->timerId() == mainTimer.timerId()) {
+        if (++roundTimeElapsed > roundTime) {
             slotTimerStop();
-            emit signalTimeOver();
+            emit this->signalTimeOver();
+        }
+        emit this->signalTimerEvent(this->roundTimeElapsed);
+    } else if (event->timerId() == pauseTimer.timerId()) {
+        if (++this->pauseTimeElapsed > pauseTime) {
+            slotTimerPause();
         }
     } else {
         QObject::timerEvent(event);
@@ -105,7 +140,7 @@ void MyTcpServer::slotAdmonition(bool player) {
                 emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
             }
         }
-    } else // Синий
+    } else { // Синий
         if (++blueAdmonition == 3) { // Если получено 3 замечания
             blueAdmonition = 0;
             // Уменьшение на 1 балл у всех судей
@@ -114,6 +149,8 @@ void MyTcpServer::slotAdmonition(bool player) {
                 emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
             }
         }
+    }
+    emit this->signalAdmonition(redAdmonition, blueAdmonition);
 }
 
 // Слот для отмены Чуя (замечания)
@@ -127,7 +164,7 @@ void MyTcpServer::slotCancelAdmonition(bool player) {
                 emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
             }
         }
-    } else // Синий
+    } else { // Синий
         if (--blueAdmonition == -1) {
             blueAdmonition = 2;
             // Увеличение счёта на 1 у всех судий
@@ -136,6 +173,8 @@ void MyTcpServer::slotCancelAdmonition(bool player) {
                 emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
             }
         }
+    }
+    emit this->signalAdmonition(redAdmonition, blueAdmonition);
 }
 
 // Слот для Гамжуна (предупреждения)
@@ -167,6 +206,7 @@ void MyTcpServer::slotWarning(bool player) {
             emit signalDisqualification(1);
         }
     }
+    emit this->signalWarning(redWarning, blueWarning);
 }
 
 // Слот для отмены Гамжуна (предупреждения)
@@ -187,6 +227,7 @@ void MyTcpServer::slotCancelWarning(bool player) {
         }
         --blueWarning;
     }
+    emit this->signalWarning(redWarning, blueWarning);
 }
 
 // Слоты, необходимые для работы сервера
@@ -220,7 +261,9 @@ void MyTcpServer::slotServerRead()
                 case Mode::CLASSICTUL:
                     NewJudge->setScore(100, 100);
                     break;
-                case Mode::NEWTUL:
+                case Mode::NEWTUL_1:
+                case Mode::NEWTUL_2:
+                case Mode::NEWTUL_3:
                     NewJudge->setScore(100, 100);
                     break;
             }
@@ -230,26 +273,33 @@ void MyTcpServer::slotServerRead()
             QByteArray id = QString::number(JudgeID).toLocal8Bit();
             mTcpSocket->write(id);
         } else {
-            if(data.getRawData() != "nan" && timer.isActive()) {
-                qDebug() << "Test";
-                unsigned long long judgeNum = static_cast<unsigned long long>(data.getID());
-                array.remove(0, 1);
-                // В зависимости от режима работы, выбираем алгоритм
-                switch(mode) {
-                    case Mode::SPARRING: // Спарринг
-                        Judges[judgeNum]->sparring(data);
-                        break;
-                    case Mode::CLASSICTUL: // Страый туль
-                        Judges[judgeNum]->classicTul(data);
-                        break;
-                    case Mode::NEWTUL:
-                        Judges[judgeNum]->newTul(data, tulLevel, tulLevelChanged);
-                        if (tulLevelChanged) {
-                            tulLevelChanged = false;
-                        }
-                        break;
+            if(data.getRawData() != "nan" && mainTimer.isActive()) {
+                qDebug() << "ID: " << data.getID() << " " << data.getButtons();
+                ulong judgeNum = static_cast<ulong>(data.getID());
+                if (judgeNum >= Judges.size()) { // Если подключился пульт без регистрации
+                    emit this->signalJudgeNumError(judgeNum);
+                } else {
+                    // В зависимости от режима работы, выбираем алгоритм
+                    switch(mode) {
+                        case Mode::SPARRING: // Спарринг
+                            Judges[judgeNum]->sparring(data);
+                            break;
+                        case Mode::CLASSICTUL: // Старый туль
+                            Judges[judgeNum]->reset();
+                            Judges[judgeNum]->classicTul(data);
+                            break;
+                        case Mode::NEWTUL_1:
+                            Judges[judgeNum]->newTul_1(data);
+                            break;
+                        case Mode::NEWTUL_2:
+                            Judges[judgeNum]->newTul_2(data);
+                            break;
+                        case Mode::NEWTUL_3:
+                            Judges[judgeNum]->newTul_3(data);
+                            break;
+                    }
+                    emit signalScoreUpdate(static_cast<int>(judgeNum), Judges[judgeNum]->getRed(), Judges[judgeNum]->getBlue());
                 }
-                emit signalScoreUpdate(static_cast<int>(judgeNum), Judges[judgeNum]->getRed(), Judges[judgeNum]->getBlue());
             }
         }
     }

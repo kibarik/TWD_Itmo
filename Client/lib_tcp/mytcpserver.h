@@ -5,6 +5,7 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <iostream>
+#include <QTime>
 #include <QBasicTimer>
 #include <QTimerEvent>
 #include "judgementmodes.h"
@@ -13,28 +14,17 @@
 class MyTcpServer : public QObject
 {
     Q_OBJECT
-
 public:
-    explicit MyTcpServer(QObject *parent = nullptr); //явное наследование от родителя, обязательно для QML древа
+    enum Mode {SPARRING, CLASSICTUL, NEWTUL_1, NEWTUL_2, NEWTUL_3} mode;
+    const int roundTimerDelay = 1000;
 
-    /* сеттеры вся суть ->
-     * 1. испустить сигнал categoryChanged() с сообщением для логирования.
-     * 2. Передать параметр из QML в C++ структуру.
-    */
-    void setRoundTime(const short& QRoundTime);
-    void setRedAdmonition(const short& QRedAdmonition);
-    void setBlueAdmonition(const short& QBlueAdmonition);
-    void setRedWarning();
-    void setBlueWarning();
-    void setTulLevel();
-    void changeTulLevel();
-
-    enum Mode {SPARRING, CLASSICTUL, NEWTUL} mode;
-
+    explicit MyTcpServer(QObject *parent = nullptr);
     void setMode(Mode mode);
     Mode getMode();
     short getAdmonition(bool player); // 0 - красный, 1 - синий
     short getWarning(bool player); // 0 - красный, 1 - синий
+    int getOverallScore(bool player); // 0 - красный, 1 - синий
+
 
 // !!!Сигнал вызывает слот, т. е. слот - функция, которая исполняется, а сигнал её вызывает!!!
 public slots:
@@ -46,7 +36,7 @@ public slots:
     void slotWarning(bool player); // 0 - красный, 1 - синий
     void slotCancelAdmonition(bool player); // 0 - красный, 1 - синий
     void slotCancelWarning(bool player); // 0 - красный, 1 - синий
-    void slotChangeTulLevel(short level) {this->tulLevel = level; tulLevelChanged = true;}
+    void slotChangeNewTulLevel(short level);
     void slotReset();
 
     void slotTimerStart();
@@ -60,18 +50,20 @@ signals:
     void signalAdmonition(short redAdmonition, short blueAdmonition); // Вызывается при получении Чуя (замечания)
     void signalWarning(short redWarning, short blueWarning); // Вызывается при получении Гамжуна (предупреждения)
     void signalTimerEvent(short timeElapsed); // Вызывается при каждом срабатывании таймера
+    void signalJudgeNumError(ulong judgeNum);
 
 protected:
+    void timerEvent(QTimerEvent *event);
     QTcpServer * mTcpServer;
     QTcpSocket * mTcpSocket;
-    QBasicTimer timer;
-    void timerEvent(QTimerEvent *event);
+    QBasicTimer mainTimer;
+    QBasicTimer pauseTimer;
     std::vector <JudgementModes *> Judges; // Нужно для обработки различных режимов при нажатии на кнопки
-    short timeElapsed; // Время, прошедшее с начала запуска таймера в секундах
+    short roundTimeElapsed; // Время, прошедшее с начала запуска таймера в секундах
+    short pauseTimeElapsed; // Для хранения времени медицинского таймера
     short roundTime; // Время, которое длится один раунд
+    short pauseTime; // Время, которое длится пауза
     short redAdmonition = 0, blueAdmonition = 0, redWarning = 0, blueWarning = 0;
-    short tulLevel;
-    bool tulLevelChanged = false;
 };
 
 #endif // MYTCPSERVER_H

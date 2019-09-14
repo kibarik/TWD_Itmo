@@ -3,7 +3,7 @@
 #include <QQmlContext>
 
 #include "category.h"
-#include "lib_tcp/mytcpserver.h"
+#include "lib_tcp/extendedmytcpserver.h"
 #include "lib_tcp/testobject.h"
 
 int main(int argc, char *argv[])
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 	CategoryAPI *categoryAPI = new CategoryAPI();
 	engine.rootContext()->setContextProperty("categoryAPI", categoryAPI);
 
-    MyTcpServer *serverAPI = new MyTcpServer();
+    ExtendedMyTcpServer *serverAPI = new ExtendedMyTcpServer();
     engine.rootContext()->setContextProperty("serverAPI", serverAPI);
 
     //----------------------Debugger--------------------------------//
