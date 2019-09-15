@@ -23,9 +23,9 @@ int main(int argc, char *argv[])
 //		qDebug() << er;
 //	}
 
-    TestObject reference;
-    MyTcpServer server;
-    reference.ConnectToServer(server.modes);
+//    TestObject reference;
+//    MyTcpServer server;
+//    reference.ConnectToServer(server.modes);
 
 	QQmlApplicationEngine engine;
 	engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

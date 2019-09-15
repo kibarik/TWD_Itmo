@@ -20,13 +20,16 @@ int main(int argc, char *argv[])
 		//engine.load(QUrl(QStringLiteral("qrc:/Error.qml")));
 	}
 
-//----------------------------Objects----------------------------
-	CategoryAPI *categoryAPI = new CategoryAPI();
+//----------------------------C++ Objects----------------------------
+    //Позволяет только выводить данные из categoryAPI из category.h
+    CategoryAPI *categoryAPI = new CategoryAPI();
 	engine.rootContext()->setContextProperty("categoryAPI", categoryAPI);
 
-    ExtendedMyTcpServer *serverAPI = new ExtendedMyTcpServer();
-    engine.rootContext()->setContextProperty("serverAPI", serverAPI);
+//    ExtendedMyTcpServer *serverAPI = new ExtendedMyTcpServer();
+//    engine.rootContext()->setContextProperty("serverAPI", serverAPI);
 
+    //Регистрируем полноценный объект QML для ввода/вывода данных из C++ в QML
+    qmlRegisterType<ExtendedMyTcpServer, 1>("ServerAPI", 1, 0, "ServerAPI");
     //----------------------Debugger--------------------------------//
 
 /*    CategoryAPI* debug = new CategoryAPI;
@@ -38,14 +41,6 @@ int main(int argc, char *argv[])
        debug->setParticipants(category);
     }
 */
-
-    //-------------TCP_server for remote controls
-//    qDebug()<<"Start tcp server";
-//    TestObject reference;
-//    MyTcpServer server;
-//    server.setMode(MyTcpServer::Mode::CLASSICTUL);
-//    reference.ConnectToServer(server);
-//    server.slotTimerStart();
 
     if (engine.rootObjects().isEmpty())
         return -1;

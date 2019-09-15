@@ -1,5 +1,6 @@
 import QtQuick 2.5
 import QtQuick.Window 2.0
+import "../"
 
 /*
 	на монитор выводится только общее количество, сколько судей за красного и за синего
@@ -35,7 +36,7 @@ Item {
 			Text {
 				id: redChui
 				color: "#ffffff"
-                text: qsTr(serverAPI.QRedAdmonition)
+                text: serverAPI.QRedAdmonition
 				anchors.fill: parent
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
@@ -65,7 +66,7 @@ Item {
 			Text {
 				id: blueChui
 				color: "#ffffff"
-                text: qsTr(serverAPI.QBlueAdmonition);
+                text: serverAPI.QBlueAdmonition;
 				anchors.fill: parent
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
@@ -79,7 +80,7 @@ Item {
 			Text {
 				id: redGamj
 				color: "#ffffff"
-                text: qsTr(serverAPI.QRedWarning)
+                text: serverAPI.QRedWarning
 				anchors.fill: parent
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
@@ -107,7 +108,7 @@ Item {
 			    Text {
 					id: blueGamj
 					color: "#ffffff"
-                    text: qsTr(serverAPI.QBlueWarning)
+                    text: serverAPI.QBlueWarning
 					anchors.fill: parent
 					verticalAlignment: Text.AlignVCenter
 					horizontalAlignment: Text.AlignHCenter

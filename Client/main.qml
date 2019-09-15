@@ -1,6 +1,7 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.4
 import QtQuick.Window 2.12
+
 import "Sparring/"
 import "OutMonitor/"
 import "Tul/"
@@ -8,6 +9,7 @@ import "Categories/"
 import "Share/"
 import "lib_tcp/"
 
+import ServerAPI 1.0
 /*
   подключение структуры
   из структуры вытащить все категории в список
@@ -48,7 +50,11 @@ Window {
 
 
 /*-----------------------MyTCP server--------------------------------*/
-
+    //Данная структура объявлена в main.cpp
+    //обеспечивает ввод/вывод из QML в C++
+    ServerAPI {
+        id: serverAPI
+    }
 
 
 /*===============Main Mode Windows=============================*/

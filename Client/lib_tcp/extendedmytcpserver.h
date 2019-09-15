@@ -53,8 +53,8 @@ public slots:
 signals:
     //Notify signals
     void timeChanged();
-    void admonitionChanged(const QString& who);
-    void warningChanged(const QString& who);
+    void admonitionChanged();
+    void warningChanged();
 };
 
 #endif // EXTENDEDMYTCPSERVER_H
