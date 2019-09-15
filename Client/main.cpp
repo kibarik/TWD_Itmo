@@ -28,7 +28,6 @@ int main(int argc, char *argv[])
 
 //    ExtendedMyTcpServer *serverAPI = new ExtendedMyTcpServer();
 //    engine.rootContext()->setContextProperty("serverAPI", serverAPI);
-    //engine.
 
     //Регистрируем полноценный объект QML для ввода/вывода данных из C++ в QML
     //----------------------Debugger--------------------------------//

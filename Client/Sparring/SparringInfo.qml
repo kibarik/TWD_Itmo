@@ -36,7 +36,7 @@ Item {
 			Text {
 				id: redChui
 				color: "#ffffff"
-                text: serverAPI.qRedAdmonition
+                text: serverAPI.QRedAdmonition
 				anchors.fill: parent
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
@@ -66,7 +66,7 @@ Item {
 			Text {
 				id: blueChui
 				color: "#ffffff"
-                text: serverAPI.qBlueAdmonition;
+                text: serverAPI.QBlueAdmonition;
 				anchors.fill: parent
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
@@ -80,7 +80,7 @@ Item {
 			Text {
 				id: redGamj
 				color: "#ffffff"
-                text: serverAPI.qRedWarning
+                text: serverAPI.QRedWarning
 				anchors.fill: parent
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
@@ -108,7 +108,7 @@ Item {
 			    Text {
 					id: blueGamj
 					color: "#ffffff"
-                    text: serverAPI.qBlueWarning
+                    text: serverAPI.QBlueWarning
 					anchors.fill: parent
 					verticalAlignment: Text.AlignVCenter
 					horizontalAlignment: Text.AlignHCenter
