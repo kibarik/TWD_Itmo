@@ -2,6 +2,8 @@ import QtQuick 2.9
 import QtQuick.Controls 2.4
 import QtQuick.Window 2.12
 
+import ServerAPI 1.0
+
 import "Sparring/"
 import "OutMonitor/"
 import "Tul/"
@@ -54,6 +56,7 @@ Window {
     //обеспечивает ввод/вывод из QML в C++
     ServerAPI {
         id: serverAPI
+        qRedAdmonition: 0
     }
 
 
