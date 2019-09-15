@@ -26,7 +26,7 @@ public:
     explicit ExtendedMyTcpServer(QObject *parent = nullptr); //явное наследование от родителя, обязательно для QML древа
 
     //геттеры (READ) для Q_PROPERTY.
-    Q_INVOKABLE int qRoundTimeElapsed()         {return static_cast<int>(roundTimeElapsed);}
+    Q_INVOKABLE int qRoundTimeElapsed()    {return static_cast<int>(roundTimeElapsed);}
     Q_INVOKABLE int qPauseTimeElapsed()    {return static_cast<int>(pauseTimeElapsed);}
     Q_INVOKABLE int qRoundTime()           {return static_cast<int>(roundTime);}
     Q_INVOKABLE int qPauseTime()           {return static_cast<int>(pauseTime);}

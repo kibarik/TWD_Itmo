@@ -57,6 +57,42 @@ Window {
     ServerAPI {
         id: serverAPI
         qRedAdmonition: 0
+
+//        onAdmonitionChanged: {
+//            console.log("Admonition signal: "+qRedAdmonition +" blue->"+qBlueAdmonition)
+//        }
+
+        onSignalAdmonition: {
+            console.log("Admonition signal: "+qRedAdmonition +" blue->"+qBlueAdmonition)
+        }
+
+        onSignalDisqualification: {
+            console.log("Diskvalification")
+        }
+
+        onSignalJudgeNumError: {
+            console.log("Client disconnected")
+        }
+
+        onSignalScoreUpdate: {
+            console.log("Score updated: ")
+        }
+
+        onSignalWarning: {
+            console.log(qRedWarning + " " +qBlueWarning)
+        }
+
+        onTimeChanged: {
+            console.log("Time: ", qRoundTime-qRoundTimeElapsed)
+        }
+
+        onSignalTimerEvent: {
+            console.log("Time: ", qRoundTime-qRoundTimeElapsed)
+        }
+
+        onSignalTimeOver: {
+            console.log("Time over!")
+        }
     }
 
 
