@@ -15,16 +15,6 @@ MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent)
     }
 }
 
-// Деструктор
-MyTcpServer::~MyTcpServer() {
-    delete this->mTcpServer;
-    delete this->mTcpSocket;
-    for (ulong i = 0; i < this->Judges.size(); i++) {
-        delete this->Judges[i];
-    }
-    this->Judges.resize(0);
-}
-
 /*
  *
  *******Секция геттеров/сеттеров*******
@@ -42,22 +32,29 @@ MyTcpServer::Mode MyTcpServer::getMode() {
 }
 
 // Получение количества Чуев (замечаний)
-short MyTcpServer::getAdmonition(bool player) {
+short MyTcpServer::getAdmonition(Sportsman player) {
     return player? this->blueAdmonition: this->redAdmonition;
 }
 
 // Получение количества Гамжунов (предупреждений)
-short MyTcpServer::getWarning(bool player) {
+short MyTcpServer::getWarning(Sportsman player) {
     return player? this->blueWarning: this->redWarning;
 }
 
 // Получение общего счёта (счёта по всем судьям)
-int MyTcpServer::getOverallScore(bool player) {
+int MyTcpServer::getOverallScore(Sportsman player) {
     int score = 0;
     for (ulong i = 0; i < this->Judges.size(); i++) {
-        score += player? this->Judges[i]->getBlue(): this->Judges[i]->getRed();
+        score += player == Sportsman::BLUE? this->Judges[i]->getBlue(): this->Judges[i]->getRed();
     }
     return score;
+}
+
+// Получение счёта у определённого судьи
+int MyTcpServer::getScore(int judgeNum, MyTcpServer::Sportsman player) {
+    if (static_cast<ulong>(judgeNum) >= this->Judges.size())
+        return 0;
+    return player == MyTcpServer::Sportsman::RED? this->Judges[static_cast<ulong>(judgeNum)]->getRed(): this->Judges[static_cast<ulong>(judgeNum)]->getBlue();
 }
 
 /*
@@ -140,10 +137,9 @@ void MyTcpServer::timerEvent(QTimerEvent *event) {
 }
 
 // Слот для Чуя (замечания)
-void MyTcpServer::slotAdmonition(bool player) {
-    if (player == 0) { // Красный
-        if (++redAdmonition == 3) { // Если получено 3 замечания
-            redAdmonition = 0;
+void MyTcpServer::slotAdmonition(Sportsman player) {
+    if (player == Sportsman::RED) { // Красный
+        if ((++redAdmonition) % 3 == 0) { // Если получено 3 замечания
             // Уменьшение на 1 балл у всех судей
             for (unsigned long long i = 0; i < this->Judges.size(); i++) {
                 Judges[i]->setRed(Judges[i]->getRed() - 1);
@@ -151,8 +147,7 @@ void MyTcpServer::slotAdmonition(bool player) {
             }
         }
     } else { // Синий
-        if (++blueAdmonition == 3) { // Если получено 3 замечания
-            blueAdmonition = 0;
+        if ((++blueAdmonition) % 3 == 0) { // Если получено 3 замечания
             // Уменьшение на 1 балл у всех судей
             for (unsigned long long i = 0; i < this->Judges.size(); i++) {
                 Judges[i]->setBlue(Judges[i]->getBlue() - 1);
@@ -164,19 +159,17 @@ void MyTcpServer::slotAdmonition(bool player) {
 }
 
 // Слот для отмены Чуя (замечания)
-void MyTcpServer::slotCancelAdmonition(bool player) {
-    if (player == 0) { // Красный
-        if (--redAdmonition == -1) {
-            redAdmonition = 2;
+void MyTcpServer::slotCancelAdmonition(Sportsman player) {
+    if ((player == Sportsman::RED) && (redAdmonition > 0)) { // Красный
+        if ((--redAdmonition) % 3 == 2) {
             // Увеличение счёта на 1 у всех судий
             for (unsigned long long i = 0; i < this->Judges.size(); i++) {
                 Judges[i]->setRed(Judges[i]->getRed() + 1);
                 emit this->signalScoreUpdate(static_cast<int>(i), Judges[i]->getRed(), Judges[i]->getBlue());
             }
         }
-    } else { // Синий
-        if (--blueAdmonition == -1) {
-            blueAdmonition = 2;
+    } else if (blueAdmonition > 0) { // Синий
+        if ((--blueAdmonition) % 3 == 2) {
             // Увеличение счёта на 1 у всех судий
             for (unsigned long long i = 0; i < this->Judges.size(); i++) {
                 Judges[i]->setBlue(Judges[i]->getBlue() + 1);
@@ -188,8 +181,8 @@ void MyTcpServer::slotCancelAdmonition(bool player) {
 }
 
 // Слот для Гамжуна (предупреждения)
-void MyTcpServer::slotWarning(bool player) {
-    if (player == 0) { // Если красный
+void MyTcpServer::slotWarning(Sportsman player) {
+    if (player == Sportsman::RED) { // Если красный
         // Уменьшение на 1 балл у всех судей
         for (unsigned long long i = 0; i < this->Judges.size(); i++) {
             Judges[i]->setRed(Judges[i]->getRed() - 1);
@@ -200,7 +193,7 @@ void MyTcpServer::slotWarning(bool player) {
         if (++redWarning == 3) {
             redWarning = 0;
             slotTimerStop();
-            emit signalDisqualification(0);
+            emit signalDisqualification(Sportsman::RED);
         }
     } else { // Если синий
         // Уменьшение на 1 балл у всех судей
@@ -213,15 +206,15 @@ void MyTcpServer::slotWarning(bool player) {
         if (++blueWarning == 3) {
             blueWarning = 0;
             slotTimerStop();
-            emit signalDisqualification(1);
+            emit signalDisqualification(Sportsman::BLUE);
         }
     }
     emit this->signalWarning(redWarning, blueWarning);
 }
 
 // Слот для отмены Гамжуна (предупреждения)
-void MyTcpServer::slotCancelWarning(bool player) {
-    if (player == 0) { // Если красный
+void MyTcpServer::slotCancelWarning(Sportsman player) {
+    if (player == Sportsman::RED) { // Если красный
         // Увеличение на 1 балл у всех судей
         for (unsigned long long i = 0; i < this->Judges.size(); i++) {
             Judges[i]->setRed(Judges[i]->getRed() + 1);
@@ -244,11 +237,8 @@ void MyTcpServer::slotCancelWarning(bool player) {
 
 void MyTcpServer::slotNewConnection()
 {
+
     mTcpSocket = mTcpServer->nextPendingConnection();
-    QByteArray array = mTcpSocket->readAll();
-
-    mTcpSocket->write("Hello, World!!! I am echo server!\r\n");
-
     connect(mTcpSocket, &QTcpSocket::readyRead, this, &MyTcpServer::slotServerRead);
     connect(mTcpSocket, &QTcpSocket::disconnected, this, &MyTcpServer::slotClientDisconnected);
 }
@@ -260,6 +250,7 @@ void MyTcpServer::slotServerRead()
         // Получаем значения от клиента
         QByteArray array = mTcpSocket->readAll();
         middleware data = middleware(&array);
+        qDebug() << array;
 
         if (data.getID() == -1) { // Если клиент - новый пульт
             JudgementModes *NewJudge = new JudgementModes;
@@ -282,9 +273,10 @@ void MyTcpServer::slotServerRead()
             int JudgeID = static_cast<int>(Judges.size() - 1 );
             QByteArray id = QString::number(JudgeID).toLocal8Bit();
             mTcpSocket->write(id);
+            delete NewJudge;
         } else {
             if(data.getRawData() != "nan" && mainTimer.isActive()) {
-                qDebug() << "ID: " << data.getID() << " " << data.getButtons();
+                //qDebug() << "ID: " << data.getID() << " " << data.getButtons();
                 ulong judgeNum = static_cast<ulong>(data.getID());
                 if (judgeNum >= Judges.size()) { // Если подключился пульт без регистрации
                     emit this->signalJudgeNumError(judgeNum);
@@ -318,4 +310,5 @@ void MyTcpServer::slotServerRead()
 void MyTcpServer::slotClientDisconnected()
 {
     mTcpSocket->close();
+    delete mTcpSocket;
 }

@@ -16,15 +16,18 @@ class ExtendedMyTcpServer : /*public QObject,*/ public MyTcpServer
     Q_PROPERTY(int qRoundTimeElapsed  READ qRoundTimeElapsed     NOTIFY timeChanged)
     Q_PROPERTY(int qPauseTimeElapsed  READ qPauseTimeElapsed     NOTIFY timeChanged)
     Q_PROPERTY(int qRoundTime         READ qRoundTime       WRITE setRoundTime         NOTIFY timeChanged)
-    //Q_PROPERTY(short QPauseTime         READ QPauseTime       WRITE setPauseTime         NOTIFY timeChanged)
+    Q_PROPERTY(int qPauseTime         READ qPauseTime       WRITE setPauseTime         NOTIFY timeChanged)
     Q_PROPERTY(int qRedAdmonition     READ qRedAdmonition   WRITE setRedAdmonition     NOTIFY admonitionChanged)
     Q_PROPERTY(int qBlueAdmonition    READ qBlueAdmonition  WRITE setBlueAdmonition    NOTIFY admonitionChanged)
     Q_PROPERTY(int qRedWarning        READ qRedWarning      WRITE setRedWarning        NOTIFY warningChanged)
     Q_PROPERTY(int qBlueWarning       READ qBlueWarning     WRITE setBlueWarning       NOTIFY warningChanged)
+    Q_PROPERTY(int qRedScore  READ qRedScore)
+    Q_PROPERTY(int qBlueScore READ qBlueScore)
 
 public:
     explicit ExtendedMyTcpServer(QObject *parent = nullptr); //явное наследование от родителя, обязательно для QML древа
 
+    //Q_ENUM(Sportsman)
     //геттеры (READ) для Q_PROPERTY.
     Q_INVOKABLE int qRoundTimeElapsed()    {return static_cast<int>(roundTimeElapsed);}
     Q_INVOKABLE int qPauseTimeElapsed()    {return static_cast<int>(pauseTimeElapsed);}
@@ -34,18 +37,19 @@ public:
     Q_INVOKABLE int qBlueAdmonition()      {return static_cast<int>(blueAdmonition);}
     Q_INVOKABLE int qRedWarning()          {return static_cast<int>(redWarning);}
     Q_INVOKABLE int qBlueWarning()         {return static_cast<int>(blueWarning);}
-
+    int qRedScore()  {return static_cast<int>(getOverallScore(MyTcpServer::RED));}
+    int qBlueScore() {return static_cast<int>(getOverallScore(MyTcpServer::BLUE));}
     /*сеттеры вся суть ->
      * 1. испустить сигнал categoryChanged() с сообщением для логирования.
      * 2. Передать параметр из QML в C++ структуру.
     */
 
-    void setRoundTime(const short& QRoundTime);
-    void setPauseTime(const short& QPauseTime);
-    void setRedAdmonition(const short& QRedAdmonition);
-    void setBlueAdmonition(const short& QBlueAdmonition);
-    void setRedWarning(const short& QBlueWarning);
-    void setBlueWarning(const short& QBlueWarning);
+    void setRoundTime(const int& qRoundTime);
+    void setPauseTime(const int& qPauseTime);
+    void setRedAdmonition(const int& qRedAdmonition);
+    void setBlueAdmonition(const int& qBlueAdmonition);
+    void setRedWarning(const int& qBlueWarning);
+    void setBlueWarning(const int& qBlueWarning);
 
 public slots:
 

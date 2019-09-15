@@ -58,16 +58,12 @@ Window {
         id: serverAPI
         qRedAdmonition: 0
 
-//        onAdmonitionChanged: {
-//            console.log("Admonition signal: "+qRedAdmonition +" blue->"+qBlueAdmonition)
-//        }
-
         onSignalAdmonition: {
             console.log("Admonition signal: "+qRedAdmonition +" blue->"+qBlueAdmonition)
         }
 
         onSignalDisqualification: {
-            console.log("Diskvalification")
+            console.log("Disqualification!")
         }
 
         onSignalJudgeNumError: {
@@ -75,15 +71,11 @@ Window {
         }
 
         onSignalScoreUpdate: {
-            console.log("Score updated: ")
+            console.log("Signal updated: red->", serverAPI.qRedScore()," blue->", serverAPI.qBlueScore())
         }
 
         onSignalWarning: {
-            console.log(qRedWarning + " " +qBlueWarning)
-        }
-
-        onTimeChanged: {
-            console.log("Time: ", qRoundTime-qRoundTimeElapsed)
+            console.log("Signal warning: red->",qRedWarning," blue->" ,qBlueWarning)
         }
 
         onSignalTimerEvent: {
@@ -127,8 +119,7 @@ Window {
 
                     onClicked: {
                         console.log('red Remark plus');
-                        serverAPI.slotAdmonition(0); //добавления чуя на систему счета, waning - камчун, admonition - чуй
-                        console.log(serverAPI.qRedAdmonition)
+                        serverAPI.slotAdmonition(ServerAPI.RED); //добавления чуя на систему счета, waning - камчун, admonition - чуй
                     }
 
                 }
@@ -150,8 +141,7 @@ Window {
                     }
 
                     onClicked: {
-                        console.log('red warning plus');
-                        serverAPI.slotWarning(0) //добавления камчуна на систему счета, waning - камчун, admonition - чуй
+                        serverAPI.slotWarning(ServerAPI.RED) //добавления камчуна на систему счета, waning - камчун, admonition - чуй
                     }
                 }
 
@@ -172,8 +162,7 @@ Window {
                     }
 
                     onClicked: {
-                        console.log('red Remark undo');
-                        serverAPI.slotCancelAdmonition(0); //отменить чуй красному
+                        serverAPI.slotCancelAdmonition(ServerAPI.RED); //отменить чуй красному
                     }
                 }
 
@@ -194,8 +183,7 @@ Window {
                     }
 
                     onClicked: {
-                        console.log('red warning minus');
-                        serverAPI.slotCancelWarning(0); //добавить камчун красному
+                        serverAPI.slotCancelWarning(ServerAPI.RED); //добавить камчун красному
                     }
                 }
         }
@@ -368,8 +356,7 @@ Window {
                 }
 
                 onClicked: {
-                    console.log("Blue admonition added");
-                    serverAPI.slotAdmonition(1);
+                    serverAPI.slotAdmonition(ServerAPI.BLUE);
                 }
             }
 
@@ -390,8 +377,8 @@ Window {
                 }
 
                 onClicked: {
-                    console.log("Blue warning added");
-                    serverAPI.slotWarning(1);
+                    console.log("Blue warning added clicked")
+                    serverAPI.slotWarning(ServerAPI.BLUE);
                 }
             }
 
@@ -412,8 +399,7 @@ Window {
                 }
 
                 onClicked: {
-                    console.log("Cancel admonition blue")
-                    serverAPI.slotCancelAdmonition(1);
+                    serverAPI.slotCancelAdmonition(ServerAPI.BLUE);
                 }
             }
 
@@ -435,29 +421,12 @@ Window {
 
 
                 onClicked: {
-                    console.log("Cancel warning blue")
-                    serverAPI.slotCancelWarning(1);
+                    serverAPI.slotCancelWarning(ServerAPI.BLUE);
                 }
             }
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*##^## Designer {
     D{i:23;anchors_x:1}

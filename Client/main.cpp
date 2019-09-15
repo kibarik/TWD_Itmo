@@ -11,15 +11,12 @@ int main(int argc, char *argv[])
 
 	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	QGuiApplication app(argc, argv);
-    qmlRegisterType<ExtendedMyTcpServer, 1>("ServerAPI", 1, 0, "ServerAPI");
-	QQmlApplicationEngine engine;
 
-	try { //тестирование системы на работспособность.
-        engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-	} catch (const std::string) {
-		std::cerr<<"Catched ";
-		//engine.load(QUrl(QStringLiteral("qrc:/Error.qml")));
-	}
+
+    qmlRegisterType<ExtendedMyTcpServer, 1>("ServerAPI", 1, 0, "ServerAPI");
+    QQmlApplicationEngine engine;
+
+    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
 //----------------------------C++ Objects----------------------------
     //Позволяет только выводить данные из categoryAPI из category.h
