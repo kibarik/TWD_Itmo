@@ -15,6 +15,16 @@ MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent)
     }
 }
 
+// Деструктор
+MyTcpServer::~MyTcpServer() {
+    delete this->mTcpServer;
+    delete this->mTcpSocket;
+    for (ulong i = 0; i < this->Judges.size(); i++) {
+        delete this->Judges[i];
+    }
+    this->Judges.resize(0);
+}
+
 /*
  *
  *******Секция геттеров/сеттеров*******

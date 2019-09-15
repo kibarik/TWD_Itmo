@@ -19,6 +19,7 @@ public:
     const int roundTimerDelay = 1000;
 
     explicit MyTcpServer(QObject *parent = nullptr);
+    ~MyTcpServer();
     void setMode(Mode mode);
     Mode getMode();
     short getAdmonition(bool player); // 0 - красный, 1 - синий
