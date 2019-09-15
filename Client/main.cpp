@@ -10,23 +10,23 @@ int main(int argc, char *argv[])
 {
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-	QGuiApplication app(argc, argv);
+    QGuiApplication app(argc, argv);
 
 
     qmlRegisterType<ExtendedMyTcpServer>("ServerAPI",1,0,"ServerAPI");
-	QQmlApplicationEngine engine;
+    QQmlApplicationEngine engine;
 
-	try { //тестирование системы на работспособность.
-		engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-	} catch (const std::string) {
-		std::cerr<<"Catched ";
-		//engine.load(QUrl(QStringLiteral("qrc:/Error.qml")));
-	}
+    try { //тестирование системы на работспособность.
+        engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    } catch (const std::string) {
+        std::cerr<<"Catched ";
+        //engine.load(QUrl(QStringLiteral("qrc:/Error.qml")));
+    }
 
 //----------------------------C++ Objects----------------------------
     //Позволяет только выводить данные из categoryAPI из category.h
     CategoryAPI *categoryAPI = new CategoryAPI();
-	engine.rootContext()->setContextProperty("categoryAPI", categoryAPI);
+    engine.rootContext()->setContextProperty("categoryAPI", categoryAPI);
 
 //    ExtendedMyTcpServer *serverAPI = new ExtendedMyTcpServer();
 //    engine.rootContext()->setContextProperty("serverAPI", serverAPI);
