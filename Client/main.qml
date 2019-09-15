@@ -2,6 +2,8 @@ import QtQuick 2.9
 import QtQuick.Controls 2.4
 import QtQuick.Window 2.12
 
+import ServerAPI 1.0
+
 import "Sparring/"
 import "OutMonitor/"
 import "Tul/"
@@ -56,9 +58,10 @@ Window {
 /*-----------------------MyTCP server--------------------------------*/
     //Данная структура объявлена в main.cpp
     //обеспечивает ввод/вывод из QML в C++
-//    ServerAPI {
-//        id: serverAPI
-//    }
+    ServerAPI {
+        qRedAdmonition: 0
+        id: serverAPI
+    }
 
 
 /*===============Main Mode Windows=============================*/
@@ -92,8 +95,7 @@ Window {
 
                     onClicked: {
                         console.log('red Remark plus');
-                        serverAPI.qServer.slotAdmonition(0);
-                        console.log(serverAPI.QRedAdmonition);
+                        serverAPI.slotAdmonition(0); //добавления чуя на систему счета, waning - камчун, admonition - чуй
                     }
 
                 }

@@ -6,20 +6,19 @@ ExtendedMyTcpServer::ExtendedMyTcpServer(QObject *parent) : QObject (parent)
 }
 
 //----------------сигналы notify, вызываются при изменении свойств из QML
-/*void ExtendedMyTcpServer::timeChanged(){
-    qDebug() << "Round ends in: " << this->server->roundTime - this->server->roundTimeElapsed;
+void ExtendedMyTcpServer::timeChanged(){
+    qDebug() << "Round ends in: " << roundTime - roundTimeElapsed;
 }
 
 void ExtendedMyTcpServer::admonitionChanged(){
-    qDebug()<< "Chui changed: Red->" << this->server->redAdmonition
-            << " Blue->" << this->server->blueAdmonition;
+    qDebug()<< "Chui changed: Red->" << redAdmonition
+            << " Blue->" << blueAdmonition;
 }
 
 void ExtendedMyTcpServer::warningChanged(){
-    qDebug()<< "Gamjuns changed: Red->" << this->server->redWarning
-            << " Blue->" << this->server->blueWarning;
+    qDebug()<< "Gamjuns changed: Red->" << redWarning
+            << " Blue->" << blueWarning;
 }
-*/
 //---------------------сеттеры для Q_PROPERTY-------------
 /*сеттеры вся суть ->
  * 1. испустить сигнал emit signal()... с сообщением для логирования.

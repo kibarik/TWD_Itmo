@@ -9,11 +9,16 @@
 int main(int argc, char *argv[])
 {
 
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QGuiApplication app(argc, argv);
+    qmlRegisterType<ExtendedMyTcpServer, 1>("ServerAPI", 1, 0, "ServerAPI");
+	QGuiApplication app(argc, argv);
+	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
-//    qmlRegisterType<MyTcpServer>("ServerAPI",1,0,"ServerAPI");
-    QQmlApplicationEngine engine;
+	}
+	try { //тестирование системы на работспособность.
+	} catch (const std::string) {
+		std::cerr<<"Catched ";
+        engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+		//engine.load(QUrl(QStringLiteral("qrc:/Error.qml")));
 
     try { //тестирование системы на работспособность.
         engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
@@ -35,9 +40,10 @@ int main(int argc, char *argv[])
 
 //    ExtendedMyTcpServer *serverAPI = new ExtendedMyTcpServer();
 //    engine.rootContext()->setContextProperty("serverAPI", serverAPI);
+    //engine.
 
     //Регистрируем полноценный объект QML для ввода/вывода данных из C++ в QML
-//    qmlRegisterType<ExtendedMyTcpServer, 1>("ServerAPI", 1, 0, "ServerAPI");
+    qmlRegisterType<ExtendedMyTcpServer, 1>("ServerAPI", 1, 0, "ServerAPI");
     //----------------------Debugger--------------------------------//
 
 /*    CategoryAPI* debug = new CategoryAPI;
