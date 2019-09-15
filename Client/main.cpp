@@ -12,8 +12,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
 
-
-    qmlRegisterType<ExtendedMyTcpServer>("ServerAPI",1,0,"ServerAPI");
+//    qmlRegisterType<MyTcpServer>("ServerAPI",1,0,"ServerAPI");
     QQmlApplicationEngine engine;
 
     try { //тестирование системы на работспособность.
@@ -27,6 +26,12 @@ int main(int argc, char *argv[])
     //Позволяет только выводить данные из categoryAPI из category.h
     CategoryAPI *categoryAPI = new CategoryAPI();
     engine.rootContext()->setContextProperty("categoryAPI", categoryAPI);
+
+    ExtendedMyTcpServer *tcpServer = new ExtendedMyTcpServer();
+//    engine.rootContext()->setContextObject(tcpServer);
+    engine.rootContext()->setContextProperty("serverAPI", tcpServer);
+//    qDebug() << engine.rootObjects();
+//    qDebug() << engine.rootContext()->contextProperty();
 
 //    ExtendedMyTcpServer *serverAPI = new ExtendedMyTcpServer();
 //    engine.rootContext()->setContextProperty("serverAPI", serverAPI);

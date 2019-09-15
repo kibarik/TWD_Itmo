@@ -9,7 +9,7 @@ import "Categories/"
 import "Share/"
 import "lib_tcp/"
 
-import ServerAPI 1.0
+//import ServerAPI 1.0
 /*
   подключение структуры
   из структуры вытащить все категории в список
@@ -24,9 +24,13 @@ import ServerAPI 1.0
     signalModeSparring -> отображение Sparring и OutMonitorSparring
 
   Изменить порядок категорий можно из окна категорий
-
   https://evileg.com/ru/post/305/
+*/
 
+/*
+    C++ структура serverAPI объявлена в main.cpp
+    Данные хранятся по адресу serverAPI.{variableName}
+    Обращение к методам происходит по адресу serverAPI.qServer.{methodName}
 */
 
 Window {
@@ -52,9 +56,9 @@ Window {
 /*-----------------------MyTCP server--------------------------------*/
     //Данная структура объявлена в main.cpp
     //обеспечивает ввод/вывод из QML в C++
-    ServerAPI {
-        id: serverAPI
-    }
+//    ServerAPI {
+//        id: serverAPI
+//    }
 
 
 /*===============Main Mode Windows=============================*/
@@ -88,7 +92,8 @@ Window {
 
                     onClicked: {
                         console.log('red Remark plus');
-                        serverAPI.slotAdmonition(0); //добавления чуя на систему счета, waning - камчун, admonition - чуй
+                        serverAPI.qServer.slotAdmonition(0);
+                        console.log(serverAPI.QRedAdmonition);
                     }
 
                 }
