@@ -9,8 +9,11 @@
 int main(int argc, char *argv[])
 {
 
-	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	QGuiApplication app(argc, argv);
+
+
+    qmlRegisterType<ExtendedMyTcpServer>("ServerAPI",1,0,"ServerAPI");
 	QQmlApplicationEngine engine;
 
 	try { //тестирование системы на работспособность.
@@ -29,7 +32,7 @@ int main(int argc, char *argv[])
 //    engine.rootContext()->setContextProperty("serverAPI", serverAPI);
 
     //Регистрируем полноценный объект QML для ввода/вывода данных из C++ в QML
-    qmlRegisterType<ExtendedMyTcpServer, 1>("ServerAPI", 1, 0, "ServerAPI");
+//    qmlRegisterType<ExtendedMyTcpServer, 1>("ServerAPI", 1, 0, "ServerAPI");
     //----------------------Debugger--------------------------------//
 
 /*    CategoryAPI* debug = new CategoryAPI;

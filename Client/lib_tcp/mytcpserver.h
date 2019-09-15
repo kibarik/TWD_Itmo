@@ -52,7 +52,7 @@ signals:
     void signalTimerEvent(short timeElapsed); // Вызывается при каждом срабатывании таймера
     void signalJudgeNumError(ulong judgeNum);
 
-protected:
+public:
     void timerEvent(QTimerEvent *event);
     QTcpServer * mTcpServer;
     QTcpSocket * mTcpSocket;

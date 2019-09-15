@@ -56,7 +56,6 @@ Window {
         id: serverAPI
     }
 
-
 /*===============Main Mode Windows=============================*/
     Column {
         id: leftPanel
@@ -88,7 +87,8 @@ Window {
 
                     onClicked: {
                         console.log('red Remark plus');
-                        serverAPI.slotAdmonition(0); //добавления чуя на систему счета, waning - камчун, admonition - чуй
+                        serverAPI.qServer.slotAdmonition(0); //добавления чуя на систему счета, waning - камчун, admonition - чуй
+                        console.log(serverAPI.qServer.redAdmonition)
                     }
 
                 }
