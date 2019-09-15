@@ -22,9 +22,9 @@ public:
     explicit MyTcpServer(QObject *parent = nullptr);
     void setMode(Mode mode);
     Mode getMode();
-    short getAdmonition(bool player); // 0 - красный, 1 - синий (Чуй)
-    short getWarning(bool player); // 0 - красный, 1 - синий (Гамжун)
-    int getOverallScore(bool player); // 0 - красный, 1 - синий
+    short getAdmonition(Sportsman player); // 0 - красный, 1 - синий (Чуй)
+    short getWarning(Sportsman player); // 0 - красный, 1 - синий (Гамжун)
+    int getOverallScore(Sportsman player); // 0 - красный, 1 - синий
     int getScore(int judgeNum, Sportsman player); // Получение счёта игрока у определённого судьи
 
 
@@ -34,10 +34,10 @@ public slots:
     void slotServerRead();
     void slotClientDisconnected();
 
-    void slotAdmonition(bool player); // 0 - красный, 1 - синий (Чуй)
-    void slotWarning(bool player); // 0 - красный, 1 - синий (Гамжун)
-    void slotCancelAdmonition(bool player); // 0 - красный, 1 - синий (Чуй)
-    void slotCancelWarning(bool player); // 0 - красный, 1 - синий (Гамжун)
+    void slotAdmonition(Sportsman player); // 0 - красный, 1 - синий (Чуй)
+    void slotWarning(Sportsman player); // 0 - красный, 1 - синий (Гамжун)
+    void slotCancelAdmonition(Sportsman player); // 0 - красный, 1 - синий (Чуй)
+    void slotCancelWarning(Sportsman player); // 0 - красный, 1 - синий (Гамжун)
     void slotChangeNewTulLevel(short level);
     void slotReset();
 
@@ -47,7 +47,7 @@ public slots:
 
 signals:
     void signalScoreUpdate(int judgeNum, int red, int blue); // Сигнал, вызываемый при изменении счёта судьями
-    void signalDisqualification(bool player); // Сигнал, вызываемый при дисквалификации одного из игроков. 0 - красный, 1 - синий
+    void signalDisqualification(Sportsman player); // Сигнал, вызываемый при дисквалификации одного из игроков. 0 - красный, 1 - синий
     void signalTimeOver(); // Время таймера вышло
     void signalAdmonition(short redAdmonition, short blueAdmonition); // Вызывается при получении Чуя (замечания)
     void signalWarning(short redWarning, short blueWarning); // Вызывается при получении Гамжуна (предупреждения)
