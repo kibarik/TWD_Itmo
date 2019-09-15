@@ -52,7 +52,7 @@ int MyTcpServer::getOverallScore(bool player) {
 
 // Получение счёта у определённого судьи
 int MyTcpServer::getScore(int judgeNum, MyTcpServer::Sportsman player) {
-    if (judgeNum >= this->Judges.size())
+    if (static_cast<ulong>(judgeNum) >= this->Judges.size())
         return 0;
     return player == MyTcpServer::Sportsman::RED? this->Judges[static_cast<ulong>(judgeNum)]->getRed(): this->Judges[static_cast<ulong>(judgeNum)]->getBlue();
 }
@@ -281,7 +281,7 @@ void MyTcpServer::slotServerRead()
             mTcpSocket->write(id);
         } else {
             if(data.getRawData() != "nan" && mainTimer.isActive()) {
-                qDebug() << "ID: " << data.getID() << " " << data.getButtons();
+                //qDebug() << "ID: " << data.getID() << " " << data.getButtons();
                 ulong judgeNum = static_cast<ulong>(data.getID());
                 if (judgeNum >= Judges.size()) { // Если подключился пульт без регистрации
                     emit this->signalJudgeNumError(judgeNum);
