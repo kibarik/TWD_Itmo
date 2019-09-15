@@ -2,6 +2,8 @@ import QtQuick 2.9
 import QtQuick.Controls 2.4
 import QtQuick.Window 2.12
 
+import ServerAPI 1.0
+
 import "Sparring/"
 import "OutMonitor/"
 import "Tul/"
@@ -9,7 +11,7 @@ import "Categories/"
 import "Share/"
 import "lib_tcp/"
 
-import ServerAPI 1.0
+//import ServerAPI 1.0
 /*
   подключение структуры
   из структуры вытащить все категории в список
@@ -54,6 +56,7 @@ Window {
     //обеспечивает ввод/вывод из QML в C++
     ServerAPI {
         id: serverAPI
+        qRedAdmonition: 0
     }
 
 
@@ -89,6 +92,7 @@ Window {
                     onClicked: {
                         console.log('red Remark plus');
                         serverAPI.slotAdmonition(0); //добавления чуя на систему счета, waning - камчун, admonition - чуй
+                        console.log(serverAPI.qRedAdmonition)
                     }
 
                 }
