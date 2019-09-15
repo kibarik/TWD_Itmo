@@ -238,11 +238,8 @@ void MyTcpServer::slotCancelWarning(Sportsman player) {
 
 void MyTcpServer::slotNewConnection()
 {
+
     mTcpSocket = mTcpServer->nextPendingConnection();
-    QByteArray array = mTcpSocket->readAll();
-
-    mTcpSocket->write("Hello, World!!! I am echo server!\r\n");
-
     connect(mTcpSocket, &QTcpSocket::readyRead, this, &MyTcpServer::slotServerRead);
     connect(mTcpSocket, &QTcpSocket::disconnected, this, &MyTcpServer::slotClientDisconnected);
 }
@@ -254,6 +251,7 @@ void MyTcpServer::slotServerRead()
         // Получаем значения от клиента
         QByteArray array = mTcpSocket->readAll();
         middleware data = middleware(&array);
+        qDebug() << array;
 
         if (data.getID() == -1) { // Если клиент - новый пульт
             JudgementModes *NewJudge = new JudgementModes;
@@ -276,6 +274,7 @@ void MyTcpServer::slotServerRead()
             int JudgeID = static_cast<int>(Judges.size() - 1 );
             QByteArray id = QString::number(JudgeID).toLocal8Bit();
             mTcpSocket->write(id);
+            delete NewJudge;
         } else {
             if(data.getRawData() != "nan" && mainTimer.isActive()) {
                 //qDebug() << "ID: " << data.getID() << " " << data.getButtons();
@@ -312,4 +311,5 @@ void MyTcpServer::slotServerRead()
 void MyTcpServer::slotClientDisconnected()
 {
     mTcpSocket->close();
+    delete mTcpSocket;
 }
