@@ -12,14 +12,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES += \
-        lib_tcp/extendedmytcpserver.cpp \
+        QTcpServer/extendedmytcpserver.cpp \
+        QTcpServer/judgementmodes.cpp \
+        QTcpServer/middleware.cpp \
+        QTcpServer/mytcpserver.cpp \
+        QTcpServer/testobject.cpp \
         main.cpp \
         category.cpp \
-        lib_tcp/judgementmodes.cpp \
-        lib_tcp/mytcpserver.cpp \
-        lib_tcp/testobject.cpp \
-        lib_tcp/middleware.cpp
 
 RESOURCES += qml.qrc
 
@@ -38,8 +37,9 @@ DISTFILES +=
 
 HEADERS += \
     category.h \
-    lib_tcp/extendedmytcpserver.h \
-    lib_tcp/judgementmodes.h \
-    lib_tcp/mytcpserver.h \
-    lib_tcp/testobject.h \
-    lib_tcp/middleware.h
+    QTcpServer/extendedmytcpserver.h \
+    QTcpServer/judgementmodes.h \
+    QTcpServer/middleware.h \
+    QTcpServer/mytcpserver.h \
+    QTcpServer/testobject.h \
+    category.h

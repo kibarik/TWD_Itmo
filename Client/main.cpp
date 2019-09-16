@@ -3,8 +3,8 @@
 #include <QQmlContext>
 
 #include "category.h"
-#include "lib_tcp/extendedmytcpserver.h"
-#include "lib_tcp/testobject.h"
+#include "QTcpServer/extendedmytcpserver.h"
+#include "QTcpServer/testobject.h"
 
 int main(int argc, char *argv[])
 {

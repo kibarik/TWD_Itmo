@@ -19,16 +19,16 @@
         <file>Share/PointsTable.qml</file>
         <file>Share/Style.qml</file>
         <file>Share/TimeControl.qml</file>
-        <file>lib_tcp/judgementmodes.cpp</file>
-        <file>lib_tcp/judgementmodes.h</file>
-        <file>lib_tcp/mytcpserver.cpp</file>
-        <file>lib_tcp/mytcpserver.h</file>
-        <file>lib_tcp/testobject.cpp</file>
-        <file>lib_tcp/testobject.h</file>
-        <file>lib_tcp/test.cpp</file>
-        <file>lib_tcp/middleware.cpp</file>
-        <file>lib_tcp/middleware.h</file>
-        <file>lib_tcp/extendedmytcpserver.cpp</file>
-        <file>lib_tcp/extendedmytcpserver.h</file>
+        <file>QTcpServer/judgementmodes.cpp</file>
+        <file>QTcpServer/judgementmodes.h</file>
+        <file>QTcpServer/mytcpserver.cpp</file>
+        <file>QTcpServer/mytcpserver.h</file>
+        <file>QTcpServer/testobject.cpp</file>
+        <file>QTcpServer/testobject.h</file>
+        <file>QTcpServer/main.cpp</file>
+        <file>QTcpServer/middleware.cpp</file>
+        <file>QTcpServer/middleware.h</file>
+        <file>QTcpServer/extendedmytcpserver.cpp</file>
+        <file>QTcpServer/extendedmytcpserver.h</file>
     </qresource>
 </RCC>
