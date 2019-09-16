@@ -1,0 +1,34 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Sparring/Sparring.qml</file>
+        <file>OutMonitor/OutMonitorTul.qml</file>
+        <file>OutMonitor/OutMonitorSparring.qml</file>
+        <file>OutMonitor/SparringInfoMonitor.qml</file>
+        <file>Sparring/Time.qml</file>
+        <file>Sparring/SparringInfo.qml</file>
+        <file>Tul/Tul.qml</file>
+        <file>Tul/TulInfo.qml</file>
+        <file>Categories/CategoryWindow.qml</file>
+        <file>main.cpp</file>
+        <file>category.cpp</file>
+        <file>category.h</file>
+        <file>Categories/ParticipantsWindow.qml</file>
+        <file>Share/Error.qml</file>
+        <file>Share/PairDisplay.qml</file>
+        <file>Share/PointsTable.qml</file>
+        <file>Share/Style.qml</file>
+        <file>Share/TimeControl.qml</file>
+        <file>QTcpServer/judgementmodes.cpp</file>
+        <file>QTcpServer/judgementmodes.h</file>
+        <file>QTcpServer/mytcpserver.cpp</file>
+        <file>QTcpServer/mytcpserver.h</file>
+        <file>QTcpServer/testobject.cpp</file>
+        <file>QTcpServer/testobject.h</file>
+        <file>QTcpServer/main.cpp</file>
+        <file>QTcpServer/middleware.cpp</file>
+        <file>QTcpServer/middleware.h</file>
+        <file>QTcpServer/extendedmytcpserver.cpp</file>
+        <file>QTcpServer/extendedmytcpserver.h</file>
+    </qresource>
+</RCC>
