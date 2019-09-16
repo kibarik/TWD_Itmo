@@ -49,21 +49,31 @@ Window {
     property string nextParticipant2;
     property string nowCategoryName: "Выберите категорию";
 
+    //Знаю, что это плохое решение, создавать переменные для вывода структуры
+    //но по каким-то причинам не могу передавать через | property alias name: serverApi.{value} |
+//    property int redChuiScore: 0
 
+    property alias server: serverAPI
 
 /*-----------------------MyTCP server--------------------------------*/
     //Данная структура объявлена в main.cpp
     //обеспечивает ввод/вывод из QML в C++
     ServerAPI {
         id: serverAPI
-        qRedAdmonition: 0
+        qRoundTime: 120
+        qPauseTime: 60
+
 
         onSignalAdmonition: {
             console.log("Admonition signal: "+qRedAdmonition +" blue->"+qBlueAdmonition)
+            admonitionChanged() //необходимо, чтобы заработал Alias
         }
 
         onSignalDisqualification: {
             console.log("Disqualification!")
+            admonitionChanged()
+            warningChanged()
+            timeChanged()
         }
 
         onSignalJudgeNumError: {
@@ -76,14 +86,21 @@ Window {
 
         onSignalWarning: {
             console.log("Signal warning: red->",qRedWarning," blue->" ,qBlueWarning)
+            warningChanged()
         }
 
         onSignalTimerEvent: {
-            console.log("Time: ", qRoundTime-qRoundTimeElapsed)
+            timeChanged()
+            console.log("Time: ", serverAPI.qMinutesNow)
+        }
+
+        onTimeChanged: {
+            console.log("onTimeChanged");
         }
 
         onSignalTimeOver: {
             console.log("Time over!")
+            timeChanged()
         }
     }
 
@@ -232,6 +249,7 @@ Window {
             categoryWindow.show()
             mainQmlWindow.opacity = 0.0
         }
+
     }
 
     OutMonitorSparring {

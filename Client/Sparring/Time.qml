@@ -39,8 +39,8 @@ Item {
 		id: min
 		width: 200
 		color: "#ffffff"
-		text: qsTr("02:00")
-		anchors.topMargin: 0
+        text: mainQmlWindow.server.qMinutesNow+":"+mainQmlWindow.server.qSecondsNow
+        anchors.topMargin: 0
 		anchors.top: parent.top
 		anchors.bottom: parent.bottom
 		anchors.left: parent.left

@@ -23,6 +23,8 @@ class ExtendedMyTcpServer : /*public QObject,*/ public MyTcpServer
     Q_PROPERTY(int qBlueWarning       READ qBlueWarning     WRITE setBlueWarning       NOTIFY warningChanged)
     Q_PROPERTY(int qRedScore  READ qRedScore)
     Q_PROPERTY(int qBlueScore READ qBlueScore)
+    Q_PROPERTY(QString qMinutesNow READ qMinutesNow NOTIFY timeChanged)
+    Q_PROPERTY(QString qSecondsNow READ qSecondsNow NOTIFY timeChanged)
 
 public:
     explicit ExtendedMyTcpServer(QObject *parent = nullptr); //явное наследование от родителя, обязательно для QML древа
@@ -39,6 +41,8 @@ public:
     Q_INVOKABLE int qBlueWarning()         {return static_cast<int>(blueWarning);}
     int qRedScore()  {return static_cast<int>(getOverallScore(MyTcpServer::RED));}
     int qBlueScore() {return static_cast<int>(getOverallScore(MyTcpServer::BLUE));}
+    QString qMinutesNow();
+    QString qSecondsNow();
     /*сеттеры вся суть ->
      * 1. испустить сигнал categoryChanged() с сообщением для логирования.
      * 2. Передать параметр из QML в C++ структуру.

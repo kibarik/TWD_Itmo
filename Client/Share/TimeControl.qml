@@ -108,7 +108,7 @@ import QtQuick.Controls 2.0
             Text {
                 id: element1
                 color: "#ffffff"
-                text: qsTr("Суд. уровень")
+                text: qsTr("Следующий раунд")
                 horizontalAlignment: Text.AlignHCenter
                 anchors.right: parent.right
                 anchors.left: parent.left

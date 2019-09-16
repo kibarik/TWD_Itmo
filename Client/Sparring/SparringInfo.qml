@@ -18,9 +18,23 @@ import "../"
 */
 
 Item {
-	id: name
+    id: sparringInfo
 	width: 320
 	height: 100
+
+
+    //Объявляем всеобщие переменные
+    //Через них из объекта serverAPI изменяет счет
+    //см. main.qml -> serverAPI -> сигналы
+
+    property var judge_1_score_red: j1rp.text;
+    property var judge_1_score_blue: j1bp.text;
+    property var judge_2_score_red: j2rp.text;
+    property var judge_2_score_blue: j2bp.text;
+    property var judge_3_score_red: j3rp.text;
+    property var judge_3_score_blue: j3bp.text;
+    property var judge_4_score_red: j4rp.text;
+    property var judge_4_score_blue: j4bp.text;
 
 	Grid {
 		id: chui
@@ -36,7 +50,7 @@ Item {
 			Text {
 				id: redChui
 				color: "#ffffff"
-                text: serverAPI.qRedAdmonition
+                text: mainQmlWindow.server.qRedAdmonition
 				anchors.fill: parent
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
@@ -66,7 +80,7 @@ Item {
 			Text {
 				id: blueChui
 				color: "#ffffff"
-                text: serverAPI.qBlueAdmonition;
+                text: mainQmlWindow.server.qBlueAdmonition
 				anchors.fill: parent
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
@@ -80,7 +94,7 @@ Item {
 			Text {
 				id: redGamj
 				color: "#ffffff"
-                text: serverAPI.qRedWarning
+                text: mainQmlWindow.server.qRedWarning
 				anchors.fill: parent
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
@@ -108,7 +122,7 @@ Item {
 			    Text {
 					id: blueGamj
 					color: "#ffffff"
-                    text: serverAPI.qBlueWarning
+                    text: mainQmlWindow.server.qBlueWarning
 					anchors.fill: parent
 					verticalAlignment: Text.AlignVCenter
 					horizontalAlignment: Text.AlignHCenter
@@ -180,7 +194,7 @@ Item {
 			Text{
 				id: j1rp
 				color: "White"
-				text: qsTr("0")
+                text: "0"
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -195,7 +209,7 @@ Item {
 			Text{
 				id: j1bp
 				color: "White"
-				text: qsTr("0")
+                text: "0"
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -210,7 +224,7 @@ Item {
 			Text{
 				id: j2rp
 				color: "White"
-				text: qsTr("0")
+                text: "0"
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -225,7 +239,7 @@ Item {
 			Text{
 				id: j2bp
 				color: "White"
-				text: qsTr("0")
+                text: "0"
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -240,7 +254,7 @@ Item {
 			Text{
 				id: j3rp
 				color: "White"
-				text: qsTr("0")
+                text: "0"
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -255,7 +269,7 @@ Item {
 			Text{
 				id: j3bp
 				color: "White"
-				text: qsTr("0")
+                text: "0"
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -270,7 +284,7 @@ Item {
 			Text{
 				id: j4rp
 				color: "White"
-				text: qsTr("0")
+                text: "0"
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -285,7 +299,7 @@ Item {
 			Text{
 				id: j4bp
 				color: "White"
-				text: qsTr("0")
+                text: "0"
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
