@@ -61,8 +61,8 @@ protected:
     QBasicTimer mainTimer;
     QBasicTimer pauseTimer;
     std::vector <JudgementModes *> Judges; // Нужно для обработки различных режимов при нажатии на кнопки
-    short roundTimeElapsed; // Время, прошедшее с начала запуска таймера в секундах
-    short pauseTimeElapsed; // Для хранения времени медицинского таймера
+    short roundTimeElapsed = 0; // Время, прошедшее с начала запуска таймера в секундах
+    short pauseTimeElapsed = 0; // Для хранения времени медицинского таймера
     short roundTime; // Время, которое длится один раунд
     short pauseTime; // Время, которое длится пауза
     short redAdmonition = 0, blueAdmonition = 0, redWarning = 0, blueWarning = 0;

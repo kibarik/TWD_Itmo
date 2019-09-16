@@ -148,7 +148,6 @@ void MyTcpServer::slotAdmonition(Sportsman player) {
         }
     } else { // Синий
         if ((++blueAdmonition) % 3 == 0) { // Если получено 3 замечания
-            blueAdmonition = 0;
             // Уменьшение на 1 балл у всех судей
             for (unsigned long long i = 0; i < this->Judges.size(); i++) {
                 Judges[i]->setBlue(Judges[i]->getBlue() - 1);
@@ -215,7 +214,7 @@ void MyTcpServer::slotWarning(Sportsman player) {
 
 // Слот для отмены Гамжуна (предупреждения)
 void MyTcpServer::slotCancelWarning(Sportsman player) {
-    if (player == Sportsman::RED) { // Если красный
+    if (player == Sportsman::RED && redWarning > 0) { // Если красный
         // Увеличение на 1 балл у всех судей
         for (unsigned long long i = 0; i < this->Judges.size(); i++) {
             Judges[i]->setRed(Judges[i]->getRed() + 1);
@@ -223,7 +222,7 @@ void MyTcpServer::slotCancelWarning(Sportsman player) {
         }
 
         --redWarning;
-    } else { // Если синий
+    } else if (blueWarning > 0) { // Если синий
         // Увеличение на 1 балл у всех судей
         for (unsigned long long i = 0; i < this->Judges.size(); i++) {
             Judges[i]->setBlue(Judges[i]->getBlue() + 1);
