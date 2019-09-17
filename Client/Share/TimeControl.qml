@@ -13,6 +13,8 @@ import QtQuick.Controls 2.0
         signal stoped();
         signal paused();
 
+        property bool isRunning: true;
+
         Button {
             id: start
             width: parent.width/3
@@ -39,8 +41,18 @@ import QtQuick.Controls 2.0
             }
 
             onClicked: {
+                if(isRunning){
+                    element2.text = "Пауза"
+                    serverAPI.slotTimerPause()
+                    controlButtons.isRunning = false;
+                }
+                else {
+                    element2.text = "Старт"
+                    serverAPI.slotTimerStart()
+                    controlButtons.isRunning = true;
+                }
+
                 controlButtons.started() //получаем в main.qml
-                serverAPI.slotTimerStart();
             }
         }
 
@@ -119,8 +131,9 @@ import QtQuick.Controls 2.0
             }
 
             onClicked: {
-                controlButtons.paused()
-                serverAPI.slotTimerStop()
+                //сигнал для старта раунда или смены уровня туля
+//                mainQmlWindow.server.slotTimerPause()
+//                controlButtons.paused()
             }
         }
     }
