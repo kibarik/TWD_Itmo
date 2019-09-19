@@ -38,7 +38,7 @@ Column {
         Text {
             id: redPoints
             color: "#ffffff"
-            text: qsTr("0")
+            text: mainQmlWindow.server.qRedScore;
             anchors.fill: parent
             verticalAlignment: Text.AlignVCenter
             font.pixelSize: 80
@@ -62,7 +62,7 @@ Column {
         Text {
             id: bluePoints
             color: "#ffffff"
-            text: qsTr("0")
+            text: mainQmlWindow.server.qBlueScore;
             anchors.fill: parent
             verticalAlignment: Text.AlignVCenter
             font.pixelSize: 80

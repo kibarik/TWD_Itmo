@@ -43,10 +43,10 @@ Window {
 
     //flags: Qt.FramelessWindowHint // Отключаем обрамление окна
 
-    property string redParticipant: "Красный";
-    property string blueParticipant: "Синий";
+    property string redParticipant: "Выберите участников";
+    property string blueParticipant: "Выберите участников";
     property string nextParticipant1;
-    property string nextParticipant2;
+    property string аnextParticipant2;
     property string nowCategoryName: "Выберите категорию";
 
     //Знаю, что это плохое решение, создавать переменные для вывода структуры
@@ -62,6 +62,7 @@ Window {
         id: serverAPI
         qRoundTime: 120
         qPauseTime: 60
+        qRound: 0
 
 
         onSignalAdmonition: {
@@ -82,6 +83,7 @@ Window {
 
         onSignalScoreUpdate: {
             console.log("Signal updated: red->", serverAPI.qRedScore()," blue->", serverAPI.qBlueScore())
+            scoreChanged()
         }
 
         onSignalWarning: {
@@ -91,7 +93,6 @@ Window {
 
         onSignalTimerEvent: {
             timeChanged()
-            console.log("Time: ", serverAPI.qMinutesNow)
         }
 
         onTimeChanged: {
@@ -101,6 +102,11 @@ Window {
         onSignalTimeOver: {
             console.log("Time over!")
             timeChanged()
+
+        }
+
+        onRoundChanged: {
+            console.log("Round set: ", serverAPI.qRound)
         }
     }
 

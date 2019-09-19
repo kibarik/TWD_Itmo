@@ -13,7 +13,8 @@ import QtQuick.Controls 2.0
         signal stoped();
         signal paused();
 
-        property bool isRunning: true;
+        property bool isPauseActive: false;
+        property bool isNewRound: true;
 
         Button {
             id: start
@@ -41,15 +42,24 @@ import QtQuick.Controls 2.0
             }
 
             onClicked: {
-                if(isRunning){
-                    element2.text = "Пауза"
-                    serverAPI.slotTimerPause()
-                    controlButtons.isRunning = false;
-                }
-                else {
-                    element2.text = "Старт"
+                if(controlButtons.isNewRound && !controlButtons.isPauseActive){
                     serverAPI.slotTimerStart()
-                    controlButtons.isRunning = true;
+                    element2.text = "Пауза" //Было 'Старт'.
+//                    controlButtons.isNewRound = false;
+                    controlButtons.isPauseActive = true;
+                    console.log(1)
+                }
+                else if (!controlButtons.isNewRound && controlButtons.isPauseActive) {
+                    serverAPI.slotTimerPause()
+                    element2.text = "Старт" //Было 'Пауза'
+                    controlButtons.isPauseActive = false;
+                    console.log(2)
+                }
+                else { //в режиме паузы, возвращаем в старт
+                    serverAPI.slotTimerPause()
+                    element2.text="Старт"
+                    controlButtons.isPauseActive = false;
+                    console.log(3)
                 }
 
                 controlButtons.started() //получаем в main.qml
@@ -82,8 +92,14 @@ import QtQuick.Controls 2.0
             }
 
             onClicked: {
-                controlButtons.stoped() //получаем в main.qml
                 serverAPI.slotTimerStop()
+                serverAPI.slotReset();
+                serverAPI.timeChanged();
+                controlButtons.isNewRound = true;
+                controlButtons.isPauseActive = false;
+                serverAPI.admonitionChanged();
+                serverAPI.warningChanged();
+                element2.text = "Старт";
             }
         }
 
@@ -105,7 +121,7 @@ import QtQuick.Controls 2.0
             Text {
                 id: element
                 color: "#ffffff"
-                text: "1"
+                text: mainQmlWindow.server.qRound
                 font.family: "Tahoma"
                 fontSizeMode: Text.Fit
                 anchors.top: element1.bottom
@@ -131,9 +147,8 @@ import QtQuick.Controls 2.0
             }
 
             onClicked: {
-                //сигнал для старта раунда или смены уровня туля
-//                mainQmlWindow.server.slotTimerPause()
-//                controlButtons.paused()
+                mainQmlWindow.server.qRound++;
+
             }
         }
     }

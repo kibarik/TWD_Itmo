@@ -40,6 +40,11 @@ void ExtendedMyTcpServer::setPauseTime(const int &qPauseTime) {
     emit this->timeChanged();
 }
 
+void ExtendedMyTcpServer::setRound(const int& qRound){
+    this->round = qRound;
+    emit this->roundChanged();
+};
+
 
 QString ExtendedMyTcpServer::qMinutesNow(){
     QString str;

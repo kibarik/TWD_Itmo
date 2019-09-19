@@ -91,7 +91,7 @@ Window {
 			Text {
 				id: redPoints
 				color: "#ffffff"
-				text: qsTr("0")
+                text: mainQmlWindow.server.qRedScore
 				fontSizeMode: Text.VerticalFit
 				horizontalAlignment: Text.AlignHCenter
 				verticalAlignment: Text.AlignVCenter
@@ -109,7 +109,7 @@ Window {
 			Text {
 				id: otherPoint
 				color: "#ffffff"
-				text: qsTr("0")
+                text: 4-mainQmlWindow.server.qRedScore-mainQmlWindow.server.qBlueScore
 				fontSizeMode: Text.Fit
 				horizontalAlignment: Text.AlignHCenter
 				verticalAlignment: Text.AlignVCenter
@@ -127,7 +127,7 @@ Window {
 			Text {
 				id: bluePoints
 				color: "#ffffff"
-				text: qsTr("0")
+                text: mainQmlWindow.server.qBlueScore
 				fontSizeMode: Text.Fit
 				horizontalAlignment: Text.AlignHCenter
 				verticalAlignment: Text.AlignVCenter
