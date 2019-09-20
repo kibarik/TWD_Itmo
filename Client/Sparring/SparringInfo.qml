@@ -27,15 +27,6 @@ Item {
     //Через них из объекта serverAPI изменяет счет
     //см. main.qml -> serverAPI -> сигналы
 
-    property var judge_1_score_red: j1rp.text;
-    property var judge_1_score_blue: j1bp.text;
-    property var judge_2_score_red: j2rp.text;
-    property var judge_2_score_blue: j2bp.text;
-    property var judge_3_score_red: j3rp.text;
-    property var judge_3_score_blue: j3bp.text;
-    property var judge_4_score_red: j4rp.text;
-    property var judge_4_score_blue: j4bp.text;
-
 	Grid {
 		id: chui
 		width: 320
@@ -194,7 +185,7 @@ Item {
 			Text{
 				id: j1rp
 				color: "White"
-                text: "0"
+                text: mainQmlWindow.server.qJudge1r;
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -209,7 +200,7 @@ Item {
 			Text{
 				id: j1bp
 				color: "White"
-                text: "0"
+                text: mainQmlWindow.server.qJudge1b;
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -224,7 +215,7 @@ Item {
 			Text{
 				id: j2rp
 				color: "White"
-                text: "0"
+                text: mainQmlWindow.server.qJudge2r;
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -239,7 +230,7 @@ Item {
 			Text{
 				id: j2bp
 				color: "White"
-                text: "0"
+                text: mainQmlWindow.server.qJudge2b;
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -254,7 +245,7 @@ Item {
 			Text{
 				id: j3rp
 				color: "White"
-                text: "0"
+                text: mainQmlWindow.server.qJudge3r;
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -269,7 +260,7 @@ Item {
 			Text{
 				id: j3bp
 				color: "White"
-                text: "0"
+                text: mainQmlWindow.server.qJudge3b;
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -284,7 +275,7 @@ Item {
 			Text{
 				id: j4rp
 				color: "White"
-                text: "0"
+                text: mainQmlWindow.server.qJudge4r;
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -299,7 +290,7 @@ Item {
 			Text{
 				id: j4bp
 				color: "White"
-                text: "0"
+                text: mainQmlWindow.server.qJudge4b;
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent

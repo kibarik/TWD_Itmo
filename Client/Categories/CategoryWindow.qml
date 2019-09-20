@@ -30,7 +30,9 @@ Window {
         listModel.clear()
         for(var i = 0; i < categoryNames.length; i ++){ //проходимся по массиву
             mode = categoryNames[i].split(' ');
+            console.log("category mode: ", mode)
             mode = mode[6] + " " + mode[7] // Туль личные/Спарринг и др.
+
             listModel.append({
                                  categoryName:categoryNames[i],
                                  categoryMode: mode

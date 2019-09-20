@@ -87,7 +87,6 @@ Window {
                     console.log("очистка listModel для категории отличной от текущей")
                 }
                 else { //текущая и проводимая категория совпадают
-                    console.log("условие else ", mainQmlWindow.visible)
                     participantsWindow.close()
                     mainQmlWindow.opacity = 1.0
                     listModel.clear()
@@ -145,7 +144,7 @@ Window {
                     delete participantsNames
                     console.log("очистка listModel для категории отличной от текущей")
                 }
-                    console.log(categoryMode);
+                    console.log("Category before case:", categoryMode);
 
                 switch(categoryMode){
                     case "Туль личный":
@@ -165,7 +164,7 @@ Window {
                         break;
 
                     case "Спарринг личный":
-                        participantsWindow.monitorSetTul();
+                        participantsWindow.monitorSetSparring();
                         break;
 
                     case "Спарринг командный":

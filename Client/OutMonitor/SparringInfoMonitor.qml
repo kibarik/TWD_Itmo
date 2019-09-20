@@ -134,7 +134,7 @@ Item {
 			Text {
 
 				id: chuiR
-				text: qsTr("0")
+                text: mainQmlWindow.server.qRedAdmonition;
 				font.pointSize: parent.height/4>0 ? parent.height/4 : 10
 				anchors.fill: parent
 				fontSizeMode: Text.Fit
@@ -151,7 +151,7 @@ Item {
 
 			Text {
 				id: gamjR
-				text: qsTr("0")
+                text: mainQmlWindow.server.qRedWarning
 				font.family: "Times New Roman"
 				font.pointSize:parent.height/4>0 ? parent.height/4 : 10
 				anchors.fill: parent
@@ -170,7 +170,7 @@ Item {
 
 			Text {
 				id: j1r //1 судья баллы красному
-				text: qsTr("0")
+                text: mainQmlWindow.server.qJudge1r;
 				anchors.fill: parent
 				font.pointSize: parent.height/4>0 ? parent.height/4 : 10
 				verticalAlignment: Text.AlignVCenter
@@ -186,7 +186,7 @@ Item {
 
 			Text {
 				id: j2r //2 судья баллы красному
-				text: qsTr("0")
+                text: mainQmlWindow.server.qJudge2r;
 				anchors.fill: parent
 				fontSizeMode: Text.Fit
 				font.pointSize: parent.height/4>0 ? parent.height/4 : 10
@@ -203,7 +203,7 @@ Item {
 
 			Text {
 				id: j3r //3 судья баллы красному
-				text: qsTr("0")
+                text: mainQmlWindow.server.qJudge3r
 				font.pointSize: parent.height/4>0 ? parent.height/4 : 10
 				anchors.fill: parent
 				fontSizeMode: Text.Fit
@@ -220,7 +220,7 @@ Item {
 
 			Text {
 				id: j4r //1 судья баллы красному
-				text: qsTr("0")
+                text: mainQmlWindow.server.qJudge4r
 				font.pointSize: parent.height/4>0 ? parent.height/4 : 10
 				anchors.fill: parent
 				fontSizeMode: Text.Fit
@@ -239,7 +239,7 @@ Item {
 			Text {
 
 				id: chuib
-				text: qsTr("0")
+                text: mainQmlWindow.server.qBlueAdmonition;
 				anchors.fill: parent
 				font.pointSize: parent.height/4>0 ? parent.height/4 : 10
 				fontSizeMode: Text.Fit
@@ -256,7 +256,7 @@ Item {
 
 			Text {
 				id: gamjB
-				text: qsTr("0")
+                text: mainQmlWindow.server.qBlueWarning;
 				font.family: "Noto Sans"
 				font.pointSize: parent.height/4>0 ? parent.height/4 : 10
 				anchors.fill: parent
@@ -276,7 +276,7 @@ Item {
 			Text {
 				font.pointSize: parent.height/4>0 ? parent.height/4 : 10
 				id: j1b //1 судья баллы красному
-				text: qsTr("0")
+                text: mainQmlWindow.server.qJudge1b;
 				anchors.fill: parent
 				fontSizeMode: Text.Fit
 				verticalAlignment: Text.AlignVCenter
@@ -292,7 +292,7 @@ Item {
 
 			Text {
 				id: j2b //2 судья баллы красному
-				text: qsTr("0")
+                text: mainQmlWindow.server.qJudge2b;
 				font.pointSize: parent.height/4>0 ? parent.height/4 : 10
 				anchors.fill: parent
 				fontSizeMode: Text.Fit
@@ -309,7 +309,7 @@ Item {
 
 			Text {
 				id: j3b //3 судья баллы красному
-				text: qsTr("0")
+                text: mainQmlWindow.server.qJudge3b;
 				anchors.fill: parent
 				font.pointSize: parent.height/4>0 ? parent.height/4 : 10
 				fontSizeMode: Text.Fit
@@ -326,7 +326,7 @@ Item {
 
 			Text {
 				id: j4b //1 судья баллы красному
-				text: qsTr("0")
+                text: mainQmlWindow.server.qJudge4b;
 				anchors.fill: parent
 				fontSizeMode: Text.Fit
 				font.pointSize: parent.height/4>0 ? parent.height/4 : 10

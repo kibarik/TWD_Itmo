@@ -78,7 +78,7 @@ Item {
 			Text{
 				id: j1rp
 				color: "White"
-				text: qsTr("0")
+                text: mainQmlWindow.server.qJudge1r;
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -93,7 +93,7 @@ Item {
 			Text{
 				id: j1bp
 				color: "White"
-				text: qsTr("0")
+                text: mainQmlWindow.server.qJudge1b;
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -108,7 +108,7 @@ Item {
 			Text{
 				id: j2rp
 				color: "White"
-				text: qsTr("0")
+                text: mainQmlWindow.server.qJudge2r;
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -123,7 +123,7 @@ Item {
 			Text{
 				id: j2bp
 				color: "White"
-				text: qsTr("0")
+                text: mainQmlWindow.server.qJudge2b;
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -138,7 +138,7 @@ Item {
 			Text{
 				id: j3rp
 				color: "White"
-				text: qsTr("0")
+                text: mainQmlWindow.server.qJudge3r;
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -153,7 +153,7 @@ Item {
 			Text{
 				id: j3bp
 				color: "White"
-				text: qsTr("0")
+                text: mainQmlWindow.server.qJudge3b;
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -168,7 +168,7 @@ Item {
 			Text{
 				id: j4rp
 				color: "White"
-				text: qsTr("0")
+                text: mainQmlWindow.server.qJudge4r;
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -183,7 +183,7 @@ Item {
 			Text{
 				id: j4bp
 				color: "White"
-				text: qsTr("0")
+                text: mainQmlWindow.server.qJudge4b;
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -195,9 +195,9 @@ Item {
 			height: parent.height
 			color: "#ff0000"
 			Text {
-				id: j4rp1
+                id: j5rp
 				color: "#ffffff"
-				text: qsTr("0")
+                text: mainQmlWindow.server.qJudge5r
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter
 				anchors.fill: parent
@@ -209,9 +209,9 @@ Item {
 			height: parent.height
 			color: "#0000ff"
 			Text {
-				id: j4bp1
+                id: j5bp
 				color: "#ffffff"
-				text: qsTr("0")
+                text: mainQmlWindow.server.qJudge5b
 				anchors.fill: parent
 				verticalAlignment: Text.AlignVCenter
 				horizontalAlignment: Text.AlignHCenter

@@ -21,28 +21,53 @@ class ExtendedMyTcpServer : /*public QObject,*/ public MyTcpServer
     Q_PROPERTY(int qBlueAdmonition    READ qBlueAdmonition  WRITE setBlueAdmonition    NOTIFY admonitionChanged)
     Q_PROPERTY(int qRedWarning        READ qRedWarning      WRITE setRedWarning        NOTIFY warningChanged)
     Q_PROPERTY(int qBlueWarning       READ qBlueWarning     WRITE setBlueWarning       NOTIFY warningChanged)
-    Q_PROPERTY(int qRedScore  READ qRedScore)
-    Q_PROPERTY(int qBlueScore READ qBlueScore)
+    Q_PROPERTY(int qRedScore  READ qRedScore NOTIFY scoreChanged)
+    Q_PROPERTY(int qBlueScore READ qBlueScore NOTIFY scoreChanged)
     Q_PROPERTY(QString qMinutesNow READ qMinutesNow NOTIFY timeChanged)
     Q_PROPERTY(QString qSecondsNow READ qSecondsNow NOTIFY timeChanged)
+    Q_PROPERTY(int qRound READ qRoundRead WRITE setRound NOTIFY roundChanged)
+
+    Q_PROPERTY(int qJudge1r READ qJudge1r NOTIFY scoreChanged)
+    Q_PROPERTY(int qJudge1b READ qJudge1b NOTIFY scoreChanged)
+    Q_PROPERTY(int qJudge2r READ qJudge2r NOTIFY scoreChanged)
+    Q_PROPERTY(int qJudge2b READ qJudge2b NOTIFY scoreChanged)
+    Q_PROPERTY(int qJudge3r READ qJudge3r NOTIFY scoreChanged)
+    Q_PROPERTY(int qJudge3b READ qJudge3b NOTIFY scoreChanged)
+    Q_PROPERTY(int qJudge4r READ qJudge4r NOTIFY scoreChanged)
+    Q_PROPERTY(int qJudge4b READ qJudge4b NOTIFY scoreChanged)
+    Q_PROPERTY(int qJudge5r READ qJudge5r NOTIFY scoreChanged)
+    Q_PROPERTY(int qJudge5b READ qJudge5b NOTIFY scoreChanged)
 
 public:
     explicit ExtendedMyTcpServer(QObject *parent = nullptr); //явное наследование от родителя, обязательно для QML древа
 
     //Q_ENUM(Sportsman)
     //геттеры (READ) для Q_PROPERTY.
-    Q_INVOKABLE int qRoundTimeElapsed()    {return static_cast<int>(roundTimeElapsed);}
-    Q_INVOKABLE int qPauseTimeElapsed()    {return static_cast<int>(pauseTimeElapsed);}
-    Q_INVOKABLE int qRoundTime()           {return static_cast<int>(roundTime);}
-    Q_INVOKABLE int qPauseTime()           {return static_cast<int>(pauseTime);}
-    Q_INVOKABLE int qRedAdmonition()       {return static_cast<int>(redAdmonition);}
-    Q_INVOKABLE int qBlueAdmonition()      {return static_cast<int>(blueAdmonition);}
-    Q_INVOKABLE int qRedWarning()          {return static_cast<int>(redWarning);}
-    Q_INVOKABLE int qBlueWarning()         {return static_cast<int>(blueWarning);}
+    int qRoundTimeElapsed()    {return static_cast<int>(roundTimeElapsed);}
+    int qPauseTimeElapsed()    {return static_cast<int>(pauseTimeElapsed);}
+    int qRoundTime()           {return static_cast<int>(roundTime);}
+    int qPauseTime()           {return static_cast<int>(pauseTime);}
+    int qRedAdmonition()       {return static_cast<int>(redAdmonition);}
+    int qBlueAdmonition()      {return static_cast<int>(blueAdmonition);}
+    int qRedWarning()          {return static_cast<int>(redWarning);}
+    int qBlueWarning()         {return static_cast<int>(blueWarning);}
     int qRedScore()  {return static_cast<int>(getOverallScore(MyTcpServer::RED));}
     int qBlueScore() {return static_cast<int>(getOverallScore(MyTcpServer::BLUE));}
+    int qRoundRead() {return this->round;}
     QString qMinutesNow();
     QString qSecondsNow();
+
+    int qJudge1r()  {return judge1r;}
+    int qJudge1b()  {return judge1b;}
+    int qJudge2r()  {return judge2r;}
+    int qJudge2b()  {return judge2b;}
+    int qJudge3r()  {return judge3r;}
+    int qJudge3b()  {return judge3b;}
+    int qJudge4r()  {return judge4r;}
+    int qJudge4b()  {return judge4b;}
+    int qJudge5r()  {return judge5r;}
+    int qJudge5b()  {return judge5b;}
+
     /*сеттеры вся суть ->
      * 1. испустить сигнал categoryChanged() с сообщением для логирования.
      * 2. Передать параметр из QML в C++ структуру.
@@ -54,6 +79,7 @@ public:
     void setBlueAdmonition(const int& qBlueAdmonition);
     void setRedWarning(const int& qBlueWarning);
     void setBlueWarning(const int& qBlueWarning);
+    void setRound(const int& qRound);
 
 public slots:
 
@@ -63,6 +89,17 @@ signals:
     void timeChanged();
     void admonitionChanged();
     void warningChanged();
+    void scoreChanged();
+    void roundChanged();
+
+protected:
+    int round = 0;
+
+    int judge1r=0;    int judge1b=0;
+    int judge2r=0;    int judge2b=0;
+    int judge3r=0;    int judge3b=0;
+    int judge4r=0;    int judge4b=0;
+    int judge5r=0;    int judge5b=0;
 };
 
 #endif // EXTENDEDMYTCPSERVER_H
