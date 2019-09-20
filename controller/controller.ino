@@ -29,6 +29,7 @@ void setup() {
   pinMode(0, OUTPUT);
   Serial.begin(9600);
   digitalWrite(LED_BUILTIN, HIGH);
+  WiFi.begin("QTcpServer", "aASDd456aaSADL<VLA4456");
 }
 
 void loop() {
@@ -57,7 +58,6 @@ void loop() {
   if (isWorking) {
     if (WiFi.status() != WL_CONNECTED) {
       // Подключение к WiFi
-      WiFi.begin("QTcpServer", "1234567890");
       delay(500);
       Serial.println("Couldn't connect to WiFi.");
       digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
