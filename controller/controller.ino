@@ -20,24 +20,6 @@ WiFiClient client;
  * D8 15
  */
 
-int *ipFromStr(String strIP) {
-  int *Parts = (int*) malloc(sizeof(int) * 4);
-  for (int i = 0; i < 4; i++)
-    Parts[i] = 0;
-  int Part = 0;
-  for ( int i=0; i<strIP.length(); i++ )
-  {
-    char c = strIP[i];
-    if ( c == '.' )
-    {
-      Part++;
-      continue;
-    }
-    Parts[Part] *= 10;
-    Parts[Part] += c - '0';
-  }
-  return Parts;
-}
 void setup() {
   //Disable AP
   WiFi.softAPdisconnect(true);
@@ -75,65 +57,56 @@ void loop() {
   if (isWorking) {
     if (WiFi.status() != WL_CONNECTED) {
       // Подключение к WiFi
-      WiFi.begin("QTcpServer", "aASDd456aaSADL<VLA4456");
-      if(WiFi.status() != WL_CONNECTED) {
-        delay(500);
-        Serial.println("Couldn't connect to WiFi.");
+      WiFi.begin("QTcpServer", "1234567890");
+      delay(500);
+      Serial.println("Couldn't connect to WiFi.");
+      digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+    } else {
+      myIP = WiFi.localIP();
+      servIP = IPAddress(myIP[0], myIP[1], myIP[2], 1);
+      if (!client.connected()) {
+        client.connect(servIP, 6000);
+        Serial.println("Connection Failed");
         digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
       } else {
-        myIP = WiFi.localIP();
-        //Serial.println(myIP);
-        String temp = myIP.toString();
-        temp = temp.substring(0, temp.lastIndexOf('.') + 1);
-        temp += '1';
-        int *ipArr = ipFromStr(temp);
-        servIP = IPAddress(ipArr[0], ipArr[1], ipArr[2], ipArr[3]);
-        delete[]ipArr;
-        Serial.println(servIP.toString());
-        if (!client.connected()) {
-          client.connect(servIP, 6000);
-          Serial.println("Connection Failed");
-          digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
-        } else {
-          if (ID == -1) {
-            client.print("-1");
-            Serial.print("Waiting for responce");
-            if(client.available() == 0) {
-              Serial.print(".");
-              digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
-              delay(500);
-            } else {
+        if (ID == -1) {
+          client.print("-1");
+          Serial.print("Waiting for responce");
+          if(client.available() == 0) {
+            Serial.print(".");
+            digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+            delay(500);
+          } else {
+            while(client.available()) {
+              String responce = client.readStringUntil('\r');
+              ID = responce.toInt();
               while(client.available()) {
-                String responce = client.readStringUntil('\r');
-                ID = responce.toInt();
-                while(client.available()) {
-                  responce = client.read();
-                }
+                responce = client.read();
               }
             }
-          } else {
-            digitalWrite(LED_BUILTIN, HIGH);
           }
-          
-          int i;
-          String request = "" + ID;
-    
-          if(digitalRead(buttonPins[0]) == HIGH)
-            request += "|0";
-        
-          for(i = 1; i < sizeof(buttonPins) / sizeof(const int); i++) {
-            states[i] = digitalRead(buttonPins[i]);
-            if ( (states[i] == HIGH) && (oldstates[i] != HIGH) ) {
-              request += "|";
-              request += i;
-            }
-            oldstates[i] = states[i];
-          }
-          if ( (request[request.length() - 1] == '0') || (request.length() == 1) )
-            request = "";
-          //Serial.println(request);
-          client.print(request);
+        } else {
+          digitalWrite(LED_BUILTIN, HIGH);
         }
+        
+        int i;
+        String request = "" + ID;
+  
+        if(digitalRead(buttonPins[0]) == HIGH)
+          request += "|0";
+      
+        for(i = 1; i < sizeof(buttonPins) / sizeof(const int); i++) {
+          states[i] = digitalRead(buttonPins[i]);
+          if ( (states[i] == HIGH) && (oldstates[i] != HIGH) ) {
+            request += "|";
+            request += i;
+          }
+          oldstates[i] = states[i];
+        }
+        if ( (request[request.length() - 1] == '0') || (request.length() == 1) )
+          request = "";
+        //Serial.println(request);
+        client.print(request);
       }
     }
     delay(100);
