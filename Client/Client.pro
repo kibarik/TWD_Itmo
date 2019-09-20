@@ -12,14 +12,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES += \
         QTcpServer/extendedmytcpserver.cpp \
         QTcpServer/judgementmodes.cpp \
         QTcpServer/middleware.cpp \
         QTcpServer/mytcpserver.cpp \
         QTcpServer/testobject.cpp \
         main.cpp \
-        category.cpp
+        category.cpp \
 
 RESOURCES += qml.qrc
 
@@ -37,6 +36,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES +=
 
 HEADERS += \
+    category.h \
     QTcpServer/extendedmytcpserver.h \
     QTcpServer/judgementmodes.h \
     QTcpServer/middleware.h \
