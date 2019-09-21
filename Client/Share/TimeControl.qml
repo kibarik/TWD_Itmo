@@ -9,18 +9,16 @@ import QtQuick.Controls 2.0
         columns: 3
         anchors.bottom: parent.bottom
 
-        signal started();
-        signal stoped();
-        signal paused();
-
-        property bool isPauseActive: false;
         property bool isNewRound: true;
+        property bool isRoundActive: false;
+        property alias startButtonText: start.buttonText; //Изменяется в main.qml при завершении раунда
 
         Button {
             id: start
             width: parent.width/3
             height: parent.height
             clip: false
+            property alias buttonText: element2.text;
 
             background: Rectangle {
                 implicitWidth: parent.width
@@ -42,27 +40,34 @@ import QtQuick.Controls 2.0
             }
 
             onClicked: {
-                if(controlButtons.isNewRound && !controlButtons.isPauseActive){
+                if(controlButtons.isNewRound && !controlButtons.isRoundActive){
+                    //Запуск для нового раунда, время сбрасывается после нажатия
+
                     serverAPI.slotTimerStart()
                     element2.text = "Пауза" //Было 'Старт'.
-//                    controlButtons.isNewRound = false;
-                    controlButtons.isPauseActive = true;
+                    controlButtons.isNewRound = false;
+                    controlButtons.isRoundActive = true;
                     console.log(1)
                 }
-                else if (!controlButtons.isNewRound && controlButtons.isPauseActive) {
-                    serverAPI.slotTimerPause()
-                    element2.text = "Старт" //Было 'Пауза'
-                    controlButtons.isPauseActive = false;
+                else if (!controlButtons.isNewRound && controlButtons.isRoundActive) {
+                    //Постановка на паузу во время раунда, время не сбрасывается
+
+                    element2.text = "Продолжить" //Было 'Пауза'
+                    serverAPI.slotTimerPause() //включаем паузу
+                    controlButtons.isRoundActive = false;
+                    controlButtons.isNewRound = false;
                     console.log(2)
                 }
-                else { //в режиме паузы, возвращаем в старт
+                else {
+                    //Отменяем паузу, продолжаем отсчет времени
+
+                    element2.text = "Пауза" //Было 'продолжить'
                     serverAPI.slotTimerPause()
-                    element2.text="Старт"
-                    controlButtons.isPauseActive = false;
+                    controlButtons.isRoundActive = true;
+                    controlButtons.isNewRound = false;
                     console.log(3)
                 }
 
-                controlButtons.started() //получаем в main.qml
             }
         }
 
@@ -83,7 +88,7 @@ import QtQuick.Controls 2.0
             Text {
                 id: element3
                 color: "#ffffff"
-                text: qsTr("Стоп")
+                text: qsTr("Сброс")
                 horizontalAlignment: Text.AlignHCenter
                 fontSizeMode: Text.Fit
                 anchors.fill: parent
@@ -92,13 +97,15 @@ import QtQuick.Controls 2.0
             }
 
             onClicked: {
-                serverAPI.slotTimerStop()
+                serverAPI.slotTimerStop();
                 serverAPI.slotReset();
                 serverAPI.timeChanged();
-                controlButtons.isNewRound = true;
-                controlButtons.isPauseActive = false;
                 serverAPI.admonitionChanged();
                 serverAPI.warningChanged();
+
+                controlButtons.isNewRound = true;
+                controlButtons.isRoundActive = false;
+                serverAPI.qRoundCount = 1;
                 element2.text = "Старт";
             }
         }
@@ -147,7 +154,6 @@ import QtQuick.Controls 2.0
             }
 
             onClicked: {
-                mainQmlWindow.server.qRound++;
 
             }
         }

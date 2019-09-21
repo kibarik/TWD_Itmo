@@ -132,9 +132,9 @@ void MyTcpServer::slotChangeNewTulLevel(short tulLevel) {
 // Слот для обработки таймера
 void MyTcpServer::timerEvent(QTimerEvent *event) {
     if (event->timerId() == mainTimer.timerId()) {
-        if (++roundTimeElapsed > roundTime) {
-            slotTimerStop();
+        if (++roundTimeElapsed >= roundTime) {
             emit this->signalTimeOver();
+            slotTimerStop();
         }
         emit this->signalTimerEvent(this->roundTimeElapsed);
     } else if (event->timerId() == pauseTimer.timerId()) {

@@ -11,6 +11,9 @@ Rectangle {
     border.color: "#ffffff"
     signal categoryShow
 
+    //Нужен для передачи сигнала от main.qml к дочернему элементу
+    property alias extraRoundText: time.extraRoundText
+
     Button {
             id: button
             width: 320

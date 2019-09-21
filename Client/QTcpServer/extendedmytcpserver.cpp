@@ -41,9 +41,23 @@ void ExtendedMyTcpServer::setPauseTime(const int &qPauseTime) {
 }
 
 void ExtendedMyTcpServer::setRound(const int& qRound){
-    this->round = qRound;
+    this->round = qRound>2 ? 1 : qRound; //Логически у нас не может быть больше 2 раундов. Экстрараунды не считаются
     emit this->roundChanged();
 };
+
+void ExtendedMyTcpServer::setRoundCount(const int &qRoundCount){
+    if(qRoundCount <= this->round){
+        this->roundCount = qRoundCount;
+    }
+    else if(qRoundCount == this->round+1){//Дополнительный раунд
+        roundCount = qRoundCount;
+        emit extraRoundSetted();
+    }
+    else {//(qRoundCount == this->roundCount+2){//До первого касания
+        emit clearPointRoundSetted();
+    }
+    emit this->roundChanged();
+}
 
 
 QString ExtendedMyTcpServer::qMinutesNow(){
@@ -56,10 +70,10 @@ QString ExtendedMyTcpServer::qMinutesNow(){
 QString ExtendedMyTcpServer::qSecondsNow(){
     QString str;
     int sec = static_cast<int>((roundTime-roundTimeElapsed)%60 );
-    str.setNum(sec);
+    str.setNum(sec); //преобразование int к String
 
     if (sec<10){
-        str.append("0");
+        return "0"+str;
     }
 
     return str;

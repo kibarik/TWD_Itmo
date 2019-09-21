@@ -38,6 +38,9 @@ Window {
     visible: true
     minimumHeight: 480
     minimumWidth: 320
+
+    //данный параметр скрывает управлению спаррингом
+    //вызывается при переключении в режим туль
 //    maximumHeight: 480
 //    maximumWidth: 320
 
@@ -45,26 +48,29 @@ Window {
 
     property string redParticipant: "Выберите участников";
     property string blueParticipant: "Выберите участников";
-    property string nextParticipant1;
-    property string аnextParticipant2;
+    property string nextParticipant1: "Следующий участник";
+    property string nextParticipant2: "Следующий участник";
     property string nowCategoryName: "Выберите категорию";
 
-    //Знаю, что это плохое решение, создавать переменные для вывода структуры
-    //но по каким-то причинам не могу передавать через | property alias name: serverApi.{value} |
-//    property int redChuiScore: 0
-
-    property alias server: serverAPI
+    property alias server: serverAPI //объявляем serverAPI глобальным
 
 /*-----------------------MyTCP server--------------------------------*/
-    //Данная структура объявлена в main.cpp
-    //обеспечивает ввод/вывод из QML в C++
+    /* обеспечивает ввод/вывод из QML в C++
+    * Данная структура объявлена в main.cpp
+    * Cостоит из ядра QTcpServer/mytcpserver.h и обертки QTcpServer/extendedmytcpserver.h
+    */
     ServerAPI {
         id: serverAPI
-        qRoundTime: 120
-        qPauseTime: 60
-        qRound: 0
+        qRoundTime: 60 //время раунда
+        qPauseTime: 5 //время паузы
+        qRound: 2 //количество раундов по программе задано
+        qRoundCount: 1 //Текущий раунд
 
+        /* Share/TimeControl.qml
+        *  В контроллере обрабатываются сигналы времени
+        */
 
+        //Сигналы от myTcpServer.cpp (библиотека функций для времени + пульты)
         onSignalAdmonition: {
             console.log("Admonition signal: "+qRedAdmonition +" blue->"+qBlueAdmonition)
             admonitionChanged() //необходимо, чтобы заработал Alias
@@ -92,21 +98,45 @@ Window {
         }
 
         onSignalTimerEvent: {
-            timeChanged()
-        }
-
-        onTimeChanged: {
-            console.log("onTimeChanged");
+            timeChanged() //Превращает сигнал от TcpServer::onSignalTimerEvent в QML сигнал
         }
 
         onSignalTimeOver: {
             console.log("Time over!")
-            timeChanged()
+            serverAPI.qRoundCount++;
 
+            timeControl.isNewRound=true;
+            timeControl.isRoundActive = false;
+            timeControl.startButtonText  = "Следующий\n раунд"
         }
+
+
+        //сигналы от ExtendedMyTcpServer (библиотека-обертка для перевода из C++ в QT)
+        onTimeChanged: {
+            console.log("onTimeChanged");
+        }
+
 
         onRoundChanged: {
             console.log("Round set: ", serverAPI.qRound)
+        }
+
+        onScoreChanged: {
+            console.log("Score changed")
+        }
+
+        //Данный сигнал использует property alias в Sparring.qml и Time.qml
+        onExtraRoundSetted: {
+            console.log("Extra round setted")
+
+            sparringWindow.extraRoundText =
+                    mainQmlWindow.server.qRound+" : "+ "Д"
+        }
+
+        onClearPointRoundSetted: {
+            console.log("First clear point round setted")
+            sparringWindow.extraRoundText =
+                    mainQmlWindow.server.qRound+" : "+ "Э"
         }
     }
 
@@ -225,23 +255,12 @@ Window {
         }
     }
 
-    TimeControl {
+
+    TimeControl { /* ./Share/TimeControl.qml */
+        id: timeControl
         width: 320
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: tulWindow.bottom
-
-        //все действия с serverAPI выполнены в Share/TimeControl.qml
-        onStarted: {
-            console.log('started');
-        }
-
-        onStoped: {
-            console.log('stoped');
-        }
-
-        onPaused: {
-            console.log('paused');
-        }
     }
 
 /*===============Out Big monitors=============================*/
@@ -255,7 +274,6 @@ Window {
             categoryWindow.show()
             mainQmlWindow.opacity = 0.0
         }
-
     }
 
     OutMonitorSparring {

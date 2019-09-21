@@ -26,6 +26,7 @@ class ExtendedMyTcpServer : /*public QObject,*/ public MyTcpServer
     Q_PROPERTY(QString qMinutesNow READ qMinutesNow NOTIFY timeChanged)
     Q_PROPERTY(QString qSecondsNow READ qSecondsNow NOTIFY timeChanged)
     Q_PROPERTY(int qRound READ qRoundRead WRITE setRound NOTIFY roundChanged)
+    Q_PROPERTY(int qRoundCount READ qRoundCountRead WRITE setRoundCount NOTIFY roundChanged)
 
     Q_PROPERTY(int qJudge1r READ qJudge1r NOTIFY scoreChanged)
     Q_PROPERTY(int qJudge1b READ qJudge1b NOTIFY scoreChanged)
@@ -54,6 +55,7 @@ public:
     int qRedScore()  {return static_cast<int>(getOverallScore(MyTcpServer::RED));}
     int qBlueScore() {return static_cast<int>(getOverallScore(MyTcpServer::BLUE));}
     int qRoundRead() {return this->round;}
+    int qRoundCountRead()     {return this->roundCount;}
     QString qMinutesNow();
     QString qSecondsNow();
 
@@ -80,6 +82,7 @@ public:
     void setRedWarning(const int& qBlueWarning);
     void setBlueWarning(const int& qBlueWarning);
     void setRound(const int& qRound);
+    void setRoundCount(const int& qRoundCount);
 
 public slots:
 
@@ -91,9 +94,12 @@ signals:
     void warningChanged();
     void scoreChanged();
     void roundChanged();
+    void extraRoundSetted(); //Дополнительный раунд при ничье в основном счете
+    void clearPointRoundSetted(); //Раунд до первого точного попадания
 
 protected:
-    int round = 0;
+    int round = 1;
+    int roundCount = 1;
 
     int judge1r=0;    int judge1b=0;
     int judge2r=0;    int judge2b=0;
