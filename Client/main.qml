@@ -58,6 +58,7 @@ Window {
     property string roundText: serverAPI.qRound + " : " + serverAPI.qRoundCount;
     property string timeText:  serverAPI.qMinutesNow+":"+ serverAPI.qSecondsNow
     property bool isDoctorRound: false
+    property bool isExtraRound: false
 /*-----------------------MyTCP server--------------------------------*/
     /* обеспечивает ввод/вывод из QML в C++
     * Данная структура объявлена в main.cpp
@@ -124,6 +125,10 @@ Window {
 
         onRoundChanged: {
             console.log("Round set: ", serverAPI.qRound)
+
+            if(!mainQmlWindow.isExtraRound){
+                mainQmlWindow.roundText = serverAPI.qRound +" : "+ serverAPI.qRoundCount
+            }
         }
 
         onScoreChanged: {
@@ -134,12 +139,14 @@ Window {
         onExtraRoundSetted: {
             console.log("Extra round setted")
             mainQmlWindow.roundText = mainQmlWindow.server.qRound+" : "+ "Д"
+            mainQmlWindow.isExtraRound = true
             timeChanged();
         }
 
         onClearPointRoundSetted: {
             console.log("First clear point round setted")
             mainQmlWindow.roundText = mainQmlWindow.server.qRound+" : "+ "К"
+            mainQmlWindow.isExtraRound = true
         }
 
         onDoctorSignal: {

@@ -30,6 +30,5 @@
         <file>QTcpServer/middleware.h</file>
         <file>QTcpServer/extendedmytcpserver.cpp</file>
         <file>QTcpServer/extendedmytcpserver.h</file>
-        <file>OutMonitor/SparringRoundTimePanel.qml</file>
     </qresource>
 </RCC>

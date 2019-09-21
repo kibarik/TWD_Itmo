@@ -103,6 +103,7 @@ import QtQuick.Controls 2.0
                 mainQmlWindow.roundText = serverAPI.qRound + " : " + serverAPI.qRoundCount;
                 element2.text = "Старт";
                 mainQmlWindow.isDoctorRound = false;
+                mainQmlWindow.isExtraRound = false;
 
                 serverAPI.slotTimerStop();
                 serverAPI.slotReset();
@@ -160,7 +161,6 @@ import QtQuick.Controls 2.0
                 controlButtons.isRoundActive = false;
 
                 mainQmlWindow.server.doctorSignal();
-                serverAPI.qRoundCount--;
             }
         }
     }
