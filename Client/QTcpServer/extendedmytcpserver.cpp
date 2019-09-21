@@ -5,8 +5,6 @@ ExtendedMyTcpServer::ExtendedMyTcpServer(QObject *parent) : MyTcpServer (parent)
 
 }
 
-//----------------сигналы notify, вызываются при изменении свойств из QML
-//---------------------сеттеры для Q_PROPERTY-------------
 /*сеттеры вся суть ->
  * 1. испустить сигнал emit signal()... с сообщением для логирования.
  * 2. Передать параметр из QML в C++ структуру.
@@ -78,3 +76,12 @@ QString ExtendedMyTcpServer::qSecondsNow(){
 
     return str;
 }
+
+void ExtendedMyTcpServer::plusSeconds(int seconds){
+    roundTime += seconds;
+    if(roundTime>120){
+        roundTime = 60;
+    }
+    emit timeChanged();
+}
+

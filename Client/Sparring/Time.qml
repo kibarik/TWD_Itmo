@@ -36,7 +36,7 @@ Item {
 
         contentItem: Text {
             color: "#d2d2d2"
-            text: mainQmlWindow.server.qRound+" : "+ mainQmlWindow.server.qRoundCount
+            text: mainQmlWindow.roundText;
             font.family: "Times New Roman"
             verticalAlignment: Text.AlignVCenter
             font.pixelSize: 30
@@ -47,24 +47,36 @@ Item {
         }
 
         onClicked: {
-            mainQmlWindow.server.qRound++
+            if(!timeControl.isRoundActive){
+                mainQmlWindow.server.qRound++
+            }
         }
     }
 
-    Text {
+    Button {
         id: timeText
         width: parent.width/2
-        color: "#ffffff"
-        text: mainQmlWindow.server.qMinutesNow+":"+mainQmlWindow.server.qSecondsNow
-        anchors.topMargin: 0
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 30
-        anchors.leftMargin: 0
-        horizontalAlignment: Text.AlignHCenter
-        anchors.bottomMargin: 0
+
+        contentItem: Text {
+            color:  mainQmlWindow.isDoctorRound ? "#2ecc71" : "#ffffff"
+            text: mainQmlWindow.timeText
+            verticalAlignment: Text.AlignVCenter
+            font.pixelSize: 30
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        background: Rectangle {
+            color:  "#424141"
+        }
+
+        onClicked: {
+            if(!timeControl.isRoundActive){
+                mainQmlWindow.server.plusSeconds(); //
+            }
+        }
     }
 
     Label {

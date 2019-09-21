@@ -54,6 +54,10 @@ Window {
 
     property alias server: serverAPI //объявляем serverAPI глобальным
 
+    /* Используется в ./sparring/Time.qml  */
+    property string roundText: serverAPI.qRound + " : " + serverAPI.qRoundCount;
+    property string timeText:  serverAPI.qMinutesNow+":"+ serverAPI.qSecondsNow
+    property bool isDoctorRound: false
 /*-----------------------MyTCP server--------------------------------*/
     /* обеспечивает ввод/вывод из QML в C++
     * Данная структура объявлена в main.cpp
@@ -61,7 +65,7 @@ Window {
     */
     ServerAPI {
         id: serverAPI
-        qRoundTime: 60 //время раунда
+        qRoundTime: 5 //время раунда
         qPauseTime: 5 //время паузы
         qRound: 2 //количество раундов по программе задано
         qRoundCount: 1 //Текущий раунд
@@ -104,6 +108,7 @@ Window {
         onSignalTimeOver: {
             console.log("Time over!")
             serverAPI.qRoundCount++;
+            mainQmlWindow.isDoctorRound = false;
 
             timeControl.isNewRound=true;
             timeControl.isRoundActive = false;
@@ -129,14 +134,19 @@ Window {
         onExtraRoundSetted: {
             console.log("Extra round setted")
 
-            sparringWindow.extraRoundText =
-                    mainQmlWindow.server.qRound+" : "+ "Д"
+            mainQmlWindow.roundText = mainQmlWindow.server.qRound+" : "+ "Д"
         }
 
         onClearPointRoundSetted: {
             console.log("First clear point round setted")
-            sparringWindow.extraRoundText =
-                    mainQmlWindow.server.qRound+" : "+ "Э"
+            mainQmlWindow.roundText = mainQmlWindow.server.qRound+" : "+ "К"
+        }
+
+        onDoctorSignal: {
+            console.log("Doctor signal")
+            serverAPI.qRoundTime = 60;
+            mainQmlWindow.isDoctorRound = true;
+            serverAPI.slotTimerStart();
         }
     }
 
@@ -171,8 +181,10 @@ Window {
                     }
 
                     onClicked: {
-                        console.log('red Remark plus');
-                        serverAPI.slotAdmonition(ServerAPI.RED); //добавления чуя на систему счета, waning - камчун, admonition - чуй
+                        if(timeControl.isRoundActive){
+                            console.log('red Remark plus');
+                            serverAPI.slotAdmonition(ServerAPI.RED); //добавления чуя на систему счета, waning - камчун, admonition - чуй
+                        }
                     }
 
                 }
@@ -194,7 +206,10 @@ Window {
                     }
 
                     onClicked: {
-                        serverAPI.slotWarning(ServerAPI.RED) //добавления камчуна на систему счета, waning - камчун, admonition - чуй
+                        if(timeControl.isRoundActive){
+                            console.log('red Warning plus');
+                            serverAPI.slotWarning(ServerAPI.RED) //добавления камчуна на систему счета, waning - камчун, admonition - чуй
+                        }
                     }
                 }
 
@@ -215,7 +230,9 @@ Window {
                     }
 
                     onClicked: {
-                        serverAPI.slotCancelAdmonition(ServerAPI.RED); //отменить чуй красному
+                        if(timeControl.isRoundActive){
+                            serverAPI.slotCancelAdmonition(ServerAPI.RED); //отменить чуй красному
+                        }
                     }
                 }
 
@@ -236,7 +253,9 @@ Window {
                     }
 
                     onClicked: {
-                        serverAPI.slotCancelWarning(ServerAPI.RED); //добавить камчун красному
+                        if(timeControl.isRoundActive){
+                            serverAPI.slotCancelWarning(ServerAPI.RED); //добавить камчун красному
+                        }
                     }
                 }
         }
@@ -398,7 +417,9 @@ Window {
                 }
 
                 onClicked: {
-                    serverAPI.slotAdmonition(ServerAPI.BLUE);
+                    if(timeControl.isRoundActive){
+                        serverAPI.slotAdmonition(ServerAPI.BLUE);
+                    }
                 }
             }
 
@@ -419,8 +440,10 @@ Window {
                 }
 
                 onClicked: {
-                    console.log("Blue warning added clicked")
-                    serverAPI.slotWarning(ServerAPI.BLUE);
+                    if(timeControl.isRoundActive){
+                        console.log("Blue warning added clicked")
+                        serverAPI.slotWarning(ServerAPI.BLUE);
+                    }
                 }
             }
 
@@ -441,7 +464,9 @@ Window {
                 }
 
                 onClicked: {
-                    serverAPI.slotCancelAdmonition(ServerAPI.BLUE);
+                    if(timeControl.isRoundActive){
+                        serverAPI.slotCancelAdmonition(ServerAPI.BLUE);
+                    }
                 }
             }
 
@@ -463,7 +488,9 @@ Window {
 
 
                 onClicked: {
-                    serverAPI.slotCancelWarning(ServerAPI.BLUE);
+                    if(timeControl.isRoundActive){
+                        serverAPI.slotCancelWarning(ServerAPI.BLUE);
+                    }
                 }
             }
         }

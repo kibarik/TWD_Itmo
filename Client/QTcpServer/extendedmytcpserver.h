@@ -17,16 +17,17 @@ class ExtendedMyTcpServer : /*public QObject,*/ public MyTcpServer
     Q_PROPERTY(int qPauseTimeElapsed  READ qPauseTimeElapsed     NOTIFY timeChanged)
     Q_PROPERTY(int qRoundTime         READ qRoundTime       WRITE setRoundTime         NOTIFY timeChanged)
     Q_PROPERTY(int qPauseTime         READ qPauseTime       WRITE setPauseTime         NOTIFY timeChanged)
+    Q_PROPERTY(QString qMinutesNow    READ qMinutesNow      NOTIFY timeChanged)
+    Q_PROPERTY(QString qSecondsNow    READ qSecondsNow      NOTIFY timeChanged)
+
     Q_PROPERTY(int qRedAdmonition     READ qRedAdmonition   WRITE setRedAdmonition     NOTIFY admonitionChanged)
     Q_PROPERTY(int qBlueAdmonition    READ qBlueAdmonition  WRITE setBlueAdmonition    NOTIFY admonitionChanged)
     Q_PROPERTY(int qRedWarning        READ qRedWarning      WRITE setRedWarning        NOTIFY warningChanged)
     Q_PROPERTY(int qBlueWarning       READ qBlueWarning     WRITE setBlueWarning       NOTIFY warningChanged)
-    Q_PROPERTY(int qRedScore  READ qRedScore NOTIFY scoreChanged)
-    Q_PROPERTY(int qBlueScore READ qBlueScore NOTIFY scoreChanged)
-    Q_PROPERTY(QString qMinutesNow READ qMinutesNow NOTIFY timeChanged)
-    Q_PROPERTY(QString qSecondsNow READ qSecondsNow NOTIFY timeChanged)
-    Q_PROPERTY(int qRound READ qRoundRead WRITE setRound NOTIFY roundChanged)
-    Q_PROPERTY(int qRoundCount READ qRoundCountRead WRITE setRoundCount NOTIFY roundChanged)
+    Q_PROPERTY(int qRedScore          READ qRedScore    NOTIFY scoreChanged)
+    Q_PROPERTY(int qBlueScore         READ qBlueScore   NOTIFY scoreChanged)
+    Q_PROPERTY(int qRound             READ qRoundRead       WRITE setRound NOTIFY roundChanged)
+    Q_PROPERTY(int qRoundCount        READ qRoundCountRead  WRITE setRoundCount NOTIFY roundChanged)
 
     Q_PROPERTY(int qJudge1r READ qJudge1r NOTIFY scoreChanged)
     Q_PROPERTY(int qJudge1b READ qJudge1b NOTIFY scoreChanged)
@@ -74,7 +75,6 @@ public:
      * 1. испустить сигнал categoryChanged() с сообщением для логирования.
      * 2. Передать параметр из QML в C++ структуру.
     */
-
     void setRoundTime(const int& qRoundTime);
     void setPauseTime(const int& qPauseTime);
     void setRedAdmonition(const int& qRedAdmonition);
@@ -85,6 +85,7 @@ public:
     void setRoundCount(const int& qRoundCount);
 
 public slots:
+    void plusSeconds (int seconds = 30);
 
 
 signals:
@@ -96,6 +97,7 @@ signals:
     void roundChanged();
     void extraRoundSetted(); //Дополнительный раунд при ничье в основном счете
     void clearPointRoundSetted(); //Раунд до первого точного попадания
+    void doctorSignal();
 
 protected:
     int round = 1;

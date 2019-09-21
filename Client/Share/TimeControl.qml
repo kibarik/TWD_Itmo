@@ -97,16 +97,18 @@ import QtQuick.Controls 2.0
             }
 
             onClicked: {
+                controlButtons.isNewRound = true;
+                controlButtons.isRoundActive = false;
+                serverAPI.qRoundCount = 1;
+                mainQmlWindow.roundText = serverAPI.qRound + " : " + serverAPI.qRoundCount;
+                element2.text = "Старт";
+                mainQmlWindow.isDoctorRound = false;
+
                 serverAPI.slotTimerStop();
                 serverAPI.slotReset();
                 serverAPI.timeChanged();
                 serverAPI.admonitionChanged();
                 serverAPI.warningChanged();
-
-                controlButtons.isNewRound = true;
-                controlButtons.isRoundActive = false;
-                serverAPI.qRoundCount = 1;
-                element2.text = "Старт";
             }
         }
 
@@ -128,33 +130,37 @@ import QtQuick.Controls 2.0
             Text {
                 id: element
                 color: "#ffffff"
-                text: mainQmlWindow.server.qRound
+                text: "Вызов врача"
                 font.family: "Tahoma"
                 fontSizeMode: Text.Fit
-                anchors.top: element1.bottom
+                anchors.top: parent.top
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                font.pixelSize: 29
+                font.pixelSize: 17
             }
 
-            Text {
-                id: element1
-                color: "#ffffff"
-                text: qsTr("Следующий раунд")
-                horizontalAlignment: Text.AlignHCenter
-                anchors.right: parent.right
-                anchors.left: parent.left
-                anchors.leftMargin: 0
-                anchors.top: parent.top
-                anchors.topMargin: 0
-                font.pixelSize: 12
-            }
+//            Text {
+//                id: element1
+//                color: "#ffffff"
+//                text: qsTr("Вызов врача")
+//                horizontalAlignment: Text.AlignHCenter
+//                anchors.right: parent.right
+//                anchors.left: parent.left
+//                anchors.leftMargin: 0
+//                anchors.top: parent.top
+//                anchors.topMargin: 0
+//                font.pixelSize: 17
+//            }
 
             onClicked: {
+                controlButtons.isNewRound = false;
+                controlButtons.isRoundActive = false;
 
+                mainQmlWindow.server.doctorSignal();
+                serverAPI.qRoundCount--;
             }
         }
     }
