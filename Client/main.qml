@@ -133,8 +133,8 @@ Window {
         //Данный сигнал использует property alias в Sparring.qml и Time.qml
         onExtraRoundSetted: {
             console.log("Extra round setted")
-
             mainQmlWindow.roundText = mainQmlWindow.server.qRound+" : "+ "Д"
+            timeChanged();
         }
 
         onClearPointRoundSetted: {
@@ -145,7 +145,7 @@ Window {
         onDoctorSignal: {
             console.log("Doctor signal")
             serverAPI.qRoundTime = 60;
-            mainQmlWindow.isDoctorRound = true;
+            mainQmlWindow.isDoctorRound = true; //флаг изменения цвета текста
             serverAPI.slotTimerStart();
         }
     }
@@ -267,7 +267,7 @@ Window {
     Tul {
         id: tulWindow
         anchors.horizontalCenter: parent.horizontalCenter
-        visible: true
+        visible: false
         onCategoryShow: {
             categoryWindow.show()
             mainQmlWindow.opacity = 0.0
@@ -297,10 +297,8 @@ Window {
 
     OutMonitorSparring {
         id: monitorSparring
-        visible: false
+        visible: true
     }
-
-
 
     PairDisplay {
         id: pairDisplayShare
@@ -316,7 +314,7 @@ Window {
 
     OutMonitorTul {
         id: monitorTul
-        visible: true
+        visible: false
     }
 
     /*===============Control Windows=============================*/
@@ -343,6 +341,7 @@ Window {
         }
     }
 
+    /*   Контролирует переключение между режимами   */
     ParticipantsWindow {
         visible: false
         id: participantsWindow
@@ -380,6 +379,12 @@ Window {
 
             sparringWindow.visible = false
             tulWindow.visible = true
+
+            //Переводим в режим туля
+            serverAPI.qRoundTime = 6000
+            mainQmlWindow.width = 320
+            mainQmlWindow.maximumWidth = 320
+//            mainQmlWindow.minimumHeight = 480
         }
 
         onMonitorSetSparring: { //переключение монитора на спарринг
@@ -389,6 +394,11 @@ Window {
 
             sparringWindow.visible = true
             tulWindow.visible = false
+
+            //переводим в режим спарринга
+            serverAPI.qRoundTime = 60
+            mainQmlWindow.maximumWidth = 320+170
+            mainQmlWindow.width = 320+170
         }
     }
 

@@ -47,9 +47,7 @@ Item {
         }
 
         onClicked: {
-            if(!timeControl.isRoundActive){
-                mainQmlWindow.server.qRound++
-            }
+            mainQmlWindow.server.qRound++
         }
     }
 
