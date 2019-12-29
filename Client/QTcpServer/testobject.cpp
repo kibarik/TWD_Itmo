@@ -15,4 +15,5 @@ void TestObject::judgeNumError(ulong judgeNum) {
 void TestObject::ConnectToServer(const MyTcpServer &modes) {
     connect(&modes, &MyTcpServer::signalScoreUpdate, this, &TestObject::PrintScore);
     connect(&modes, &MyTcpServer::signalJudgeNumError, this, &TestObject::judgeNumError);
+    //connect(&modes, &MyTcpServer::signalTimerEvent, this, )
 }

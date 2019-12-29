@@ -72,6 +72,7 @@ void MyTcpServer::slotTimerStart() {
 // Слот для остановки таймера
 void MyTcpServer::slotTimerStop() {
     this->mainTimer.stop();
+    this->roundTimeElapsed = 0;
 };
 
 // Слот для паузы
@@ -132,14 +133,17 @@ void MyTcpServer::slotChangeNewTulLevel(short tulLevel) {
 // Слот для обработки таймера
 void MyTcpServer::timerEvent(QTimerEvent *event) {
     if (event->timerId() == mainTimer.timerId()) {
-        if (++roundTimeElapsed > roundTime) {
+        if ((++roundTimeElapsed) > roundTime) {
             slotTimerStop();
             emit this->signalTimeOver();
+        } else {
+            emit this->signalTimerEvent(this->roundTimeElapsed);
         }
-        emit this->signalTimerEvent(this->roundTimeElapsed);
     } else if (event->timerId() == pauseTimer.timerId()) {
         if (++this->pauseTimeElapsed > pauseTime) {
             slotTimerPause();
+        } else {
+            emit this->signalPauseTimerEvent(this->pauseTimeElapsed);
         }
     } else {
         QObject::timerEvent(event);
@@ -320,5 +324,4 @@ void MyTcpServer::slotServerRead()
 void MyTcpServer::slotClientDisconnected()
 {
     mTcpSocket->close();
-    delete mTcpSocket;
 }
