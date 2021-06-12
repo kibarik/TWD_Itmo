@@ -13,27 +13,31 @@ WiFiClient client;
  * D2 4
  * D3 0    Нельзя использовать при запуске
  * D4 2    Нельзя использовать при запуске (LED_BUILTIN)
- * D0 16
+ * D0 16   При использовании INPUT_PULLUP требуется дополнительный резистор от + к контакту-приёмнику esp
+           При замыкании на +, esp не запускается в режиме прошивки
  * D5 14
  * D6 12
  * D7 13
- * D8 15
+ * D8 15   При использовании INPUT_PULLUP требуется допоолнительный резистор от + к контакту-приёмнику esp
  */
+void WiFiBegin() {
+  WiFi.begin("1", "12345678"); // aASDd456aaSADL<VLA4456
+}
 
 void setup() {
   //Disable AP
   WiFi.softAPdisconnect(true);
   for(int i = 0; i < sizeof(buttonPins) / sizeof(const int); i++)
-    pinMode(buttonPins[i], INPUT);
+    pinMode(buttonPins[i], INPUT_PULLUP);
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(0, OUTPUT);
   Serial.begin(9600);
   digitalWrite(LED_BUILTIN, HIGH);
-  WiFi.begin("QTcpServer", "aASDd456aaSADL<VLA4456");
+  WiFiBegin();
 }
 
 void loop() {
-  if(digitalRead(buttonPins[0]) == HIGH) {
+  if(digitalRead(buttonPins[0]) == LOW) {
     if (Time) {
       if ((micros() - Time) > TurnOffTimeout) {
         isWorking = !isWorking;
@@ -45,6 +49,8 @@ void loop() {
           }
           ID = -1;
           digitalWrite(LED_BUILTIN, HIGH);
+        } else {
+          WiFiBegin();
         }
       }
       Serial.println((micros() - Time));
@@ -66,23 +72,24 @@ void loop() {
       servIP = IPAddress(myIP[0], myIP[1], myIP[2], 1);
       if (!client.connected()) {
         client.connect(servIP, 6000);
-        Serial.println("Connection Failed");
+        Serial.print("Connection to ");
+        Serial.print(servIP);
+        Serial.println(" Failed");
         digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
       } else {
         if (ID == -1) {
           client.print("-1");
           Serial.print("Waiting for responce");
-          if(client.available() == 0) {
+          while(client.available() == 0 && WiFi.status() == WL_CONNECTED && client.connected() && digitalRead(buttonPins[0]) != LOW) {
             Serial.print(".");
             digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
-            delay(500);
-          } else {
+            delay(1000);
+          }
+          while(client.available()) {
+            String responce = client.readStringUntil('\r');
+            ID = responce.toInt();
             while(client.available()) {
-              String responce = client.readStringUntil('\r');
-              ID = responce.toInt();
-              while(client.available()) {
-                responce = client.read();
-              }
+              responce = client.read();
             }
           }
         } else {
@@ -90,23 +97,23 @@ void loop() {
         }
         
         int i;
-        String request = "" + ID;
+        static char request[4] = {0};
+        request += ID;
   
-        if(digitalRead(buttonPins[0]) == HIGH)
+        if(digitalRead(buttonPins[0]) == LOW)
           request += "|0";
       
         for(i = 1; i < sizeof(buttonPins) / sizeof(const int); i++) {
           states[i] = digitalRead(buttonPins[i]);
-          if ( (states[i] == HIGH) && (oldstates[i] != HIGH) ) {
+          if ( (states[i] == LOW) && (oldstates[i] != LOW) ) {
             request += "|";
             request += i;
           }
           oldstates[i] = states[i];
         }
-        if ( (request[request.length() - 1] == '0') || (request.length() == 1) )
-          request = "";
+        if ( (request[request.length() - 1] != '0') && (request.indexOf('|') != -1) )
+          client.print(request);
         //Serial.println(request);
-        client.print(request);
       }
     }
     delay(100);

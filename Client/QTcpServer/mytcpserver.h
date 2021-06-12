@@ -51,9 +51,11 @@ signals:
     void signalScoreUpdate(int judgeNum, int red, int blue); // Сигнал, вызываемый при изменении счёта судьями
     void signalDisqualification(Sportsman player); // Сигнал, вызываемый при дисквалификации одного из игроков. 0 - красный, 1 - синий
     void signalTimeOver(); // Время таймера вышло
+    void signalPauseTimeOver(); // Время паузаы вышло
     void signalAdmonition(short redAdmonition, short blueAdmonition); // Вызывается при получении Чуя (замечания)
     void signalWarning(short redWarning, short blueWarning); // Вызывается при получении Гамжуна (предупреждения)
     void signalTimerEvent(short timeElapsed); // Вызывается при каждом срабатывании таймера
+    void signalPauseTimerEvent(short timeElapsed);
     void signalJudgeNumError(ulong judgeNum);
 
 protected:
