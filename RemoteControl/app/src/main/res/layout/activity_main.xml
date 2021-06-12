@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="horizontal">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout1"
+        android:paddingTop="50dp"
+        android:background="#C62828"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/addRed3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+3"
+            android:textColor="@color/addButtonText"
+            android:textSize="@dimen/buttonTextSize"
+            app:layout_constraintBottom_toTopOf="@id/addRed2"
+            app:layout_constraintEnd_toStartOf="@id/subRed3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/subRed3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-3"
+            android:textColor="@color/subButtonText"
+            android:textSize="@dimen/buttonTextSize"
+            app:layout_constraintBottom_toTopOf="@id/subRed2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/addRed3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/addRed2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+2"
+            android:textColor="@color/addButtonText"
+            android:textSize="@dimen/buttonTextSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/addRed1"
+            app:layout_constraintEnd_toStartOf="@id/subRed2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addRed3" />
+
+        <Button
+            android:id="@+id/subRed2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-2"
+            android:textColor="@color/subButtonText"
+            android:textSize="@dimen/buttonTextSize"
+            app:layout_constraintBottom_toTopOf="@id/subRed1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/addRed2"
+            app:layout_constraintTop_toBottomOf="@id/subRed3" />
+
+        <Button
+            android:id="@+id/addRed1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="+1"
+            android:textColor="@color/addButtonText"
+            android:textSize="@dimen/buttonTextSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/subRed1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addRed2"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="88dp" />
+
+        <Button
+            android:id="@+id/subRed1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="-1"
+            android:textColor="@color/subButtonText"
+            android:textSize="@dimen/buttonTextSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/addRed1"
+            app:layout_constraintTop_toBottomOf="@id/subRed2"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="88dp" />
+
+        <Button
+            android:id="@+id/resetRed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/resetButtonRed"
+            app:layout_constraintBottom_toBottomOf="@+id/addRed3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/addRed3" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#283593"
+        android:paddingTop="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/constraintLayout1"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/subBlue3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-3"
+            android:textColor="@color/subButtonText"
+            android:textSize="@dimen/buttonTextSize"
+            app:layout_constraintBottom_toTopOf="@id/subBlue2"
+            app:layout_constraintEnd_toStartOf="@id/addBlue3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="88dp"
+            tools:layout_editor_absoluteX="454dp"
+            tools:layout_editor_absoluteY="67dp" />
+
+        <Button
+            android:id="@+id/addBlue3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+3"
+            android:textColor="@color/addButtonText"
+            android:textSize="@dimen/buttonTextSize"
+            app:layout_constraintBottom_toTopOf="@id/addBlue2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/subBlue3"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="88dp"
+            tools:layout_editor_absoluteX="592dp"
+            tools:layout_editor_absoluteY="67dp" />
+
+        <Button
+            android:id="@+id/subBlue2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-2"
+            android:textColor="@color/subButtonText"
+            android:textSize="@dimen/buttonTextSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/subBlue1"
+            app:layout_constraintEnd_toStartOf="@id/addBlue2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/subBlue3"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="88dp"
+            tools:layout_editor_absoluteX="454dp"
+            tools:layout_editor_absoluteY="182dp" />
+
+        <Button
+            android:id="@+id/addBlue2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+2"
+            android:textColor="@color/addButtonText"
+            android:textSize="@dimen/buttonTextSize"
+            app:layout_constraintBottom_toTopOf="@id/addBlue1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/subBlue2"
+            app:layout_constraintTop_toBottomOf="@id/addBlue3"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="88dp"
+            tools:layout_editor_absoluteX="592dp"
+            tools:layout_editor_absoluteY="182dp" />
+
+        <Button
+            android:id="@+id/subBlue1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="-1"
+            android:textColor="@color/subButtonText"
+            android:textSize="@dimen/buttonTextSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/addBlue1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/subBlue2"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="88dp" />
+
+        <Button
+            android:id="@+id/addBlue1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="+1"
+            android:textColor="@color/addButtonText"
+            android:textSize="@dimen/buttonTextSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/subBlue1"
+            app:layout_constraintTop_toBottomOf="@id/addBlue2"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="88dp" />
+
+        <Button
+            android:id="@+id/resetBlue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/resetButtonBlue"
+            app:layout_constraintBottom_toBottomOf="@+id/addBlue3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/addBlue3" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/scoreDelimeter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/scoreDelimiter"
+        android:textColor="@color/scoreText"
+        android:textSize="@dimen/scoreTextSize"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/scoreRed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/scoreText"
+        android:textSize="@dimen/scoreTextSize"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/scoreDelimeter"
+        app:layout_constraintTop_toTopOf="@id/scoreDelimeter"/>
+
+    <TextView
+        android:id="@+id/scoreBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/scoreText"
+        android:textSize="@dimen/scoreTextSize"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/scoreDelimeter"
+        app:layout_constraintTop_toTopOf="@id/scoreDelimeter"/>
+
+</android.support.constraint.ConstraintLayout>
